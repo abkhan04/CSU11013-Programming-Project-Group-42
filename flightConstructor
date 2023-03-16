@@ -1,0 +1,26 @@
+class Flight {
+  String date;
+  String carrier;
+  String origin;
+  String originState;
+  String dest;
+  String distance;
+  String depTime;
+  String arrTime;
+  
+  Flight (String date, String carrier, String origin,
+  String originState, String dest, String distance, String depTime, String arrTime) {
+    this.date = date;
+    this.carrier = carrier;
+    this.origin = origin;
+    this.originState = originState;
+    this.dest = dest;
+    this.distance = distance;
+    this.depTime = depTime;
+    this.arrTime = arrTime;
+  }
+  
+  void printFlight(Flight) {
+    println(Flight);
+  }
+}
