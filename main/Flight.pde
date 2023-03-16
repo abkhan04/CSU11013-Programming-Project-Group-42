@@ -1,3 +1,5 @@
+// A.Khan Added Flight Class 16/03
+
 class Flight
 {
   String flightDate;
@@ -26,13 +28,18 @@ class Flight
     this.flightNum = flightNum;
     this.origin = origin;
     this.originCity = originCity;
+    // this.originCityAbr = originCityAbr;
+    // this.originWAC = originWAC;
     this.dest = dest;
     this.destCity = destCity;
+    // this.destCityAbr = destCityAbr;
+    // this.destWAC = destWAC;
     this.schDepTime = schDepTime;
     this.depTime = depTime;
     this.schArrTime = schArrTime;
     this.arrTime = arrTime;
     this.cancelled = cancelled;
     this.diverted = diverted;
+    // this.distance = distance;
   }
 }
