@@ -1,16 +1,22 @@
 // A.Khan Added main 16/03
 // CK Added Flights Framework 16/03
 // A.Khan Merged Main and Flight Framework 19/03
+// CK updated multiple screens for graph implementation 20/03
+
+import org.gicentre.utils.stat.*;
+
+PFont ttlFont;
+PFont stdFont;
+PImage logo;
+
+Widget widget1, widget2, widget3, widget4, widget5, widget6, widget7;
+Screen screen1, screen2, screen3, screen4, screen5, screen6, screen7;
+int currentScreen;
 
 Table table;
 ArrayList<Flight> flights;
 
-PFont ttlFont;
-PFont stdFont;
-
-Widget widget1, widget2, widget3, widget4, widget5, widget6;
-Screen screen1, screen2;
-int currentScreen;
+BarChart bc;
 
 void settings()
 {
@@ -19,19 +25,30 @@ void settings()
 
 void setup()
 {
+  // Load Font
   ttlFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
   stdFont = loadFont("ComicSansMS-30.vlw");
+  logo = loadImage("BTS.png");
   
-  widget1 = new Widget(100, 600, 180, 40, "Bar Chart", color(0,255,255), stdFont, EVENT_BUTTON1);
-  widget2 = new Widget(300, 600, 180, 40, "Line Graph", color(0, 102, 102), stdFont, EVENT_BUTTON2); 
-  widget3 = new Widget(500, 600, 180, 40, "Heat Map", color(0, 102, 255), stdFont, EVENT_BUTTON3); 
-  widget4 = new Widget(100, 650, 180, 40, "PieChart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
-  widget5 = new Widget(300, 650, 180, 40, "X", color(0, 153, 0), stdFont, EVENT_BUTTON5);
-  widget6 = new Widget(500, 650, 180, 40, "X", color(0, 153, 0), stdFont, EVENT_BUTTON6);
+  // Create Widgets
+  widget1 = new Widget(100, WIDGET1Y, 180, 40, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
+  widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
+  widget3 = new Widget(500, WIDGET1Y, 180, 40, "Heat Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
+  widget4 = new Widget(100, WIDGET2Y, 180, 40, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
+  widget5 = new Widget(300, WIDGET2Y, 180, 40, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
+  widget6 = new Widget(500, WIDGET2Y, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
+  widget7 = new Widget(10, 750, 180, 40, "Back", color(255, 0, 0), stdFont, EVENT_BUTTON7);
   
+  // Create Screens
   screen1 = new Screen(color(51, 102, 153));
-  screen2 = new Screen(color(102, 255, 102));
+  screen2 = new Screen(color(242, 17, 17));
+  screen3 = new Screen(color(240, 155, 19));
+  screen4 = new Screen(color(235, 219, 5));
+  screen5 = new Screen(color(0, 153, 0));
+  screen6 = new Screen(color(19, 63, 240));
+  screen7 = new Screen(color(174, 33, 209));
   
+  // Add Widgets
   screen1.addWidget(widget1);
   screen1.addWidget(widget2);
   screen1.addWidget(widget3);
@@ -39,19 +56,24 @@ void setup()
   screen1.addWidget(widget5);
   screen1.addWidget(widget6);
   
-  screen2.addWidget(widget1);
-  screen2.addWidget(widget2);
-  screen2.addWidget(widget3);
-  screen2.addWidget(widget4);
-  screen2.addWidget(widget5);
-  screen2.addWidget(widget6);
+  screen2.addWidget(widget7);
+  screen3.addWidget(widget7);
+  screen4.addWidget(widget7);
+  screen5.addWidget(widget7);
+  screen6.addWidget(widget7);
+  screen7.addWidget(widget7);
   
+  // Current Screen
   currentScreen = 1;
   
+  // Load Data from file
   table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
   loadData();
   printData(flights);
+  
+  // BarChart
+  bc = new BarChart(this);
 }
 
 void draw()
@@ -62,12 +84,35 @@ void draw()
   {
     screen1.draw();
     textFont(ttlFont);
-    text("Flight Data Visualiser", SCREENX/2, 200);
+    text("Flight Data Visualiser", SCREENX/2, 100);
     textAlign(CENTER);
+    image(logo, 60, 150);
+    textFont(stdFont);
+    text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
   }
   else if (currentScreen == 2)
   {
-    screen2.draw();
+    screen2.draw(); 
+  }
+  else if (currentScreen == 3)
+  {
+    screen3.draw(); 
+  }
+  else if (currentScreen == 4)
+  {
+    screen4.draw(); 
+  }
+  else if (currentScreen == 5)
+  {
+    screen5.draw(); 
+  }
+  else if (currentScreen == 6)
+  {
+    screen6.draw(); 
+  }
+  else if (currentScreen == 7)
+  {
+    screen7.draw(); 
   }
 }
 
@@ -84,24 +129,24 @@ void mousePressed()
         println("Bar Chart pressed");
         break;
       case EVENT_BUTTON2:
-        currentScreen = 2;
+        currentScreen = 3;
         println("Line Graph was pressed");
         break;
       case EVENT_BUTTON3:
-        currentScreen = 2;
+        currentScreen = 4;
         println("Heat Map was pressed");
         break;
       case EVENT_BUTTON4:
-        currentScreen = 2;
+        currentScreen = 5;
         println("PieChart was pressed");
         break;
       case EVENT_BUTTON5:
-        currentScreen = 2;
+        currentScreen = 6;
         println("Table was pressed");
         break;
       case EVENT_BUTTON6:
-        currentScreen = 2;
-        println("X was pressed");
+        currentScreen = 7;
+        println("Placeholder was pressed");
         break;
     }
   }
@@ -110,51 +155,9 @@ void mousePressed()
     event = screen2.getEvent(mouseX, mouseY);
     switch (event)
     {
-      case EVENT_BUTTON2:
-        println("Button 2 was pressed");
-        break;
-      case EVENT_BUTTON4:
+      case EVENT_BUTTON7:
         currentScreen = 1;
         println("Backward was pressed");
-        break;
-    }
-  }
-}
-
-void mouseMoved()
-{
-  int event;
-  
-  if (currentScreen == 1)
-  {
-    event = screen1.getEvent(mouseX, mouseY);
-    switch (event)
-    {
-      case EVENT_BUTTON1:
-        widget1.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON2:
-        widget2.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON3:
-        widget3.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON4:
-        widget4.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON5:
-        widget5.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON6:
-        widget6.strokeColor = color(255);
-        break;
-      case EVENT_NULL:
-        widget1.strokeColor = color(0);
-        widget2.strokeColor = color(0);
-        widget3.strokeColor = color(0);
-        widget4.strokeColor = color(0);
-        widget5.strokeColor = color(0);
-        widget6.strokeColor = color(0);
         break;
     }
   }
@@ -163,18 +166,12 @@ void mouseMoved()
     event = screen2.getEvent(mouseX, mouseY);
     switch (event)
     {
-      case EVENT_BUTTON2:
-        widget2.strokeColor = color(255);
-        break;
-      case EVENT_BUTTON4:
-        widget4.strokeColor = color(255);
-        break;
-      case EVENT_NULL:
-        widget2.strokeColor = color(0);
-        widget4.strokeColor = color(0);
+      case EVENT_BUTTON7:
+        currentScreen = 1;
+        println("Backward was pressed");
         break;
     }
-  }    
+  }
 }
 
 void loadData()
