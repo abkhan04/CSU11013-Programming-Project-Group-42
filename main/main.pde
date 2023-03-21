@@ -74,6 +74,28 @@ void setup()
   
   // BarChart
   bc = new BarChart(this);
+  float n1 = 0;
+  float n2 = 0;
+  float n3 = 0;
+  float n4 = 0;
+  float n5 = 0;
+  
+  for (Flight f : flights)
+  {
+    if (f.flightDate.equals("01/01/2022 00:00")) n1 = n1 + 1;
+    else if (f.flightDate.equals("01/02/2022 00:00")) n2 = n2 + 1;
+    else if (f.flightDate.equals("01/03/2022 00:00")) n3 = n3 + 1;
+    else if (f.flightDate.equals("01/04/2022 00:00")) n4 = n4 + 1;
+    else if (f.flightDate.equals("01/05/2022 00:00")) n5 = n5 + 1;
+  }
+  
+  println(flights.get(1).flightDate);
+  
+  bc.setData(new float[] {n1, n2, n3, n4, n5});
+  bc.setMinValue(0);
+  bc.showValueAxis(true);
+  bc.setBarLabels(new String[] {"01/01", "01/02", "01/03", "01/04", "01/05"});
+  bc.showCategoryAxis(true);
 }
 
 void draw()
@@ -92,7 +114,8 @@ void draw()
   }
   else if (currentScreen == 2)
   {
-    screen2.draw(); 
+    screen2.draw();
+    bc.draw(100, 100, SCREENX - 200, SCREENY - 200);
   }
   else if (currentScreen == 3)
   {
