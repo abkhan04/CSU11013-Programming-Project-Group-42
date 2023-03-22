@@ -25,17 +25,18 @@ class Widget
     this.widgetColor = widgetColor;
     this.widgetFont = widgetFont;
     labelColor = color(0);
+    strokeColor = color(255);
   }
   
   void draw()
   {
     fill(widgetColor);
-    if (mouseMoved()) stroke(255);
+    if (mouseMoved()) stroke(strokeColor);
     else stroke(0);
     rect(x, y, width, height);
     fill(labelColor);
     textFont(widgetFont);
-    text(label, x + 10, y + height - 10);
+    text(label, x + 90, y + height - 10);
   }
   
   boolean mouseMoved()

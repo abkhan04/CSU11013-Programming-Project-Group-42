@@ -33,7 +33,7 @@ class Screen
     {
       int x = widgetList.get(i).x;
       int y = widgetList.get(i).y;
-      if ((mX > x) && (mX < x + width) && (mY > y) && (mY < y + height)) return widgetList.get(i).event;
+      if ((mX > x) && (mX < x + widgetList.get(i).width) && (mY > y) && (mY < y + widgetList.get(i).height)) return widgetList.get(i).event;
     }
     
     return EVENT_NULL;
