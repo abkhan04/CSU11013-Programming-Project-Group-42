@@ -1,3 +1,4 @@
+// added by Julia Nash 21/03
 class flightSort {
   // variables for sorting by lateness
     int oneHour;
@@ -25,7 +26,17 @@ class flightSort {
     int lessThan2000;
     int greaterThan2000;
     
+    // variables for sorting when flights arrive
+    int arrMorning;
+    int arrAfternoon;
+    int arrEvening;
     
+    // variables for sorting when flights depart
+    int depMorning;
+    int depAfternoon;
+    int depEvening;
+    
+ // used for bar graph and pie chart   
   void sortLateness (Flight flight) {
     int lateness = flight.arrTime - flight.schArrTime;
     if (lateness >= 30 && lateness <60)
@@ -79,5 +90,24 @@ class flightSort {
       greatherThan2000 += 1;
   }
   
+  void sortArrivalTime (Flight flight) {
+    if (flight.arrTime < 1200)
+      arrMorning += 1;
+    if (flight.arrTime >= 1200 && < 1800)
+      arrAfternoon += 1;
+    else
+      arrEvening += 1;
+  }
+  
+  void sortDepartureTime (Flight flight) {
+    if (flight.depTime <1200)
+      depMorning += 1;
+    if (flight.depTime >= 1200 && < 1800)
+      depAfternoon += 1;
+    else
+      depEvening += 1;
+  }
+  
   
 }
+
