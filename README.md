@@ -18,3 +18,13 @@ draw class
 
 user input class
     takes user input after clicking on widgets
+    
+Screen 1 - Intro Page
+Screen 2 - Parameters
+Screen 3 - Graph Select
+Screen 4 - Bar Chart
+Screen 5 - Line Graph
+Screen 6 - Heat Map
+Screen 7 - Pie Chart
+Screen 8 - Table
+Screen 9 - TBD
