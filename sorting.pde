@@ -1,4 +1,4 @@
-// added by Julia Nash 21/03
+// added by J.Nash 21/03
 class flightSort {
   // variables for sorting by lateness
     int oneHour;
@@ -68,12 +68,13 @@ class flightSort {
     
     String date = flight.date;
     String[] sepDate = date.split("/");
+    int temp = Integer.parseInt(sepDate[1]);
     
-    if (sepDate[1] <= 8)
+    if (temp <= 8)
       firstWeek += 1;
-    if (sepDate[1] > 8 && <= 16)
+    if (temp > 8 && <= 16)
       secondWeek += 1;
-    if (sepDate[1] > 16 && <= 24)
+    if (temp > 16 && <= 24)
       thirdWeek += 1;
     else
       fourthWeek += 1;
