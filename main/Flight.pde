@@ -19,7 +19,7 @@ class Flight
   String arrTime;
   int cancelled;
   int diverted;
-  // int distance;
+  int distance;
   
   Flight (String flightDate, String carrierCode, int flightNum, String origin, String originCity, String dest, String destCity, String schDepTime, String depTime, String schArrTime, String arrTime, int cancelled, int diverted)
   {
@@ -40,6 +40,6 @@ class Flight
     this.arrTime = arrTime;
     this.cancelled = cancelled;
     this.diverted = diverted;
-    // this.distance = distance;
+    this.distance = distance;
   }
 }

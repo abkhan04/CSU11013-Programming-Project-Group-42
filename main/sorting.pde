@@ -42,14 +42,18 @@ class flightSort {
     int arrTime = Integer.parseInt(flight.arrTime);
     int schArrTime = Integer.parseInt(flight.schArrTime);
     int lateness = arrTime - schArrTime;
-    if (lateness >= 30 && lateness <60)
-      moreThan30 += 1;
     if (lateness < 0)
       early += 1;
     if (lateness >= 0 && lateness <30)
       lessThan30 += 1;
+    if (lateness >= 30 && lateness <60)
+      moreThan30 += 1;
     else
       oneHour +=1;
+      
+    barChart.setValueAxisLabel("");
+    barChart.setCategoryAxisLabel("lateness");
+    bc.setBarLabels(new String[] {"early", "less than 30 minutes", "more than 30 minutes", "more than 1 hour"});
   }
   
   void sortCancelled (Flight flight) {
@@ -57,6 +61,10 @@ class flightSort {
       cancelled += 1;
     else
       notCancelled += 1;
+      
+    barChart.setValueAxisLabel("");
+    barChart.setCategoryAxisLabel("status - cancelled");
+    bc.setBarLabels(new String[] {"cancelled", "not cancelled"});
   }
   
   void sortDiverted (Flight flight) {
@@ -64,6 +72,10 @@ class flightSort {
       diverted += 1;
     else
       notDiverted += 1;
+      
+    barChart.setValueAxisLabel("minutes");
+    barChart.setCategoryAxisLabel("status - diverted");
+    bc.setBarLabels(new String[] {"diverted", "not diverted"});
   }
   
   void sortDate (Flight flight) {
@@ -81,6 +93,10 @@ class flightSort {
       thirdWeek += 1;
     else
       fourthWeek += 1;
+      
+    barChart.setValueAxisLabel("minutes");
+    barChart.setCategoryAxisLabel("week");
+    bc.setBarLabels(new String[] {"first week", "second week", "third week", "fourth week"});
   }
   
   void sortDistance (Flight flight) {
@@ -93,6 +109,10 @@ class flightSort {
       lessThan2000 += 1;
     else
       greaterThan2000 += 1;
+      
+    barChart.setValueAxisLabel("");
+    barChart.setCategoryAxisLabel("distance (miles)");
+    bc.setBarLabels(new String[] {"less than 500", "less than 1000", "more than 1000", "more than 2000"});
   }
   
   void sortArrivalTime (Flight flight) {
@@ -103,6 +123,10 @@ class flightSort {
       arrAfternoon += 1;
     else
       arrEvening += 1;
+      
+    barChart.setValueAxisLabel("minutes");
+    barChart.setCategoryAxisLabel("arrival time");
+    bc.setBarLabels(new String[] {"morning", "afternoon", "evening"});
   }
   
   void sortDepartureTime (Flight flight) {
@@ -113,6 +137,10 @@ class flightSort {
       depAfternoon += 1;
     else
       depEvening += 1;
+      
+    barChart.setValueAxisLabel("minutes");
+    barChart.setCategoryAxisLabel("departure time");
+    bc.setBarLabels(new String[] {"morning", "afternoon", "evening"});
   }
   
   
