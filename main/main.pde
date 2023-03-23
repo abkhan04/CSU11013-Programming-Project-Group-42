@@ -129,11 +129,16 @@ void draw(){
     text("Data Parameters", SCREENX/2, 100);
     textFont(stdFont);
     text("Date Range:", 100, 150);
-    text("Departure:", 100, 250);
-    text("Arrival:", 100, 350);
+    text("Departure:", 100, 300);
+    text("Arrival:", 100, 400);
+    text("Distance", 100, 500);
+    text("Include?", 100, 650);
     textFont(inpFont);
-    text("Start", 300, 150);
-    text("End", 300, 200);
+    text("Start", 300, 200);
+    text("End", 300, 250);
+    text("Max", 300, 550);
+    text("Min", 300, 600);
+
   }
   else if (currentScreen == 3)
   {
