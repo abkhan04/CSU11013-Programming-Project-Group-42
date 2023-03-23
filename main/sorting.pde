@@ -21,7 +21,7 @@ class flightSort {
     int fourthWeek;
     
     // variables for sorting flights by distance
-    int lessthan500;
+    int lessThan500;
     int lessThan1000;
     int lessThan2000;
     int greaterThan2000;
@@ -38,7 +38,9 @@ class flightSort {
     
  // used for bar graph and pie chart   
   void sortLateness (Flight flight) {
-    int lateness = flight.arrTime - flight.schArrTime;
+    int arrTime = Integer.parseInt(flight.arrTime);
+    int schArrTime = Integer.parseInt(flight.schArrTime);
+    int lateness = arrTime - schArrTime;
     if (lateness >= 30 && lateness <60)
       moreThan30 += 1;
     if (lateness < 0)
@@ -66,44 +68,47 @@ class flightSort {
   void sortDate (Flight flight) {
     // checking for day because all flights are in the same month
     
-    String date = flight.date;
+    String date = flight.flightDate;
     String[] sepDate = date.split("/");
     int temp = Integer.parseInt(sepDate[1]);
     
     if (temp <= 8)
       firstWeek += 1;
-    if (temp > 8 && <= 16)
+    if (temp > 8 && temp <= 16)
       secondWeek += 1;
-    if (temp > 16 && <= 24)
+    if (temp > 16 && temp <= 24)
       thirdWeek += 1;
     else
       fourthWeek += 1;
   }
   
   void sortDistance (Flight flight) {
-    if (flight.distance <= 500)
+    int distance = Integer.parseInt(flight.distance);
+    if (distance <= 500)
       lessThan500 += 1;
-    if (flight.distance > 500 && flight.distance <= 1000)
+    if (distance > 500 && distance <= 1000)
       lessThan1000 += 1;
-    if (flight.distance > 1000 && flight.distance <= 2000)
+    if (distance > 1000 && distance <= 2000)
       lessThan2000 += 1;
     else
-      greatherThan2000 += 1;
+      greaterThan2000 += 1;
   }
   
   void sortArrivalTime (Flight flight) {
-    if (flight.arrTime < 1200)
+    int arrTime = Integer.parseInt(flight.arrTime);
+    if (arrTime < 1200)
       arrMorning += 1;
-    if (flight.arrTime >= 1200 && < 1800)
+    if (arrTime >= 1200 && arrTime < 1800)
       arrAfternoon += 1;
     else
       arrEvening += 1;
   }
   
   void sortDepartureTime (Flight flight) {
-    if (flight.depTime <1200)
+    int depTime = Integer.parseInt(flight.depTime);
+    if (depTime <1200)
       depMorning += 1;
-    if (flight.depTime >= 1200 && < 1800)
+    if (depTime >= 1200 && depTime < 1800)
       depAfternoon += 1;
     else
       depEvening += 1;
@@ -111,4 +116,3 @@ class flightSort {
   
   
 }
-
