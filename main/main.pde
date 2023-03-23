@@ -8,6 +8,7 @@ import org.gicentre.utils.stat.*;
 
 PFont ttlFont;
 PFont stdFont;
+PFont inpFont;
 PImage logo;
 
 Widget widget0, widget1, widget2, widget3, widget4, widget5, widget6, widget7, widget8;
@@ -29,6 +30,7 @@ void setup()
   // Load Font
   ttlFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
   stdFont = loadFont("ComicSansMS-30.vlw");
+  inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
   
   // Create Widgets
@@ -125,6 +127,13 @@ void draw(){
     textAlign(CENTER);
     textFont(ttlFont);
     text("Data Parameters", SCREENX/2, 100);
+    textFont(stdFont);
+    text("Date Range:", 100, 150);
+    text("Departure:", 100, 250);
+    text("Arrival:", 100, 350);
+    textFont(inpFont);
+    text("Start", 300, 150);
+    text("End", 300, 200);
   }
   else if (currentScreen == 3)
   {
