@@ -20,6 +20,12 @@ ArrayList<Flight> flights;
 
 BarChart bc;
 
+import controlP5.*;
+ControlP5 cp5;
+String textValue = "";
+int boxXpos = 400, boxYpos = 125;
+ArrayList<Box> checkbox;
+
 void settings()
 {
   size(SCREENX, SCREENY);
@@ -106,6 +112,68 @@ void setup()
   bc.showValueAxis(true);
   bc.setBarLabels(new String[] {"01/01", "01/02", "01/03", "01/04", "01/05"});
   bc.showCategoryAxis(true);
+  
+  //Input Box
+  if(currentScreen == 2){
+    boxXpos = 400; boxYpos = 125;
+  }
+  cp5 = new ControlP5(this);
+  cp5.addTextfield("Start Date")
+     //.setPosition(400,125)
+     .setPosition(boxXpos,boxYpos)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+  cp5.addTextfield("End Date")
+     //.setPosition(400,200)
+     .setPosition(boxXpos,boxYpos+75)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+  cp5.addTextfield("Departure Airport")
+     //.setPosition(400,200)
+     .setPosition(boxXpos,boxYpos+175)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+  cp5.addTextfield("Arrival Airport")
+     //.setPosition(400,200)
+     .setPosition(boxXpos,boxYpos+275)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+   cp5.addTextfield("Max")
+     .setPosition(boxXpos,boxYpos+375)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+   cp5.addTextfield("Min")
+     .setPosition(boxXpos,boxYpos+450)
+     .setSize(200,40)
+     .setFont(inpFont)
+     .setFocus(true)
+     .setColor(color(255,0,0))
+     ;
+
+     textFont(inpFont);
+     
+     // Checkbox
+     
+     checkbox = new ArrayList<Box>();
+     for(int i = 0; i < 5; i++){
+    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,255),
+          color(0, 102, 255), stdFont));
+  }
 }
 
 void draw(){
@@ -138,6 +206,23 @@ void draw(){
     text("End", 300, 250);
     text("Max", 300, 550);
     text("Min", 300, 600);
+    text("Cancellations", 250, 700);
+    text("Diversions",250, 750);
+    
+    fill(255);
+    text(cp5.get(Textfield.class,"Start Date").getText(), 360,130);
+    String sDate = cp5.get(Textfield.class,"Start Date").getText();
+    text(cp5.get(Textfield.class,"End Date").getText(), 360,140);
+    String eDate = cp5.get(Textfield.class,"End Date").getText();
+    String dep = cp5.get(Textfield.class,"Departure Airport").getText();
+    String arr = cp5.get(Textfield.class,"Arrival Airport").getText();
+    String max = cp5.get(Textfield.class,"Max").getText();
+    String min = cp5.get(Textfield.class,"Min").getText();
+    text(textValue, 360,180);
+    
+    for(int i = 0; i < 2; i++){
+    checkbox.get(i).draw();
+    }
 
   }
   else if (currentScreen == 3)
@@ -188,6 +273,7 @@ void mousePressed()
     }
    }
   else if (currentScreen == 2){
+    boxXpos = 400; boxYpos = 125;
     event = screen2.getEvent(mouseX,mouseY);
      switch (event)
     {
@@ -254,6 +340,14 @@ void mousePressed()
         break;
     }
   }
+  
+  
+    for(int i = 0; i < 2; i++){
+    int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
+    if(chEvent != EVENT_NULL){
+      checkbox.get(chEvent-1).clicked = true;
+    }
+  }
 }
 
 void loadData()
@@ -308,5 +402,13 @@ void printData(ArrayList<Flight> flights)
     // int distance = flight.distance;
 
     println(flightDate + ", " + carrierCode + ", " + flightNum + ", " + origin + ", " + originCity + ", " + dest + ", " + destCity + ", " + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted);
+  }
+}
+
+void mouseMoved(){
+  int event;
+  for(int i = 0; i < 5; i++){
+    event = checkbox.get(i).getEvent(mouseX,mouseY);
+    checkbox.get(i).strokeColor = (event == EVENT_NULL) ? checkbox.get(i).labelColor : color(255);
   }
 }
