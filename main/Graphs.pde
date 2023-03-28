@@ -15,7 +15,7 @@ class Barchart
   
   BarChart barChart;
   
-  Barchart(processing.core.PApplet parent, float[] data)
+  private Barchart(processing.core.PApplet parent, float[] data)
   {
     this.parent = parent;
     this.data = data;
@@ -89,7 +89,7 @@ class Barchart
     barChart.setBarGap(gap);
   }
   
-  void setBarLabels(String[] labels)
+  void setBarLabels(java.lang.String[] labels)
   {
     barChart.setBarLabels(labels);
   }
@@ -124,7 +124,7 @@ class Barchart
     barChart.setValueFormat(format);
   }
   
-  void showCatergoryAxis(boolean showAxis)
+  void showCategoryAxis(boolean showAxis)
   {
     barChart.showCategoryAxis(showAxis);
   }
