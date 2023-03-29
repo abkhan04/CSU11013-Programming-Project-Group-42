@@ -1,3 +1,5 @@
+//CK added CheckBoxes 22/03
+
 class Box{
   int x, y, wide, tall;
   String label; int event;

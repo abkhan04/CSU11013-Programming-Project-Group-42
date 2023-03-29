@@ -44,7 +44,7 @@ void setup()
   logo = loadImage("BTS.png");
   
   // Create Widgets
-  widget0 = new Widget(WIDGET1Y/2, WIDGET1Y, 180, 40, "Start", color(242, 17, 17), stdFont, EVENT_BUTTON0);
+  widget0 = new Widget(WIDGET1Y/2, WIDGET1Y+75, 180, 40, "Start", color(242, 17, 17), stdFont, EVENT_BUTTON0);
   widget1 = new Widget(100, WIDGET1Y, 180, 40, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
   widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
   widget3 = new Widget(500, WIDGET1Y, 180, 40, "Heat Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
@@ -143,7 +143,7 @@ void draw(){
     textAlign(CENTER);
     image(logo, 60, 150);
     textFont(stdFont);
-    text("Press Start to continue:", SCREENX/2, WIDGET1Y - 25);
+    text("Press Start to continue:", SCREENX/2, WIDGET1Y + 50);
   }
   else if (currentScreen == 2)
   {
