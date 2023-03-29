@@ -4,8 +4,6 @@
 // CK updated multiple screens for graph implementation 20/03
 // CK improved Framework to planned architecture 22/03
 
-import org.gicentre.utils.stat.*;
-
 PFont ttlFont;
 PFont stdFont;
 PFont inpFont;
@@ -18,7 +16,7 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
-BarChart bc;
+Barchart b;
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 int boxXpos = 400, boxYpos = 125;
@@ -87,7 +85,6 @@ void setup()
   printData(flights);
   
   // BarChart
-  bc = new BarChart(this);
   float n1 = 0;
   float n2 = 0;
   float n3 = 0;
@@ -103,13 +100,7 @@ void setup()
     else if (f.flightDate.equals("01/05/2022 00:00")) n5 = n5 + 1;
   }
   
-  println(flights.get(1).flightDate);
-  
-  bc.setData(new float[] {n1, n2, n3, n4, n5});
-  bc.setMinValue(0);
-  bc.showValueAxis(true);
-  bc.setBarLabels(new String[] {"01/01", "01/02", "01/03", "01/04", "01/05"});
-  bc.showCategoryAxis(true);
+  b = new Barchart(new float[] {n1, n2, n3, n4, n5}, 100, 675, 600, 600);
   
   //Input Box
   if(currentScreen == 2){
@@ -213,7 +204,7 @@ void draw(){
   else if (currentScreen == 4)
   {
     screen4.draw(); 
-    bc.draw(100, 100, SCREENX - 200, SCREENY - 200);
+    b.draw();
   }
   else if (currentScreen == 5)
   {
@@ -336,21 +327,24 @@ void loadData()
     int flightNum = row.getInt("MKT_CARRIER_FL_NUM");
     String origin = row.getString("ORIGIN");
     String originCity = row.getString("ORIGIN_CITY_NAME");
-    // String originCityAbr = row.getString("ORIGIN_STATE_ABR");
-    // int originWAC = row.getInt("ORIGIN_WAC");
+    String originCityAbr = row.getString("ORIGIN_STATE_ABR");
+    int originWAC = row.getInt("ORIGIN_WAC");
     String dest = row.getString("DEST");
     String destCity = row.getString("DEST_CITY_NAME");
-    // String destCityAbr = row.getString("DEST_STATE_ABR");
-    // int destWAC = row.getInt("DEST_WAC");
+    String destCityAbr = row.getString("DEST_STATE_ABR");
+    int destWAC = row.getInt("DEST_WAC");
     String schDepTime = row.getString("CRS_DEP_TIME");
     String depTime = row.getString("DEP_TIME");
     String schArrTime = row.getString("CRS_ARR_TIME");
     String arrTime = row.getString("ARR_TIME");
     int cancelled = row.getInt("CANCELLED");
     int diverted = row.getInt("DIVERTED");
-    // int distance = row.getInt("DISTANCE");
+    int distance = row.getInt("DISTANCE");
     
-    Flight flight = new Flight(flightDate, carrierCode, flightNum, origin, originCity, dest, destCity, schDepTime, depTime, schArrTime, arrTime, cancelled, diverted);
+    Flight flight = new Flight(flightDate, carrierCode, flightNum, 
+                        origin, originCity, originCityAbr, originWAC, 
+                        dest, destCity, destCityAbr, destWAC, 
+                        schDepTime, depTime, schArrTime, arrTime, cancelled, diverted, distance);
     flights.add(flight);
   }
 }
@@ -364,21 +358,24 @@ void printData(ArrayList<Flight> flights)
     int flightNum = flight.flightNum;
     String origin = flight.origin;
     String originCity = flight.originCity;
-    // String originCityAbr = flight.originCityAbr;
-    // int originWAC = flight.originWAC;
+    String originCityAbr = flight.originCityAbr;
+    int originWAC = flight.originWAC;
     String dest = flight.flightDate;
     String destCity = flight.flightDate;
-    // String destCityAbr = flight.destCityAbr;
-    // int destWAC = flight.destWAC;
+    String destCityAbr = flight.destCityAbr;
+    int destWAC = flight.destWAC;
     String schDepTime = flight.schDepTime;
     String depTime = flight.depTime;
     String schArrTime = flight.schArrTime;
     String arrTime = flight.arrTime;
     int cancelled = flight.cancelled;
     int diverted = flight.diverted;
-    // int distance = flight.distance;
+    int distance = flight.distance;
 
-    println(flightDate + ", " + carrierCode + ", " + flightNum + ", " + origin + ", " + originCity + ", " + dest + ", " + destCity + ", " + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted);
+    println(flightDate + ", " + carrierCode + ", " + flightNum + ", " 
+            + origin + ", " + originCity + ", " + originCityAbr + ", " + originWAC + ", " 
+            + dest + ", " + destCity + ", " + destCityAbr + ", " + destWAC + ", " 
+            + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted + ", " + distance);
   }
 }
 

@@ -1,141 +1,89 @@
 // A.Khan Added Graphs Class 22/03
-
-import org.gicentre.utils.stat.*;
+// A.Khan Made Barchart class 29/03
 
 class Barchart
 {
-  processing.core.PApplet parent;
-  float[] data;
-  float xOrigin;
-  float yOrigin;
-  float width;
-  float height;
-  float min;
-  float max;
+  float[] dataSet;
+  color[] colours;
+  int xOrigin;
+  int yOrigin;
+  int width;
+  int height;
+  float maxValue;
   
-  BarChart barChart;
-  
-  private Barchart(processing.core.PApplet parent, float[] data)
+  Barchart(float[] dataSet, color[] colours, int xOrigin, int yOrigin, int width, int height)
   {
-    this.parent = parent;
-    this.data = data;
-    
-    BarChart barChart = new BarChart(parent);
-    barChart.setData(data);
-  }
-  
-  Barchart(processing.core.PApplet parent, float[] data, float xOrigin, float yOrigin, float width, float height)
-  {
-    this.parent = parent;
-    this.data = data;
+    this.dataSet = dataSet;
+    this.colours = colours;
     this.xOrigin = xOrigin;
     this.yOrigin = yOrigin;
     this.width = width;
     this.height = height;
-    
-    BarChart barChart = new BarChart(parent);
-    barChart.setData(data);
-    min = 0;
-    barChart.setMinValue(min);
+    maxValue = getMaxValue();
   }
   
-  void draw()
+  Barchart(float[] dataSet, int xOrigin, int yOrigin, int width, int height)
   {
-    barChart.draw(xOrigin, yOrigin, width, height);
+    this.dataSet = dataSet;
+    colours = new color[dataSet.length];
+    generateColours();
+    this.xOrigin = xOrigin;
+    this.yOrigin = yOrigin;
+    this.width = width;
+    this.height = height;
+    maxValue = getMaxValue();
   }
   
-  void draw(float xOrigin, float yOrigin, float width, float height)
+  Barchart(int xOrigin, int yOrigin, int width, int height)
   {
     this.xOrigin = xOrigin;
     this.yOrigin = yOrigin;
     this.width = width;
     this.height = height;
-    barChart.draw(this.xOrigin, this.yOrigin, this.width, this.height);
   }
   
-  void setData(float[] data)
+  void setData(float[] dataSet)
   {
-    this.data = data;
-    barChart.setData(this.data);
+    this.dataSet = dataSet;
+    if (colours == null) generateColours();
+    maxValue = getMaxValue();
+  }
+  
+  void generateColours()
+  {
+    for (int i = 0; i < dataSet.length; i++) colours[i] = color(random(0, 256), random(0, 256), random(0, 256));
   }
   
   float getMaxValue()
   {
-    return barChart.getMaxValue();
+    float maxValue = 0;
+    for (float f : dataSet) if (f > maxValue) maxValue = f;
+    return maxValue;
   }
   
-  void setMaxValue(float max)
+  void draw()
   {
-    this.max = max;
-  }
-  
-  float getMinValue()
-  {
-    return barChart.getMinValue();
-  }
-  
-  void setMinValue(float min)
-  {
-    this.min = min;
-  }
-  
-  void setBarColor(int colour)
-  {
-    barChart.setBarColour(colour);
-  }
-  
-  void setBarGap(float gap)
-  {
-    barChart.setBarGap(gap);
-  }
-  
-  void setBarLabels(java.lang.String[] labels)
-  {
-    barChart.setBarLabels(labels);
-  }
-  
-  void setBarPadding(float padding)
-  {
-    barChart.setBarPadding(padding);
-  }
-  
-  void setCategoryAxisAt(float value)
-  {
-    barChart.setCategoryAxisAt(value);
-  }
-  
-  void setCategoryAxisLabel(String label)
-  {
-    barChart.setCategoryAxisLabel(label);
-  }
-  
-  void setCategoryFormat(String format)
-  {
-    barChart.setCategoryFormat(format);
-  }
-  
-  void setValueAxisLabel(String label)
-  {
-    barChart.setValueAxisLabel(label);
-  }
-  
-  void setValueFormat(String format)
-  {
-    barChart.setValueFormat(format);
-  }
-  
-  void showCategoryAxis(boolean showAxis)
-  {
-    barChart.showCategoryAxis(showAxis);
-  }
-  
-  void showValueAxis(boolean showAxis)
-  {
-    barChart.showValueAxis(showAxis);
-  }
-  
-  void updateLayout()
-  {
-    barChart.updateLayout();
+    int nearestTenth = ((int) (maxValue / 10.0)) * 10;
+    int barWidth = (int) ((float) width / dataSet.length);
+    int increment = 0;
+    
+    // X and Y Axis
+    line(xOrigin, yOrigin, xOrigin, yOrigin - height);
+    line(xOrigin, yOrigin, xOrigin + width, yOrigin);
+    
+    // Y Axis Value Text
+    text(nearestTenth, xOrigin - 30, yOrigin - height + 15);
+    text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 30, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
+    text(nearestTenth / 2, xOrigin - 30, yOrigin - ((float) height / 2) + 15);
+    text(nearestTenth / 4, xOrigin - 30, yOrigin - ((float) height / 4) + 15);
+    text(0, xOrigin - 25, yOrigin + 10);
+    
+    for (int i = 0; i < dataSet.length; i++)
+    {
+      float data = height * (dataSet[i] / nearestTenth);
+      fill(colours[i]);
+      rect(xOrigin + increment, yOrigin, barWidth, -data);
+      increment = increment + barWidth;
+    }
   }
 }
