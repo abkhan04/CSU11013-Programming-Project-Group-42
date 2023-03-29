@@ -19,8 +19,11 @@ ArrayList<Flight> flights;
 Barchart b;
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
-int boxXpos = 400, boxYpos = 125;
-ArrayList<Box> checkbox;
+Boolean cancellations = false, diversions = false;
+int boxXpos = 350, boxYpos = 660;
+color screenColour = color(51, 102, 153); // Dark blue
+color boxColour = color(65, 105, 225); // Light blue
+//ArrayList<Box> checkbox;
 
 void settings()
 {
@@ -47,9 +50,9 @@ void setup()
   widget8 = new Widget(600, 750, 180, 40, "Next", color(0, 255, 0), stdFont, EVENT_BUTTON8);
   
   // Create Screens
-  screen1 = new Screen(color(51, 102, 153));
-  screen2 = new Screen(color(51, 102, 153));
-  screen3 = new Screen(color(51, 102, 153));
+  screen1 = new Screen(screenColour);
+  screen2 = new Screen(screenColour);
+  screen3 = new Screen(screenColour);
   screen4 = new Screen(color(242, 17, 17));
   screen5 = new Screen(color(240, 155, 19));
   screen6 = new Screen(color(235, 219, 5));
@@ -102,19 +105,15 @@ void setup()
   
   b = new Barchart(new float[] {n1, n2, n3, n4, n5}, 100, 675, 600, 600);
   
-  //Input Box
-  if(currentScreen == 2){
-    boxXpos = 400; boxYpos = 125;
-  }
-  
      
      // Checkbox
-     
+     /*
      checkbox = new ArrayList<Box>();
      for(int i = 0; i < 5; i++){
-    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,255),
-          color(0, 102, 255), stdFont));
+    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,0),
+          color(255, 0, 0), stdFont));
   }
+  */
 }
 
 void draw(){
@@ -153,45 +152,67 @@ void draw(){
     //Text Boxes
     
     //Start Date
-    fill(255);
+    fill(boxColour);
     rect(350, 170, 200, 40);
     fill(0);
-    text(startDate, 450, 205);
+    text(startDate, 450, 200);
     
     //End Date
-    fill(255);
+    fill(boxColour);
     rect(350, 225, 200, 40);
     fill(0);
-    text(endDate, 450, 250);
+    text(endDate, 450, 255);
     
     //Departure Airport Code
-    fill(255);
+    fill(boxColour);
     rect(350, 295, 200, 40);
     fill(0);
     text(depAP, 450, 325);
     
     //Arrival Airport Code
-    fill(255);
+    fill(boxColour);
     rect(350, 395, 200, 40);
     fill(0);
     text(arrAP, 450, 425);
     
     //Max Distance
-    fill(255);
+    fill(boxColour);
     rect(350, 520, 200, 40);
     fill(0);
     text(maxDis, 450, 550);
     
     //Min Distance
-    fill(255);
+    fill(boxColour);
     rect(350, 575, 200, 40);
     fill(0);
     text(minDis, 450, 600);
+      
+     // Checkbox
+     
+    fill(boxColour);
+    rect(boxXpos, boxYpos, 50, 50);
+  
+    if (cancellations) {
+      fill(0);
+      //textFont(inpFont);
+      textSize(40);
+      text("X", boxXpos+25, boxYpos+40);
+    }
     
-    
+    fill(boxColour);
+    rect(boxXpos, boxYpos+60, 50, 50);
+  
+    if (diversions) {
+      fill(0);
+      //textFont(inpFont);
+      textSize(40);
+      text("X", boxXpos+25, boxYpos+100);
+    }
+    /*
     for(int i = 0; i < 2; i++){
     checkbox.get(i).draw();
     }
+    */
 
   }
   else if (currentScreen == 3)
@@ -242,7 +263,6 @@ void mousePressed()
     }
    }
   else if (currentScreen == 2){
-    boxXpos = 400; boxYpos = 125;
     event = screen2.getEvent(mouseX,mouseY);
      switch (event)
     {
@@ -251,14 +271,36 @@ void mousePressed()
         println("Next was pressed");
         break;
     }
-    
+    /*
     for(int i = 0; i < 2; i++){
       int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
       if(chEvent != EVENT_NULL){
         checkbox.get(chEvent-1).clicked = true;
+        println("One clicked");
       }
-  }
+    }
+  */
+    if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos && mouseY <boxYpos+50) {
+      cancellations = !cancellations;
+      if(cancellations){
+         println("Cancellations included");
+      }
+      else{
+        println("Cancellations excluded");
+      }
+    }
+    else if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos+60 && mouseY <boxYpos+110) {
+      diversions = !diversions;
+      if(diversions){
+         println("Diversions included");
+      }
+      else{
+        println("Diversions excluded");
+      }
+    }
    }
+   
+   
   else if (currentScreen == 3)
   {
     event = screen3.getEvent(mouseX,mouseY);
@@ -378,22 +420,23 @@ void printData(ArrayList<Flight> flights)
             + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted + ", " + distance);
   }
 }
-
+/*
 void mouseMoved(){
+  //Checkbox border highlight
   int event;
   for(int i = 0; i < 5; i++){
     event = checkbox.get(i).getEvent(mouseX,mouseY);
     checkbox.get(i).strokeColor = (event == EVENT_NULL) ? checkbox.get(i).labelColor : color(255);
   }
 }
+*/
 
 void keyPressed() {
-  // append the pressed key to the input text
+  // Input box text
   if(mouseY >= 170 && mouseY <= 170+40){
       if (key >= '/' && key <= '9') {
         startDate += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (startDate.length() > 0) {
               startDate = startDate.substring(0, startDate.length() - 1);
@@ -404,7 +447,6 @@ void keyPressed() {
       if (key >= '/' && key <= '9') {
         endDate += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (endDate.length() > 0) {
               endDate = endDate.substring(0, endDate.length() - 1);
@@ -415,7 +457,6 @@ void keyPressed() {
       if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
         depAP += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (depAP.length() > 0) {
               depAP = depAP.substring(0, depAP.length() - 1);
@@ -426,7 +467,6 @@ void keyPressed() {
       if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
         arrAP += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (arrAP.length() > 0) {
               arrAP = arrAP.substring(0, arrAP.length() - 1);
@@ -437,7 +477,6 @@ void keyPressed() {
       if (key >= '0' && key <= '9') {
         maxDis += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (maxDis.length() > 0) {
               maxDis = maxDis.substring(0, maxDis.length() - 1);
@@ -448,7 +487,6 @@ void keyPressed() {
       if (key >= '0' && key <= '9') {
         minDis += key;
       }
-      // delete the last character if the user presses backspace
       else if (keyCode == BACKSPACE) {
           if (minDis.length() > 0) {
               minDis = minDis.substring(0, minDis.length() - 1);
