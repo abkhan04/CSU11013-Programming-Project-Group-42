@@ -260,6 +260,13 @@ void mousePressed()
         println("Next was pressed");
         break;
     }
+    
+    for(int i = 0; i < 2; i++){
+      int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
+      if(chEvent != EVENT_NULL){
+        checkbox.get(chEvent-1).clicked = true;
+      }
+  }
    }
   else if (currentScreen == 3)
   {
@@ -316,14 +323,6 @@ void mousePressed()
         currentScreen = 3;
         println("Backward was pressed");
         break;
-    }
-  }
-  
-  
-    for(int i = 0; i < 2; i++){
-    int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
-    if(chEvent != EVENT_NULL){
-      checkbox.get(chEvent-1).clicked = true;
     }
   }
 }
