@@ -5,6 +5,8 @@ class Barchart
 {
   float[] dataSet;
   color[] colours;
+  String title;
+  String[] barLabels;
   int xOrigin;
   int yOrigin;
   int width;
@@ -54,6 +56,16 @@ class Barchart
     for (int i = 0; i < dataSet.length; i++) colours[i] = color(random(0, 256), random(0, 256), random(0, 256));
   }
   
+  void setTitle(String title)
+  {
+    this.title = title;
+  }
+  
+  void barLabels(String[] barLabels)
+  {
+    this.barLabels = barLabels;
+  }
+  
   float getMaxValue()
   {
     float maxValue = 0;
@@ -66,6 +78,9 @@ class Barchart
     int nearestTenth = ((int) (maxValue / 10.0)) * 10;
     int barWidth = (int) ((float) width / dataSet.length);
     int increment = 0;
+    
+    // Title
+    if (title != null) text(title, 400, 40);
     
     // X and Y Axis
     line(xOrigin, yOrigin, xOrigin, yOrigin - height);
@@ -81,6 +96,13 @@ class Barchart
     for (int i = 0; i < dataSet.length; i++)
     {
       float data = height * (dataSet[i] / nearestTenth);
+      
+      if (barLabels != null)
+      {
+        fill(0);
+        text(barLabels[i], xOrigin + (i * barWidth + ((float) barWidth / 2)), yOrigin + 35);
+      }
+      
       fill(colours[i]);
       rect(xOrigin + increment, yOrigin, barWidth, -data);
       increment = increment + barWidth;
