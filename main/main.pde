@@ -282,11 +282,25 @@ void mousePressed()
   */
     if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos && mouseY <boxYpos+50) {
       cancellations = !cancellations;
+      if(cancellations){
+         println("Cancellations included");
+      }
+      else{
+        println("Cancellations excluded");
+      }
     }
     else if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos+60 && mouseY <boxYpos+110) {
       diversions = !diversions;
+      if(diversions){
+         println("Diversions included");
+      }
+      else{
+        println("Diversions excluded");
+      }
     }
    }
+   
+   
   else if (currentScreen == 3)
   {
     event = screen3.getEvent(mouseX,mouseY);
