@@ -20,13 +20,7 @@ ArrayList<Flight> flights;
 
 BarChart bc;
 
-String inputText = "";
-String startDate = "";
-String endDate = "";
-String depAP = "";
-String arrAP = "";
-String maxDis = "";
-String minDis = "";
+String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 int boxXpos = 400, boxYpos = 125;
 ArrayList<Box> checkbox;
 
@@ -169,37 +163,37 @@ void draw(){
     
     //Start Date
     fill(255);
-    rect(350, 180, 200, 30);
+    rect(350, 170, 200, 40);
     fill(0);
     text(startDate, 450, 205);
     
     //End Date
     fill(255);
-    rect(350, 225, 200, 30);
+    rect(350, 225, 200, 40);
     fill(0);
     text(endDate, 450, 250);
     
     //Departure Airport Code
     fill(255);
-    rect(350, 300, 200, 30);
+    rect(350, 295, 200, 40);
     fill(0);
     text(depAP, 450, 325);
     
     //Arrival Airport Code
     fill(255);
-    rect(350, 400, 200, 30);
+    rect(350, 395, 200, 40);
     fill(0);
     text(arrAP, 450, 425);
     
     //Max Distance
     fill(255);
-    rect(350, 525, 200, 30);
+    rect(350, 520, 200, 40);
     fill(0);
     text(maxDis, 450, 550);
     
     //Min Distance
     fill(255);
-    rect(350, 575, 200, 30);
+    rect(350, 575, 200, 40);
     fill(0);
     text(minDis, 450, 600);
     
@@ -399,7 +393,7 @@ void mouseMoved(){
 
 void keyPressed() {
   // append the pressed key to the input text
-  if(mouseY >= 180 && mouseY <= 180+30){
+  if(mouseY >= 170 && mouseY <= 170+40){
       if (key >= '/' && key <= '9') {
         startDate += key;
       }
@@ -410,7 +404,7 @@ void keyPressed() {
           }
       }  
   }
-  else if(mouseY >= 225 && mouseY <= 225+30){
+  else if(mouseY >= 225 && mouseY <= 225+40){
       if (key >= '/' && key <= '9') {
         endDate += key;
       }
@@ -421,7 +415,7 @@ void keyPressed() {
           }
       }  
   }
-  else if(mouseY >= 300 && mouseY <= 300+30){
+  else if(mouseY >= 295 && mouseY <= 295+40){
       if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
         depAP += key;
       }
@@ -432,7 +426,7 @@ void keyPressed() {
           }
       }  
   }
-    else if(mouseY >= 400 && mouseY <= 400+30){
+    else if(mouseY >= 395 && mouseY <= 395+40){
       if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
         arrAP += key;
       }
@@ -443,7 +437,7 @@ void keyPressed() {
           }
       }  
   }
-  else if(mouseY >= 525 && mouseY <= 525+30){
+  else if(mouseY >= 520 && mouseY <= 520+40){
       if (key >= '0' && key <= '9') {
         maxDis += key;
       }
@@ -454,7 +448,7 @@ void keyPressed() {
           }
       }  
   }
-  else if(mouseY >= 575 && mouseY <= 575+30){
+  else if(mouseY >= 575 && mouseY <= 575+40){
       if (key >= '0' && key <= '9') {
         minDis += key;
       }
