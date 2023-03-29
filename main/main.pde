@@ -20,9 +20,13 @@ ArrayList<Flight> flights;
 
 BarChart bc;
 
-import controlP5.*;
-ControlP5 cp5;
-String textValue = "";
+String inputText = "";
+String startDate = "";
+String endDate = "";
+String depAP = "";
+String arrAP = "";
+String maxDis = "";
+String minDis = "";
 int boxXpos = 400, boxYpos = 125;
 ArrayList<Box> checkbox;
 
@@ -117,55 +121,7 @@ void setup()
   if(currentScreen == 2){
     boxXpos = 400; boxYpos = 125;
   }
-  cp5 = new ControlP5(this);
-  cp5.addTextfield("Start Date")
-     //.setPosition(400,125)
-     .setPosition(boxXpos,boxYpos)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-  cp5.addTextfield("End Date")
-     //.setPosition(400,200)
-     .setPosition(boxXpos,boxYpos+75)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-  cp5.addTextfield("Departure Airport")
-     //.setPosition(400,200)
-     .setPosition(boxXpos,boxYpos+175)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-  cp5.addTextfield("Arrival Airport")
-     //.setPosition(400,200)
-     .setPosition(boxXpos,boxYpos+275)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-   cp5.addTextfield("Max")
-     .setPosition(boxXpos,boxYpos+375)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-   cp5.addTextfield("Min")
-     .setPosition(boxXpos,boxYpos+450)
-     .setSize(200,40)
-     .setFont(inpFont)
-     .setFocus(true)
-     .setColor(color(255,0,0))
-     ;
-
-     textFont(inpFont);
+  
      
      // Checkbox
      
@@ -209,16 +165,44 @@ void draw(){
     text("Cancellations", 250, 700);
     text("Diversions",250, 750);
     
+    //Text Boxes
+    
+    //Start Date
     fill(255);
-    text(cp5.get(Textfield.class,"Start Date").getText(), 360,130);
-    String sDate = cp5.get(Textfield.class,"Start Date").getText();
-    text(cp5.get(Textfield.class,"End Date").getText(), 360,140);
-    String eDate = cp5.get(Textfield.class,"End Date").getText();
-    String dep = cp5.get(Textfield.class,"Departure Airport").getText();
-    String arr = cp5.get(Textfield.class,"Arrival Airport").getText();
-    String max = cp5.get(Textfield.class,"Max").getText();
-    String min = cp5.get(Textfield.class,"Min").getText();
-    text(textValue, 360,180);
+    rect(350, 180, 200, 30);
+    fill(0);
+    text(startDate, 450, 205);
+    
+    //End Date
+    fill(255);
+    rect(350, 225, 200, 30);
+    fill(0);
+    text(endDate, 450, 250);
+    
+    //Departure Airport Code
+    fill(255);
+    rect(350, 300, 200, 30);
+    fill(0);
+    text(depAP, 450, 325);
+    
+    //Arrival Airport Code
+    fill(255);
+    rect(350, 400, 200, 30);
+    fill(0);
+    text(arrAP, 450, 425);
+    
+    //Max Distance
+    fill(255);
+    rect(350, 525, 200, 30);
+    fill(0);
+    text(maxDis, 450, 550);
+    
+    //Min Distance
+    fill(255);
+    rect(350, 575, 200, 30);
+    fill(0);
+    text(minDis, 450, 600);
+    
     
     for(int i = 0; i < 2; i++){
     checkbox.get(i).draw();
@@ -411,4 +395,75 @@ void mouseMoved(){
     event = checkbox.get(i).getEvent(mouseX,mouseY);
     checkbox.get(i).strokeColor = (event == EVENT_NULL) ? checkbox.get(i).labelColor : color(255);
   }
+}
+
+void keyPressed() {
+  // append the pressed key to the input text
+  if(mouseY >= 180 && mouseY <= 180+30){
+      if (key >= '/' && key <= '9') {
+        startDate += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (startDate.length() > 0) {
+              startDate = startDate.substring(0, startDate.length() - 1);
+          }
+      }  
+  }
+  else if(mouseY >= 225 && mouseY <= 225+30){
+      if (key >= '/' && key <= '9') {
+        endDate += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (endDate.length() > 0) {
+              endDate = endDate.substring(0, endDate.length() - 1);
+          }
+      }  
+  }
+  else if(mouseY >= 300 && mouseY <= 300+30){
+      if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
+        depAP += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (depAP.length() > 0) {
+              depAP = depAP.substring(0, depAP.length() - 1);
+          }
+      }  
+  }
+    else if(mouseY >= 400 && mouseY <= 400+30){
+      if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z') {
+        arrAP += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (arrAP.length() > 0) {
+              arrAP = arrAP.substring(0, arrAP.length() - 1);
+          }
+      }  
+  }
+  else if(mouseY >= 525 && mouseY <= 525+30){
+      if (key >= '0' && key <= '9') {
+        maxDis += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (maxDis.length() > 0) {
+              maxDis = maxDis.substring(0, maxDis.length() - 1);
+          }
+      }  
+  }
+  else if(mouseY >= 575 && mouseY <= 575+30){
+      if (key >= '0' && key <= '9') {
+        minDis += key;
+      }
+      // delete the last character if the user presses backspace
+      else if (keyCode == BACKSPACE) {
+          if (minDis.length() > 0) {
+              minDis = minDis.substring(0, minDis.length() - 1);
+          }
+      }  
+  }
+
 }
