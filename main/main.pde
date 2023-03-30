@@ -23,7 +23,8 @@ Boolean cancellations = false, diversions = false;
 int boxXpos = 350, boxYpos = 660;
 color screenColour = color(51, 102, 153); // Dark blue
 color boxColour = color(65, 105, 225); // Light blue
-//ArrayList<Box> checkbox;
+
+PieChart pie;
 
 void settings()
 {
@@ -104,16 +105,8 @@ void setup()
   }
   
   b = new Barchart(new float[] {n1, n2, n3, n4, n5}, 100, 675, 600, 600);
-  
-     
-     // Checkbox
-     /*
-     checkbox = new ArrayList<Box>();
-     for(int i = 0; i < 5; i++){
-    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,0),
-          color(255, 0, 0), stdFont));
-  }
-  */
+  int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 };
+  pie = new PieChart(300,angles);
 }
 
 void draw(){
@@ -238,6 +231,7 @@ void draw(){
   else if (currentScreen == 7)
   {
     screen7.draw(); 
+    pie.draw();
   }
   else if (currentScreen == 8)
   {
