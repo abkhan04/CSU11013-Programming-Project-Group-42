@@ -17,6 +17,8 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
+FlightTable flightTable = new FlightTable();
+
 BarChart bc;
 
 void settings()
@@ -30,18 +32,18 @@ void setup()
   ttlFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
   stdFont = loadFont("ComicSansMS-30.vlw");
   logo = loadImage("BTS.png");
-  
+
   // Create Widgets
   widget0 = new Widget(WIDGET1Y/2, WIDGET1Y, 180, 40, "Start", color(242, 17, 17), stdFont, EVENT_BUTTON0);
   widget1 = new Widget(100, WIDGET1Y, 180, 40, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
-  widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
-  widget3 = new Widget(500, WIDGET1Y, 180, 40, "Heat Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
+  widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2);
+  widget3 = new Widget(500, WIDGET1Y, 180, 40, "Heat Map", color(235, 219, 5), stdFont, EVENT_BUTTON3);
   widget4 = new Widget(100, WIDGET2Y, 180, 40, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
   widget5 = new Widget(300, WIDGET2Y, 180, 40, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
   widget6 = new Widget(500, WIDGET2Y, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
   widget7 = new Widget(10, 750, 180, 40, "Back", color(255, 0, 0), stdFont, EVENT_BUTTON7);
   widget8 = new Widget(600, 750, 180, 40, "Next", color(0, 255, 0), stdFont, EVENT_BUTTON8);
-  
+
   // Create Screens
   screen1 = new Screen(color(51, 102, 153));
   screen2 = new Screen(color(51, 102, 153));
@@ -52,7 +54,7 @@ void setup()
   screen7 = new Screen(color(0, 153, 0));
   screen8 = new Screen(color(19, 63, 240));
   screen9 = new Screen(color(174, 33, 209));
-  
+
   // Add Widgets
   screen1.addWidget(widget0);
   screen2.addWidget(widget8);
@@ -63,23 +65,23 @@ void setup()
   screen3.addWidget(widget5);
   screen3.addWidget(widget6);
   screen3.addWidget(widget7);
-  
+
   screen4.addWidget(widget7);
   screen5.addWidget(widget7);
   screen6.addWidget(widget7);
   screen7.addWidget(widget7);
   screen8.addWidget(widget7);
   screen9.addWidget(widget7);
-  
+
   // Current Screen
-  currentScreen = 1;
-  
+  currentScreen = 8;
+
   // Load Data from file
-  table = loadTable("flights2k.csv", "header");
+  table = loadTable("flights10k.csv", "header");
   flights = new ArrayList();
   loadData();
-  printData(flights);
-  
+/////  printData(flights);
+
   // BarChart
   bc = new BarChart(this);
   float n1 = 0;
@@ -87,7 +89,7 @@ void setup()
   float n3 = 0;
   float n4 = 0;
   float n5 = 0;
-  
+
   for (Flight f : flights)
   {
     if (f.flightDate.equals("01/01/2022 00:00")) n1 = n1 + 1;
@@ -96,19 +98,37 @@ void setup()
     else if (f.flightDate.equals("01/04/2022 00:00")) n4 = n4 + 1;
     else if (f.flightDate.equals("01/05/2022 00:00")) n5 = n5 + 1;
   }
-  
-  println(flights.get(1).flightDate);
-  
+
+/////  println(flights.get(1).flightDate);
+
   bc.setData(new float[] {n1, n2, n3, n4, n5});
   bc.setMinValue(0);
   bc.showValueAxis(true);
   bc.setBarLabels(new String[] {"01/01", "01/02", "01/03", "01/04", "01/05"});
   bc.showCategoryAxis(true);
+
+  // flight table
+  flightTable.visibleRows = 10;
+  flightTable.table = table;
+  flightTable.totalPages = ceil(table.getRowCount() / (float) flightTable.visibleRows);
+  flightTable.font = loadFont("AppleSymbols-10.vlw");
+  surface.setResizable(true);
+  flightTable.table.removeColumn("MKT_CARRIER");
+  flightTable.table.removeColumn("MKT_CARRIER_FL_NUM");
+  flightTable.table.removeColumn("ORIGIN_STATE_ABR");
+  flightTable.table.removeColumn("ORIGIN_WAC");
+  flightTable.table.removeColumn("DEST_STATE_ABR");
+  flightTable.table.removeColumn("DEST_WAC");
+  flightTable.table.removeColumn("DEP_TIME");
+  flightTable.table.removeColumn("ARR_TIME");
+  flightTable.filteredTable = table;
 }
 
-void draw(){
+void draw() {
   background(100, 100, 100);
-  
+  if (currentScreen != 8)
+    surface.setSize(SCREENX, SCREENY);
+
   if (currentScreen == 1)
   {
     screen1.draw();
@@ -118,128 +138,118 @@ void draw(){
     image(logo, 60, 150);
     textFont(stdFont);
     text("Press Start to continue:", SCREENX/2, WIDGET1Y - 25);
-  }
-  else if (currentScreen == 2)
+  } else if (currentScreen == 2)
   {
-    screen2.draw(); 
+    screen2.draw();
     textAlign(CENTER);
     textFont(ttlFont);
     text("Data Parameters", SCREENX/2, 100);
-  }
-  else if (currentScreen == 3)
+  } else if (currentScreen == 3)
   {
     screen3.draw();
     textAlign(CENTER);
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
-  }
-  else if (currentScreen == 4)
+  } else if (currentScreen == 4)
   {
-    screen4.draw(); 
+    screen4.draw();
     bc.draw(100, 100, SCREENX - 200, SCREENY - 200);
-  }
-  else if (currentScreen == 5)
+  } else if (currentScreen == 5)
   {
-    screen5.draw(); 
-  }
-  else if (currentScreen == 6)
+    screen5.draw();
+  } else if (currentScreen == 6)
   {
-    screen6.draw(); 
-  }
-  else if (currentScreen == 7)
+    screen6.draw();
+  } else if (currentScreen == 7)
   {
-    screen7.draw(); 
-  }
-  else if (currentScreen == 8)
+    screen7.draw();
+  } else if (currentScreen == 8)
   {
-    screen8.draw(); 
-  }
-  else if (currentScreen == 9)
+    screen8.draw();
+    flightTable.draw();
+  } else if (currentScreen == 9)
   {
-    screen9.draw(); 
+    screen9.draw();
   }
 }
 
 void mousePressed()
 {
   int event;
-  if (currentScreen == 1){
-    event = screen1.getEvent(mouseX,mouseY);
-     switch (event)
-    {
-      case EVENT_BUTTON0:
-        currentScreen = 2;
-        println("Start was pressed");
-        break;
-    }
-   }
-  else if (currentScreen == 2){
-    event = screen2.getEvent(mouseX,mouseY);
-     switch (event)
-    {
-      case EVENT_BUTTON8:
-        currentScreen = 3;
-        println("Next was pressed");
-        break;
-    }
-   }
-  else if (currentScreen == 3)
-  {
-    event = screen3.getEvent(mouseX,mouseY);
+  if (currentScreen == 1) {
+    event = screen1.getEvent(mouseX, mouseY);
     switch (event)
     {
-      case EVENT_BUTTON1:
-        currentScreen = 4;
-        println("Bar Chart pressed");
-        break;
-      case EVENT_BUTTON2:
-        currentScreen = 5;
-        println("Line Graph was pressed");
-        break;
-      case EVENT_BUTTON3:
-        currentScreen = 6;
-        println("Heat Map was pressed");
-        break;
-      case EVENT_BUTTON4:
-        currentScreen = 7;
-        println("PieChart was pressed");
-        break;
-      case EVENT_BUTTON5:
-        currentScreen = 8;
-        println("Table was pressed");
-        break;
-      case EVENT_BUTTON6:
-        currentScreen = 9;
-        println("Placeholder was pressed");
-        break;
-      case EVENT_BUTTON7:
-        currentScreen = 2;
-        println("Backward was pressed");
-        break;
+    case EVENT_BUTTON0:
+      currentScreen = 2;
+      println("Start was pressed");
+      break;
     }
-  }
-  else if (currentScreen == 4)
+  } else if (currentScreen == 2) {
+    event = screen2.getEvent(mouseX, mouseY);
+    switch (event)
+    {
+    case EVENT_BUTTON8:
+      currentScreen = 3;
+      println("Next was pressed");
+      break;
+    }
+  } else if (currentScreen == 3)
+  {
+    event = screen3.getEvent(mouseX, mouseY);
+    switch (event)
+    {
+    case EVENT_BUTTON1:
+      currentScreen = 4;
+      println("Bar Chart pressed");
+      break;
+    case EVENT_BUTTON2:
+      currentScreen = 5;
+      println("Line Graph was pressed");
+      break;
+    case EVENT_BUTTON3:
+      currentScreen = 6;
+      println("Heat Map was pressed");
+      break;
+    case EVENT_BUTTON4:
+      currentScreen = 7;
+      println("PieChart was pressed");
+      break;
+    case EVENT_BUTTON5:
+      currentScreen = 8;
+      println("Table was pressed");
+      break;
+    case EVENT_BUTTON6:
+      currentScreen = 9;
+      println("Placeholder was pressed");
+      break;
+    case EVENT_BUTTON7:
+      currentScreen = 2;
+      println("Backward was pressed");
+      break;
+    }
+  } else if (currentScreen == 4)
   {
     event = screen4.getEvent(mouseX, mouseY);
     switch (event)
     {
-      case EVENT_BUTTON7:
-        currentScreen = 3;
-        println("Backward was pressed");
-        break;
+    case EVENT_BUTTON7:
+      currentScreen = 3;
+      println("Backward was pressed");
+      break;
     }
-  }
-  else
+  } else
   {
     event = screen5.getEvent(mouseX, mouseY);
     switch (event)
     {
-      case EVENT_BUTTON7:
-        currentScreen = 3;
-        println("Backward was pressed");
-        break;
+    case EVENT_BUTTON7:
+      currentScreen = 3;
+      println("Backward was pressed");
+      break;
     }
   }
+  flightTable.mousePressed();
 }
 
 void loadData()
@@ -264,7 +274,7 @@ void loadData()
     int cancelled = row.getInt("CANCELLED");
     int diverted = row.getInt("DIVERTED");
     // int distance = row.getInt("DISTANCE");
-    
+
     Flight flight = new Flight(flightDate, carrierCode, flightNum, origin, originCity, dest, destCity, schDepTime, depTime, schArrTime, arrTime, cancelled, diverted);
     flights.add(flight);
   }

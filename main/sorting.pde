@@ -1,4 +1,5 @@
 // added by J.Nash 21/03
+/*
 class flightSort {
   // variables for sorting by lateness
     int oneHour;
@@ -111,4 +112,4 @@ class flightSort {
   
   
 }
-
+*/
