@@ -74,7 +74,8 @@ void setup()
   screen3 = new Screen(screenColour);
   screen4 = new Screen(color(242, 17, 17));
   screen5 = new Screen(color(240, 155, 19));
-  screen6 = new Screen(color(235, 219, 5));
+  screen6 = new Screen(255);
+  //screen6 = new Screen(color(235, 219, 5));
   screen7 = new Screen(color(0, 153, 0));
   screen8 = new Screen(color(19, 63, 240));
   screen9 = new Screen(color(174, 33, 209));
@@ -106,14 +107,7 @@ void setup()
   loadData();
   printData(flights);
   
-     // Checkbox
-     /*
-     checkbox = new ArrayList<Box>();
-     for(int i = 0; i < 5; i++){
-    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,0),
-          color(255, 0, 0), stdFont));
-  }
-  */
+  // Airports
   JFK = new Airport(712, 186, 5, "JFK", 10); LAX = new Airport(72, 309, 10, "LAX", 10);
   DCA = new Airport(673, 235, 5, "DCA", 10); FLL = new Airport(667, 482, 5, "FLL", 10);
   SEA = new Airport(86, 47, 5, "SEA", 10); HNL = new Airport(261, 466, 5, "HNL", 10);
@@ -185,7 +179,7 @@ void setup()
 }
 
 void draw(){
-  background(100, 100, 100);
+  //background(100, 100, 100);
   
   if (currentScreen == 1)
   {
@@ -202,7 +196,7 @@ void draw(){
     screen2.draw(); 
     textAlign(CENTER);
     textFont(ttlFont);
-    text("Data Parameters", SCREENX/2, 100);
+    text("Data Parameters", SCREENX/2, 75);
     textFont(stdFont);
     text("Date Range:", 100, 150);
     text("Departure:", 100, 300);
@@ -276,12 +270,6 @@ void draw(){
       textSize(40);
       text("X", boxXpos+25, boxYpos+100);
     }
-    /*
-    for(int i = 0; i < 2; i++){
-    checkbox.get(i).draw();
-    }
-    */
-
   }
   else if (currentScreen == 3)
   {
@@ -339,14 +327,21 @@ void draw(){
   }
   else if (currentScreen == 6)
   {
+    screen6.draw();
+    textAlign(CENTER);
+    textFont(ttlFont);
     //background(255);
-    image(map, 0, 0);
+    image(map, 0, 100);
      for (Airport airport : airports) {
-       if (depAP.equals(""))
+       if (depAP.equals("")){
+         text("Flight Information", SCREENX/2, 75);
          airport.draw();
-   else if (airport.name.equals(depAP))
-     airport.draw();
- }
+       }
+       else if (airport.name.equals(depAP)){
+         text(depAP+" Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+     }
   }
   else if (currentScreen == 7)
   {
@@ -384,15 +379,6 @@ void mousePressed()
         println("Next was pressed");
         break;
     }
-    /*
-    for(int i = 0; i < 2; i++){
-      int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
-      if(chEvent != EVENT_NULL){
-        checkbox.get(chEvent-1).clicked = true;
-        println("One clicked");
-      }
-    }
-  */
     if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos && mouseY <boxYpos+50) {
       cancellations = !cancellations;
       if(cancellations){
@@ -472,17 +458,6 @@ void mousePressed()
     }
   }
 }
-
-/*
-void mouseMoved(){
-  //Checkbox border highlight
-  int event;
-  for(int i = 0; i < 5; i++){
-    event = checkbox.get(i).getEvent(mouseX,mouseY);
-    checkbox.get(i).strokeColor = (event == EVENT_NULL) ? checkbox.get(i).labelColor : color(255);
-  }
-}
-*/
 
 void keyPressed() {
   // Input box text

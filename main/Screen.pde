@@ -11,6 +11,11 @@ class Screen
     this.bgColor = bgColor;
   }
   
+  Screen()
+  {
+    widgetList = new ArrayList();
+  }
+  
   void draw()
   {
     background(bgColor);
