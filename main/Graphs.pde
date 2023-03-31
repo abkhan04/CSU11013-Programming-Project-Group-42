@@ -1,5 +1,6 @@
 // A.Khan Added Graphs Class 22/03
 // A.Khan Made Barchart class 29/03
+// A.Khan Bug Fixes 31/03
 
 class Barchart
 {
@@ -76,6 +77,16 @@ class Barchart
   void draw()
   {
     int nearestTenth = ((int) (maxValue / 10.0)) * 10;
+    
+    for (int i = 0; i < maxValue; i++)
+    {
+      if ((i * 10) >= maxValue)
+      {
+        nearestTenth = i * 10;
+        break;
+      }
+    }
+    
     int barWidth = (int) ((float) width / dataSet.length);
     int increment = 0;
     
