@@ -107,22 +107,6 @@ void setup()
   printData(flights);
   
   // BarChart
-  float n1 = 0;
-  float n2 = 0;
-  float n3 = 0;
-  float n4 = 0;
-  float n5 = 0;
-  
-  for (Flight f : flights)
-  {
-    if (f.flightDate.equals("01/01/2022 00:00")) n1 = n1 + 1;
-    else if (f.flightDate.equals("01/02/2022 00:00")) n2 = n2 + 1;
-    else if (f.flightDate.equals("01/03/2022 00:00")) n3 = n3 + 1;
-    else if (f.flightDate.equals("01/04/2022 00:00")) n4 = n4 + 1;
-    else if (f.flightDate.equals("01/05/2022 00:00")) n5 = n5 + 1;
-  }
-  
-  b = new Barchart(new float[] {n1, n2, n3, n4, n5}, 100, 675, 600, 600);
   
   JFK = new Airport(712, 186, 5, "JFK", 10); LAX = new Airport(72, 309, 10, "LAX", 10);
   DCA = new Airport(673, 235, 5, "DCA", 10); FLL = new Airport(667, 482, 5, "FLL", 10);
@@ -293,10 +277,38 @@ void draw(){
     textAlign(CENTER);
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
+    ArrayList<Flight> newFlights = flights;
+    
+    if (startDate != "" && endDate != "")
+    {
+      newFlights = dateRange(newFlights, startDate, endDate);
+    }
+    
+    if (depAP != "")
+    {
+      newFlights = departure(newFlights, depAP);
+    }
+    
+    if (arrAP != "")
+    {
+      newFlights = arrival(newFlights, arrAP);
+    }
+    
+    if (minDis != "" && maxDis != "")
+    {
+      int min = Integer.parseInt(minDis);
+      int max = Integer.parseInt(maxDis);
+      newFlights = distanceRange(newFlights, min, max);
+    }
+    
+    float[] fDates = countFlightDates(newFlights, startDate, endDate);
+    b = new Barchart(fDates, 100, 675, 600, 600);
+    b.setTitle("Number of Flights in a day");
+    b.barLabels(getDates(startDate, endDate));
   }
   else if (currentScreen == 4)
   {
-    screen4.draw(); 
+    screen4.draw();
     b.draw();
   }
   else if (currentScreen == 5)
@@ -479,8 +491,8 @@ void printData(ArrayList<Flight> flights)
     String originCity = flight.originCity;
     String originCityAbr = flight.originCityAbr;
     int originWAC = flight.originWAC;
-    String dest = flight.flightDate;
-    String destCity = flight.flightDate;
+    String dest = flight.dest;
+    String destCity = flight.destCity;
     String destCityAbr = flight.destCityAbr;
     int destWAC = flight.destWAC;
     String schDepTime = flight.schDepTime;
