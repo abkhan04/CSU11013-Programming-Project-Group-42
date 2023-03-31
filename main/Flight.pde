@@ -26,7 +26,7 @@ class Flight
           String dest, String destCity, String destCityAbr, int destWAC, 
           String schDepTime, String depTime, String schArrTime, String arrTime, int cancelled, int diverted, int distance)
   {
-    this.flightDate = flightDate;
+    this.flightDate = flightDate.split(" ")[0];
     this.carrierCode = carrierCode;
     this.flightNum = flightNum;
     this.origin = origin;
