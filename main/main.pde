@@ -4,6 +4,7 @@
 // CK updated multiple screens for graph implementation 20/03
 // CK improved Framework to planned architecture 22/03
 // J.Nash added Map 30/03
+// A.Khan Linked Queries to the Barchart and moved loadData and printData to Flight class 31/03
 
 PFont ttlFont;
 PFont stdFont;
@@ -105,9 +106,6 @@ void setup()
   loadData();
   printData(flights);
   
-  // BarChart
-  
-     
      // Checkbox
      /*
      checkbox = new ArrayList<Box>();
@@ -315,6 +313,16 @@ void draw(){
       newFlights = distanceRange(newFlights, min, max);
     }
     
+    if (cancellations)
+    {
+      newFlights = filterCancelled(newFlights);
+    }
+    
+    if (diversions)
+    {
+      newFlights = filterDiverted(newFlights);
+    }
+    
     float[] fDates = countFlightDates(newFlights, startDate, endDate);
     b = new Barchart(fDates, 100, 675, 600, 600);
     b.setTitle("Number of Flights in a day");
@@ -465,66 +473,6 @@ void mousePressed()
   }
 }
 
-void loadData()
-{
-  for (TableRow row : table.rows())
-  {
-    String flightDate = row.getString("FL_DATE");
-    String carrierCode = row.getString("MKT_CARRIER");
-    int flightNum = row.getInt("MKT_CARRIER_FL_NUM");
-    String origin = row.getString("ORIGIN");
-    String originCity = row.getString("ORIGIN_CITY_NAME");
-    String originCityAbr = row.getString("ORIGIN_STATE_ABR");
-    int originWAC = row.getInt("ORIGIN_WAC");
-    String dest = row.getString("DEST");
-    String destCity = row.getString("DEST_CITY_NAME");
-    String destCityAbr = row.getString("DEST_STATE_ABR");
-    int destWAC = row.getInt("DEST_WAC");
-    String schDepTime = row.getString("CRS_DEP_TIME");
-    String depTime = row.getString("DEP_TIME");
-    String schArrTime = row.getString("CRS_ARR_TIME");
-    String arrTime = row.getString("ARR_TIME");
-    int cancelled = row.getInt("CANCELLED");
-    int diverted = row.getInt("DIVERTED");
-    int distance = row.getInt("DISTANCE");
-    
-    Flight flight = new Flight(flightDate, carrierCode, flightNum, 
-                        origin, originCity, originCityAbr, originWAC, 
-                        dest, destCity, destCityAbr, destWAC, 
-                        schDepTime, depTime, schArrTime, arrTime, cancelled, diverted, distance);
-    flights.add(flight);
-  }
-}
-
-void printData(ArrayList<Flight> flights)
-{
-  for (Flight flight : flights)
-  {
-    String flightDate = flight.flightDate;
-    String carrierCode = flight.carrierCode;
-    int flightNum = flight.flightNum;
-    String origin = flight.origin;
-    String originCity = flight.originCity;
-    String originCityAbr = flight.originCityAbr;
-    int originWAC = flight.originWAC;
-    String dest = flight.dest;
-    String destCity = flight.destCity;
-    String destCityAbr = flight.destCityAbr;
-    int destWAC = flight.destWAC;
-    String schDepTime = flight.schDepTime;
-    String depTime = flight.depTime;
-    String schArrTime = flight.schArrTime;
-    String arrTime = flight.arrTime;
-    int cancelled = flight.cancelled;
-    int diverted = flight.diverted;
-    int distance = flight.distance;
-
-    println(flightDate + ", " + carrierCode + ", " + flightNum + ", " 
-            + origin + ", " + originCity + ", " + originCityAbr + ", " + originWAC + ", " 
-            + dest + ", " + destCity + ", " + destCityAbr + ", " + destWAC + ", " 
-            + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted + ", " + distance);
-  }
-}
 /*
 void mouseMoved(){
   //Checkbox border highlight

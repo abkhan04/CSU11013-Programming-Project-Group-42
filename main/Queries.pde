@@ -1,4 +1,5 @@
 // A.Khan Added Queries 30/03
+// A.Khan Added filterCancelled and filterDiverted 31/03
 
 import java.util.Date;
 import java.util.Calendar;
@@ -50,6 +51,20 @@ ArrayList<Flight> distanceRange(ArrayList<Flight> flights, int minDist, int maxD
 {
   ArrayList<Flight> newFlights = new ArrayList<Flight>();
   for (Flight f : flights) if ((f.distance >= minDist) && (f.distance <= maxDist)) newFlights.add(f);
+  return newFlights;
+}
+
+ArrayList<Flight> filterCancelled(ArrayList<Flight> flights)
+{
+  ArrayList<Flight> newFlights = new ArrayList<Flight>();
+  for (Flight f : flights) if (f.cancelled == 0) newFlights.add(f);
+  return newFlights;
+}
+
+ArrayList<Flight> filterDiverted(ArrayList<Flight> flights)
+{
+  ArrayList<Flight> newFlights = new ArrayList<Flight>();
+  for (Flight f : flights) if (f.diverted == 0) newFlights.add(f);
   return newFlights;
 }
 
