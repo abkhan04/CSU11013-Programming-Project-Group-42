@@ -31,13 +31,13 @@ Table table;
 ArrayList<Flight> flights;
 
 Barchart b;
+PieChart pie;
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
 int boxXpos = 350, boxYpos = 660;
 color screenColour = color(51, 102, 153); // Dark blue
 color boxColour = color(65, 105, 225); // Light blue
-//ArrayList<Box> checkbox;
 
 void settings()
 {
@@ -176,6 +176,12 @@ void setup()
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
+  
+  
+  //Pie Chart
+  
+   int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
+   pie = new PieChart(300,angles);
 }
 
 void draw(){
@@ -335,7 +341,11 @@ void draw(){
   }
   else if (currentScreen == 7)
   {
-    screen7.draw(); 
+    screen7.draw();
+    textAlign(CENTER);
+    textFont(ttlFont);
+    text("Airport Flight Percentages", SCREENX/2, 100);
+    pie.draw();
   }
   else if (currentScreen == 8)
   {
