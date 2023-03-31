@@ -37,6 +37,21 @@ class flightSort {
     int depAfternoon;
     int depEvening;
     
+  ArrayList<Flight> sortDateRange (ArrayList<Flight> flights, String start, String end) {
+    ArrayList<Flight> dateRange;
+    for (Flight flight: flights) {
+      String date = flight.flightDate;
+      String[] sepDate = date.split("/");
+      int temp = Integer.parseInt(sepDate[1]);
+      startInt = Integer.parseInt(start);
+      endInt = Integer.parseInt(end);
+      if (temp >= startInt && temp <= endInt) {
+        dateRange.add(flight);
+    }
+    return dateRange;
+    
+  }
+    
  // used for bar graph and pie chart   
   void sortLateness (Flight flight) {
     int arrTime = Integer.parseInt(flight.arrTime);
