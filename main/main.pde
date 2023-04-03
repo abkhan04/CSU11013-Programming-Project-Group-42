@@ -31,8 +31,14 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
+<<<<<<< HEAD
 Barchart b;
 PieChart pie;
+=======
+Barchart barChart;
+Linegraph lineGraph;
+float[] data;
+>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
@@ -317,19 +323,26 @@ void draw(){
       newFlights = filterDiverted(newFlights);
     }
     
-    float[] fDates = countFlightDates(newFlights, startDate, endDate);
-    b = new Barchart(fDates, 100, 675, 600, 600);
-    b.setTitle("Number of Flights in a day");
-    b.barLabels(getDates(startDate, endDate));
+    data = countFlightDates(newFlights, startDate, endDate);
+    
+    barChart = new Barchart(data, 100, 675, 600, 600);
+    barChart.setTitle("Number of Flights in a day");
+    barChart.barLabels(getDates(startDate, endDate));
+    
+    lineGraph = new Linegraph(data, 100, 675, 600, 600);
+    lineGraph.setTitle("Number of Flights in a day");
+    lineGraph.setXAxisLabel("Dates");
+    lineGraph.setYAxisLabel("Flights");
   }
   else if (currentScreen == 4)
   {
     screen4.draw();
-    b.draw();
+    barChart.draw();
   }
   else if (currentScreen == 5)
   {
-    screen5.draw(); 
+    screen5.draw();
+    lineGraph.draw();
   }
   else if (currentScreen == 6)
   {
