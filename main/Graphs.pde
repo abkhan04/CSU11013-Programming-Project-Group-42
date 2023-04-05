@@ -2,6 +2,7 @@
 // A.Khan Made Barchart class 29/03
 // A.Khan Bug Fixes 31/03
 // A.Khan Added Line Graph 01/04
+// A.Khan Added Labels to Line Graph 05/04
 
 class Barchart
 {
@@ -118,7 +119,7 @@ class Barchart
         }
         
         fill(colours[i]);
-        rect(xOrigin + increment, yOrigin, barWidth, -data);
+        rect(xOrigin + increment + 5, yOrigin, barWidth, -data);
         increment = increment + barWidth + 5;
       }
     }

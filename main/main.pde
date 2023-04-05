@@ -107,7 +107,7 @@ void setup()
   table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
   loadData();
-  printData(flights);
+  //printData(flights);
   
   // Airports
   JFK = new Airport(712, 186, 5, "JFK", 10); LAX = new Airport(72, 309, 10, "LAX", 10);
@@ -187,13 +187,11 @@ void setup()
   airports.add(MIA); airports.add(MKE); airports.add(MSO); airports.add(MSP); airports.add(MSY); airports.add(MYR);
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
-<<<<<<< HEAD
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
   airports.add(YAK);
-=======
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
   
   
@@ -201,7 +199,6 @@ void setup()
   
    int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
    pie = new PieChart(300,angles);
->>>>>>> a9a0c621517bc72c31d59bc086490d65225bc6be
 }
 
 void draw(){
@@ -338,13 +335,15 @@ void draw(){
     }
     
     data = countFlightDates(newFlights, startDate, endDate);
-    
     String[] dateList = getDates(startDate, endDate);
     
     for (int i = 0; i < dateList.length; i++)
     {
-      String[] date = dateList[i].split("/");
-      if (dateList[i] != null) dateList[i] = date[0] + "/" + date[1];
+      if (dateList[i] != null)
+      {
+        String[] date = dateList[i].split("/");
+        dateList[i] = date[0] + "/" + date[1];
+      }
     }
     
     barChart = new Barchart(data, 100, 675, 600, 600);
@@ -373,7 +372,6 @@ void draw(){
     textAlign(CENTER);
     textFont(ttlFont);
     //background(255);
-<<<<<<< HEAD
     image(map, 0, 0);
     int flightCount = 0;
     int stateCount = 0;
@@ -400,19 +398,6 @@ void draw(){
          stateCount++;
      }
    }
-=======
-    image(map, 0, 100);
-     for (Airport airport : airports) {
-       if (depAP.equals("")){
-         text("Flight Information", SCREENX/2, 75);
-         airport.draw();
-       }
-       else if (airport.name.equals(depAP)){
-         text(depAP+" Flight Information", SCREENX/2, 75);
-         airport.draw();
-       }
-     }
->>>>>>> a9a0c621517bc72c31d59bc086490d65225bc6be
   }
    text("Number of flights: " + flightCount, 195, 600);
    if (!stateAbr.equals(""))
