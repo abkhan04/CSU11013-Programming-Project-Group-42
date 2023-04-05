@@ -4,6 +4,7 @@
 // CK updated multiple screens for graph implementation 20/03
 // CK improved Framework to planned architecture 22/03
 // J.Nash added Map 30/03
+// A.Khan Linked Queries to the Barchart and moved loadData and printData to Flight class 31/03
 
 PFont ttlFont;
 PFont stdFont;
@@ -30,14 +31,20 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
+<<<<<<< HEAD
 Barchart b;
+PieChart pie;
+=======
+Barchart barChart;
+Linegraph lineGraph;
+float[] data;
+>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
 int boxXpos = 350, boxYpos = 660;
 color screenColour = color(51, 102, 153); // Dark blue
 color boxColour = color(65, 105, 225); // Light blue
-//ArrayList<Box> checkbox;
 
 void settings()
 {
@@ -73,7 +80,8 @@ void setup()
   screen3 = new Screen(screenColour);
   screen4 = new Screen(color(242, 17, 17));
   screen5 = new Screen(color(240, 155, 19));
-  screen6 = new Screen(color(235, 219, 5));
+  screen6 = new Screen(255);
+  //screen6 = new Screen(color(235, 219, 5));
   screen7 = new Screen(color(0, 153, 0));
   screen8 = new Screen(color(19, 63, 240));
   screen9 = new Screen(color(174, 33, 209));
@@ -105,33 +113,7 @@ void setup()
   loadData();
   printData(flights);
   
-  // BarChart
-  float n1 = 0;
-  float n2 = 0;
-  float n3 = 0;
-  float n4 = 0;
-  float n5 = 0;
-  
-  for (Flight f : flights)
-  {
-    if (f.flightDate.equals("01/01/2022 00:00")) n1 = n1 + 1;
-    else if (f.flightDate.equals("01/02/2022 00:00")) n2 = n2 + 1;
-    else if (f.flightDate.equals("01/03/2022 00:00")) n3 = n3 + 1;
-    else if (f.flightDate.equals("01/04/2022 00:00")) n4 = n4 + 1;
-    else if (f.flightDate.equals("01/05/2022 00:00")) n5 = n5 + 1;
-  }
-  
-  b = new Barchart(new float[] {n1, n2, n3, n4, n5}, 100, 675, 600, 600);
-  
-     
-     // Checkbox
-     /*
-     checkbox = new ArrayList<Box>();
-     for(int i = 0; i < 5; i++){
-    checkbox.add(new Box(400, 625+((i+1)*50), 50, 40, nf(i+1,0,0), color(0,255,0),
-          color(255, 0, 0), stdFont));
-  }
-  */
+  // Airports
   JFK = new Airport(712, 186, 5, "JFK", 10); LAX = new Airport(72, 309, 10, "LAX", 10);
   DCA = new Airport(673, 235, 5, "DCA", 10); FLL = new Airport(667, 482, 5, "FLL", 10);
   SEA = new Airport(86, 47, 5, "SEA", 10); HNL = new Airport(261, 466, 5, "HNL", 10);
@@ -209,15 +191,25 @@ void setup()
   airports.add(MIA); airports.add(MKE); airports.add(MSO); airports.add(MSP); airports.add(MSY); airports.add(MYR);
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
+<<<<<<< HEAD
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
   airports.add(YAK);
+=======
+  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
+  
+  
+  //Pie Chart
+  
+   int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
+   pie = new PieChart(300,angles);
+>>>>>>> a9a0c621517bc72c31d59bc086490d65225bc6be
 }
 
 void draw(){
-  background(100, 100, 100);
+  //background(100, 100, 100);
   
   if (currentScreen == 1)
   {
@@ -234,7 +226,7 @@ void draw(){
     screen2.draw(); 
     textAlign(CENTER);
     textFont(ttlFont);
-    text("Data Parameters", SCREENX/2, 100);
+    text("Data Parameters", SCREENX/2, 75);
     textFont(stdFont);
     text("Date Range:", 100, 150);
     text("Departure:", 100, 300);
@@ -308,12 +300,6 @@ void draw(){
       textSize(40);
       text("X", boxXpos+25, boxYpos+100);
     }
-    /*
-    for(int i = 0; i < 2; i++){
-    checkbox.get(i).draw();
-    }
-    */
-
   }
   else if (currentScreen == 3)
   {
@@ -321,19 +307,68 @@ void draw(){
     textAlign(CENTER);
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
+    ArrayList<Flight> newFlights = flights;
+    
+    if (startDate != "" && endDate != "")
+    {
+      newFlights = dateRange(newFlights, startDate, endDate);
+    }
+    
+    if (depAP != "")
+    {
+      newFlights = departure(newFlights, depAP);
+    }
+    
+    if (arrAP != "")
+    {
+      newFlights = arrival(newFlights, arrAP);
+    }
+    
+    if (minDis != "" && maxDis != "")
+    {
+      int min = Integer.parseInt(minDis);
+      int max = Integer.parseInt(maxDis);
+      newFlights = distanceRange(newFlights, min, max);
+    }
+    
+    if (cancellations)
+    {
+      newFlights = filterCancelled(newFlights);
+    }
+    
+    if (diversions)
+    {
+      newFlights = filterDiverted(newFlights);
+    }
+    
+    data = countFlightDates(newFlights, startDate, endDate);
+    
+    barChart = new Barchart(data, 100, 675, 600, 600);
+    barChart.setTitle("Number of Flights in a day");
+    barChart.barLabels(getDates(startDate, endDate));
+    
+    lineGraph = new Linegraph(data, 100, 675, 600, 600);
+    lineGraph.setTitle("Number of Flights in a day");
+    lineGraph.setXAxisLabel("Dates");
+    lineGraph.setYAxisLabel("Flights");
   }
   else if (currentScreen == 4)
   {
-    screen4.draw(); 
-    b.draw();
+    screen4.draw();
+    barChart.draw();
   }
   else if (currentScreen == 5)
   {
-    screen5.draw(); 
+    screen5.draw();
+    lineGraph.draw();
   }
   else if (currentScreen == 6)
   {
+    screen6.draw();
+    textAlign(CENTER);
+    textFont(ttlFont);
     //background(255);
+<<<<<<< HEAD
     image(map, 0, 0);
     int flightCount = 0;
     int stateCount = 0;
@@ -360,6 +395,19 @@ void draw(){
          stateCount++;
      }
    }
+=======
+    image(map, 0, 100);
+     for (Airport airport : airports) {
+       if (depAP.equals("")){
+         text("Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+       else if (airport.name.equals(depAP)){
+         text(depAP+" Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+     }
+>>>>>>> a9a0c621517bc72c31d59bc086490d65225bc6be
   }
    text("Number of flights: " + flightCount, 195, 600);
    if (!stateAbr.equals(""))
@@ -368,7 +416,11 @@ void draw(){
   
   else if (currentScreen == 7)
   {
-    screen7.draw(); 
+    screen7.draw();
+    textAlign(CENTER);
+    textFont(ttlFont);
+    text("Airport Flight Percentages", SCREENX/2, 100);
+    pie.draw();
   }
   else if (currentScreen == 8)
   {
@@ -402,15 +454,6 @@ void mousePressed()
         println("Next was pressed");
         break;
     }
-    /*
-    for(int i = 0; i < 2; i++){
-      int chEvent = checkbox.get(i).getEvent(mouseX,mouseY);
-      if(chEvent != EVENT_NULL){
-        checkbox.get(chEvent-1).clicked = true;
-        println("One clicked");
-      }
-    }
-  */
     if (mouseX > boxXpos && mouseX < boxXpos+50 && mouseY > boxYpos && mouseY <boxYpos+50) {
       cancellations = !cancellations;
       if(cancellations){
@@ -490,77 +533,6 @@ void mousePressed()
     }
   }
 }
-
-void loadData()
-{
-  for (TableRow row : table.rows())
-  {
-    String flightDate = row.getString("FL_DATE");
-    String carrierCode = row.getString("MKT_CARRIER");
-    int flightNum = row.getInt("MKT_CARRIER_FL_NUM");
-    String origin = row.getString("ORIGIN");
-    String originCity = row.getString("ORIGIN_CITY_NAME");
-    String originCityAbr = row.getString("ORIGIN_STATE_ABR");
-    int originWAC = row.getInt("ORIGIN_WAC");
-    String dest = row.getString("DEST");
-    String destCity = row.getString("DEST_CITY_NAME");
-    String destCityAbr = row.getString("DEST_STATE_ABR");
-    int destWAC = row.getInt("DEST_WAC");
-    String schDepTime = row.getString("CRS_DEP_TIME");
-    String depTime = row.getString("DEP_TIME");
-    String schArrTime = row.getString("CRS_ARR_TIME");
-    String arrTime = row.getString("ARR_TIME");
-    int cancelled = row.getInt("CANCELLED");
-    int diverted = row.getInt("DIVERTED");
-    int distance = row.getInt("DISTANCE");
-    
-    Flight flight = new Flight(flightDate, carrierCode, flightNum, 
-                        origin, originCity, originCityAbr, originWAC, 
-                        dest, destCity, destCityAbr, destWAC, 
-                        schDepTime, depTime, schArrTime, arrTime, cancelled, diverted, distance);
-    flights.add(flight);
-  }
-}
-
-void printData(ArrayList<Flight> flights)
-{
-  for (Flight flight : flights)
-  {
-    String flightDate = flight.flightDate;
-    String carrierCode = flight.carrierCode;
-    int flightNum = flight.flightNum;
-    String origin = flight.origin;
-    String originCity = flight.originCity;
-    String originCityAbr = flight.originCityAbr;
-    int originWAC = flight.originWAC;
-    String dest = flight.flightDate;
-    String destCity = flight.flightDate;
-    String destCityAbr = flight.destCityAbr;
-    int destWAC = flight.destWAC;
-    String schDepTime = flight.schDepTime;
-    String depTime = flight.depTime;
-    String schArrTime = flight.schArrTime;
-    String arrTime = flight.arrTime;
-    int cancelled = flight.cancelled;
-    int diverted = flight.diverted;
-    int distance = flight.distance;
-
-    println(flightDate + ", " + carrierCode + ", " + flightNum + ", " 
-            + origin + ", " + originCity + ", " + originCityAbr + ", " + originWAC + ", " 
-            + dest + ", " + destCity + ", " + destCityAbr + ", " + destWAC + ", " 
-            + schDepTime + ", " + depTime + ", " + schArrTime + ", " + arrTime + ", " + cancelled + ", " + diverted + ", " + distance);
-  }
-}
-/*
-void mouseMoved(){
-  //Checkbox border highlight
-  int event;
-  for(int i = 0; i < 5; i++){
-    event = checkbox.get(i).getEvent(mouseX,mouseY);
-    checkbox.get(i).strokeColor = (event == EVENT_NULL) ? checkbox.get(i).labelColor : color(255);
-  }
-}
-*/
 
 void keyPressed() {
   // Input box text

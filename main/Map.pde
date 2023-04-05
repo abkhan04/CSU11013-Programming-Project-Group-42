@@ -28,7 +28,7 @@ class Airport {
   
   void draw() {
     fill(airportColor);
-    ellipse(x, y, radius, radius);
+    ellipse(x, y+100, radius, radius); // Moved y down 100 to fit title above map
    
   }
   
