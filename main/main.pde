@@ -31,20 +31,17 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
-//<<<<<<< HEAD
-Barchart b;
-PieChart pie;
-//=======
 Barchart barChart;
 Linegraph lineGraph;
 float[] data;
-//>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
 int boxXpos = 350, boxYpos = 660;
-color screenColour = color(51, 102, 153); // Dark blue
+//color screenColour = color(51, 102, 153); // Dark blue
+color screenColour = color(230);
 color boxColour = color(65, 105, 225); // Light blue
+//ArrayList<Box> checkbox;
 
 void settings()
 {
@@ -55,7 +52,7 @@ void setup()
 {
   // Load Font
   ttlFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
-  stdFont = loadFont("ComicSansMS-30.vlw");
+  stdFont = loadFont("ArialRoundedMTBold-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
   
@@ -65,12 +62,12 @@ void setup()
   
   // Create Widgets
   widget0 = new Widget(WIDGET1Y/2, WIDGET1Y+75, 180, 40, "Start", color(242, 17, 17), stdFont, EVENT_BUTTON0);
-  widget1 = new Widget(100, WIDGET1Y, 180, 40, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
-  widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
-  widget3 = new Widget(500, WIDGET1Y, 180, 40, "Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
-  widget4 = new Widget(100, WIDGET2Y, 180, 40, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
-  widget5 = new Widget(300, WIDGET2Y, 180, 40, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
-  widget6 = new Widget(500, WIDGET2Y, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
+  widget1 = new Widget(187, 100, 200, 200, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
+  widget2 = new Widget(413, 100, 200, 200, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
+  widget3 = new Widget(187, 326, 200, 200, "Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
+  widget4 = new Widget(413, 326, 200, 200, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
+  widget5 = new Widget(WIDGET1Y/2, 552, 200, 200, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
+  //widget6 = new Widget(WIDGET1Y/2, 700, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
   widget7 = new Widget(10, 750, 180, 40, "Back", color(255, 0, 0), stdFont, EVENT_BUTTON7);
   widget8 = new Widget(600, 750, 180, 40, "Next", color(0, 255, 0), stdFont, EVENT_BUTTON8);
   
@@ -94,7 +91,7 @@ void setup()
   screen3.addWidget(widget3);
   screen3.addWidget(widget4);
   screen3.addWidget(widget5);
-  screen3.addWidget(widget6);
+  //screen3.addWidget(widget6);
   screen3.addWidget(widget7);
   
   screen4.addWidget(widget7);
@@ -182,12 +179,6 @@ void setup()
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
-  
-  
-  //Pie Chart
-  
-   int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
-   pie = new PieChart(300,angles);
 }
 
 void draw(){
@@ -288,7 +279,7 @@ void draw(){
     screen3.draw();
     textAlign(CENTER);
     textFont(stdFont);
-    text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
+    text("Select how you wish to visualise your data:", SCREENX/2, 75);
     ArrayList<Flight> newFlights = flights;
     
     if (startDate != "" && endDate != "")
@@ -364,11 +355,7 @@ void draw(){
   }
   else if (currentScreen == 7)
   {
-    screen7.draw();
-    textAlign(CENTER);
-    textFont(ttlFont);
-    text("Airport Flight Percentages", SCREENX/2, 100);
-    pie.draw();
+    screen7.draw(); 
   }
   else if (currentScreen == 8)
   {
