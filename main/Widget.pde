@@ -26,6 +26,7 @@ class Widget
     this.widgetFont = widgetFont;
     labelColor = color(0);
     strokeColor = color(255);
+    noStroke();
   }
   
   void draw()
