@@ -11,7 +11,6 @@ PFont stdFont;
 PFont inpFont;
 PImage logo;
 PImage map;
-PImage lineG, barC, usMap, pieC, tableL;
 
 Airport LAX, JFK, DCA, FLL, SEA, HNL, ORD, DAL, MCI, HOU,
 ABQ, ADQ, ALB, ANC, ATL, ATW, AUS, AZA, BDL, BET, BHM,
@@ -32,11 +31,14 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
-
+//<<<<<<< HEAD
+Barchart b;
 PieChart pie;
+//=======
 Barchart barChart;
 Linegraph lineGraph;
 float[] data;
+//>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
@@ -56,11 +58,6 @@ void setup()
   stdFont = loadFont("ComicSansMS-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
-  lineG = loadImage("lineGraph.png");
-  barC = loadImage("barChart.png");
-  usMap = loadImage("gunsandfreedom.png");
-  pieC = loadImage("pi.png");
-  tableL = loadImage("table.png");
   
   airports = new ArrayList<Airport>();
   map = loadImage("usa_map.jpg");
@@ -293,13 +290,7 @@ void draw(){
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, 75);
     ArrayList<Flight> newFlights = flights;
-        //Button Images
-    image(barC, 210, 110, 150, 150);
-    image(lineG, 437,110, 150, 150);
-    image(usMap, 205, 355, 170,106);
-    image(pieC, 443, 337, 140, 140);
-    image(tableL, 320, 552, 166, 164);
-
+    
     if (startDate != "" && endDate != "")
     {
       newFlights = dateRange(newFlights, startDate, endDate);
