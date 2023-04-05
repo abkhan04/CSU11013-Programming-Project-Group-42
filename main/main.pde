@@ -31,14 +31,14 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 Barchart b;
 PieChart pie;
-=======
+//=======
 Barchart barChart;
 Linegraph lineGraph;
 float[] data;
->>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
+//>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
