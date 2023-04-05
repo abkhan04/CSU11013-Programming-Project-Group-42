@@ -1,5 +1,6 @@
 // A.Khan Added Queries 30/03
 // A.Khan Added filterCancelled and filterDiverted 31/03
+// A.Khan Fixed issue with countFlightDates with larger datasets 05/04
 
 import java.util.Date;
 import java.util.Calendar;

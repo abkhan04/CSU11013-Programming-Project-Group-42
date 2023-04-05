@@ -11,6 +11,7 @@ PFont stdFont;
 PFont inpFont;
 PImage logo;
 PImage map;
+PImage lineG, barC, usMap, pieC, tableL;
 
 Airport LAX, JFK, DCA, FLL, SEA, HNL, ORD, DAL, MCI, HOU,
 ABQ, ADQ, ALB, ANC, ATL, ATW, AUS, AZA, BDL, BET, BHM,
@@ -54,6 +55,11 @@ void setup()
   stdFont = loadFont("ComicSansMS-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
+  lineG = loadImage("lineGraph.png");
+  barC = loadImage("barChart.png");
+  usMap = loadImage("gunsandfreedom.png");
+  pieC = loadImage("pi.png");
+  tableL = loadImage("table.png");
   
   airports = new ArrayList<Airport>();
   map = loadImage("usa_map.jpg");
@@ -192,7 +198,8 @@ void setup()
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
   airports.add(YAK);
-  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
+
+
   
   
   //Pie Chart
@@ -301,7 +308,13 @@ void draw(){
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, 75);
     ArrayList<Flight> newFlights = flights;
-    
+        //Button Images
+    image(barC, 210, 110, 150, 150);
+    image(lineG, 437,110, 150, 150);
+    image(usMap, 205, 355, 170,106);
+    image(pieC, 443, 337, 140, 140);
+    image(tableL, 320, 552, 166, 164);
+
     if (startDate != "" && endDate != "")
     {
       newFlights = dateRange(newFlights, startDate, endDate);
@@ -372,7 +385,6 @@ void draw(){
     textAlign(CENTER);
     textFont(ttlFont);
     //background(255);
-    image(map, 0, 0);
     int flightCount = 0;
     int stateCount = 0;
     String stateAbr = "";
@@ -398,6 +410,17 @@ void draw(){
          stateCount++;
      }
    }
+    image(map, 0, 100);
+     for (Airport airport : airports) {
+       if (depAP.equals("")){
+         text("Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+       else if (airport.name.equals(depAP)){
+         text(depAP+" Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+     }
   }
    text("Number of flights: " + flightCount, 195, 600);
    if (!stateAbr.equals(""))
