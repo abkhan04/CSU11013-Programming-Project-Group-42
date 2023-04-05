@@ -14,14 +14,14 @@ main {
 
 class Airport {
   int x, y, radius, count;
-  String name;
+  String name, state;
   color airportColor;
   
-  Airport (int x, int y, int radius, String name, int count) {
+  Airport (int x, int y, int radius, String name, String state) {
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.count = count;
+    this.state = state;
     this.name = name;
     airportColor = color(#C60E0E);
   }
