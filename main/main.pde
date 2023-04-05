@@ -11,6 +11,7 @@ PFont stdFont;
 PFont inpFont;
 PImage logo;
 PImage map;
+PImage lineG, barC, usMap, pieC, tableL;
 
 Airport LAX, JFK, DCA, FLL, SEA, HNL, ORD, DAL, MCI, HOU,
 ABQ, ADQ, ALB, ANC, ATL, ATW, AUS, AZA, BDL, BET, BHM,
@@ -53,14 +54,11 @@ int currentScreen;
 Table table;
 ArrayList<Flight> flights;
 
-//<<<<<<< HEAD
-Barchart b;
+
 PieChart pie;
-//=======
 Barchart barChart;
 Linegraph lineGraph;
 float[] data;
-//>>>>>>> 197a84bf092d206693fb2c1f340c80c44c1243b9
 
 String inputText = "", startDate = "", endDate = "", depAP = "", arrAP = "", maxDis = "", minDis = "";
 Boolean cancellations = false, diversions = false;
@@ -80,6 +78,11 @@ void setup()
   stdFont = loadFont("ComicSansMS-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
+  lineG = loadImage("lineGraph.png");
+  barC = loadImage("barChart.png");
+  usMap = loadImage("gunsandfreedom.png");
+  pieC = loadImage("pi.png");
+  tableL = loadImage("table.png");
   
   airports = new ArrayList<Airport>();
   map = loadImage("usa_map.jpg");
@@ -241,20 +244,31 @@ void setup()
   airports.add(MIA); airports.add(MKE); airports.add(MSO); airports.add(MSP); airports.add(MSY); airports.add(MYR);
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f13f4776f1adbd3f88f79dea2c9bdb67d8b644a
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
+<<<<<<< HEAD
   airports.add(YAK); airports.add(ABE); airports.add(ABI); airports.add(ABR); airports.add(ABY); airports.add(ACT);
   airports.add(ACV); airports.add(AYC); airports.add(ADK); airports.add(AEX); airports.add(AGS);
+=======
+  airports.add(YAK);
+
+>>>>>>> 1f13f4776f1adbd3f88f79dea2c9bdb67d8b644a
   
   
   //Pie Chart
   
    int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
    pie = new PieChart(300,angles);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f13f4776f1adbd3f88f79dea2c9bdb67d8b644a
 }
 
 void draw(){
@@ -357,7 +371,13 @@ void draw(){
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, 75);
     ArrayList<Flight> newFlights = flights;
-    
+        //Button Images
+    image(barC, 210, 110, 150, 150);
+    image(lineG, 437,110, 150, 150);
+    image(usMap, 205, 355, 170,106);
+    image(pieC, 443, 337, 140, 140);
+    image(tableL, 320, 552, 166, 164);
+
     if (startDate != "" && endDate != "")
     {
       newFlights = dateRange(newFlights, startDate, endDate);
@@ -417,8 +437,11 @@ void draw(){
     textAlign(CENTER);
     textFont(ttlFont);
     //background(255);
+<<<<<<< HEAD
 
     //image(map, 0, 0);
+=======
+>>>>>>> 1f13f4776f1adbd3f88f79dea2c9bdb67d8b644a
     int flightCount = 0;
     int stateCount = 0;
     String stateAbr = "";
@@ -445,8 +468,23 @@ void draw(){
        if (flight.originCityAbr.equals(stateAbr))
          stateCount++;
      }
+<<<<<<< HEAD
      }
 
+=======
+   }
+    image(map, 0, 100);
+     for (Airport airport : airports) {
+       if (depAP.equals("")){
+         text("Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+       else if (airport.name.equals(depAP)){
+         text(depAP+" Flight Information", SCREENX/2, 75);
+         airport.draw();
+       }
+     }
+>>>>>>> 1f13f4776f1adbd3f88f79dea2c9bdb67d8b644a
   }
     textAlign(LEFT);
     textFont(stdFont);
