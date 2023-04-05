@@ -181,7 +181,17 @@ void setup()
   PSP = new Airport(103, 313, 5, "PSP", 10); RAP = new Airport(313, 154, 5, "RAP", 10);
   RDU = new Airport(666, 298, 5, "RDU", 10); RFD = new Airport(506, 188, 5, "RFD", 10);
   RNO = new Airport(80, 202, 5, "RNO", 10); RSW = new Airport(639, 479, 5, "RSW", 10);
-  SAN = new Airport(86, 334, 5, "SAN", 10);
+  SAN = new Airport(86, 334, 5, "SAN", 10); SAT = new Airport(366, 464, 5, "SAT", 10);
+  SAV = new Airport(631, 369, 5, "SAV", 10); SCC = new Airport(128, 417, 5, "SCC", 10);
+  SCK = new Airport(61, 271, 5, "SCK", 10); SDF = new Airport(559, 259, 5, "SDF", 10);
+  SFO = new Airport(34, 222, 5, "SFO", 10); SGF = new Airport(439, 282, 5, "SGF", 10);
+  SIT = new Airport(166, 485, 5, "SIT", 10); SJC = new Airport(35, 237, 5, "SJC", 10);
+  SLC = new Airport(196, 206, 5, "SLC", 10); SMF = new Airport(52, 216, 5, "SMF", 10);
+  SMX = new Airport(60, 296, 5, "SMX", 10); SNA = new Airport(82, 310, 5, "SNA", 10);
+  SRQ = new Airport(628, 469, 5, "SRQ", 10); STL = new Airport(488, 258, 5, "STL", 10);
+  TPA = new Airport(626, 463, 5, "TPA", 10); TUL = new Airport(420, 304, 5, "TUL", 10);
+  VPS = new Airport(557, 408, 5, "VPS", 10); WRG = new Airport(166, 480, 5, "WRG", 10);
+  XNA = new Airport(441, 308, 5, "XNA", 10); YAK = new Airport(163, 482, 5, "YAK", 10);
   
   
   airports.add(JFK); airports.add(LAX); airports.add(DCA); airports.add(FLL); airports.add(SEA); airports.add(HNL);
@@ -199,7 +209,11 @@ void setup()
   airports.add(MIA); airports.add(MKE); airports.add(MSO); airports.add(MSP); airports.add(MSY); airports.add(MYR);
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
-  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); 
+  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
+  airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
+  airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
+  airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
+  airports.add(YAK);
 }
 
 void draw(){
@@ -321,13 +335,37 @@ void draw(){
   {
     //background(255);
     image(map, 0, 0);
+    int flightCount = 0;
+    int stateCount = 0;
+    String stateAbr = "";
+    
      for (Airport airport : airports) {
-       if (depAP.equals(""))
+       if (depAP.equals("")) {
          airport.draw();
-   else if (airport.name.equals(depAP))
+         for (Flight flight : flights) {
+           flightCount++;
+         }
+       }
+       
+   else if (airport.name.equals(depAP)) {
      airport.draw();
- }
+     for (Flight flight : flights) {
+       if (flight.origin.equals(depAP)) {
+         flightCount++;
+         stateAbr = flight.originCityAbr;
+       }
+     }
+     for (Flight flight : flights) {
+       if (flight.originCityAbr.equals(stateAbr))
+         stateCount++;
+     }
+   }
   }
+   text("Number of flights: " + flightCount, 195, 600);
+   if (!stateAbr.equals(""))
+   text("Number of flights in " + stateAbr + " : " + stateCount, 195, 640);
+ }
+  
   else if (currentScreen == 7)
   {
     screen7.draw(); 
