@@ -195,6 +195,7 @@ class Linegraph
     if (yAxisLabel != null) text(yAxisLabel, 50, 50);
     line(xOrigin, yOrigin, xOrigin, yOrigin - height);
     line(xOrigin, yOrigin, xOrigin + width, yOrigin);
+    circle(xOrigin, yOrigin, 10);
     
     // Y Axis Value Text
     text(nearestTenth, xOrigin - 30, yOrigin - height + 15);
@@ -211,6 +212,7 @@ class Linegraph
       float data = height * (dataSet[i] / nearestTenth);
       data = yOrigin - data;
       line(lineX, lineY, lineX + segmentWidth, data);
+      circle(lineX + segmentWidth, data, 10);
       lineX = lineX + segmentWidth;
       lineY = data;
     }
