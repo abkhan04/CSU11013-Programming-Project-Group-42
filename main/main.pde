@@ -65,12 +65,12 @@ void setup()
   
   // Create Widgets
   widget0 = new Widget(WIDGET1Y/2, WIDGET1Y+75, 180, 40, "Start", color(242, 17, 17), stdFont, EVENT_BUTTON0);
-  widget1 = new Widget(100, WIDGET1Y, 180, 40, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
-  widget2 = new Widget(300, WIDGET1Y, 180, 40, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
-  widget3 = new Widget(500, WIDGET1Y, 180, 40, "Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
-  widget4 = new Widget(100, WIDGET2Y, 180, 40, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
-  widget5 = new Widget(300, WIDGET2Y, 180, 40, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
-  widget6 = new Widget(500, WIDGET2Y, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
+  widget1 = new Widget(187, 100, 200, 200, "Bar Chart", color(242, 17, 17), stdFont, EVENT_BUTTON1);
+  widget2 = new Widget(413, 100, 200, 200, "Line Graph", color(240, 155, 19), stdFont, EVENT_BUTTON2); 
+  widget3 = new Widget(187, 326, 200, 200, "Map", color(235, 219, 5), stdFont, EVENT_BUTTON3); 
+  widget4 = new Widget(413, 326, 200, 200, "Pie Chart", color(0, 153, 0), stdFont, EVENT_BUTTON4);
+  widget5 = new Widget(WIDGET1Y/2, 552, 200, 200, "Table", color(19, 63, 240), stdFont, EVENT_BUTTON5);
+  //widget6 = new Widget(WIDGET1Y/2, 700, 180, 40, "Placeholder", color(174, 33, 209), stdFont, EVENT_BUTTON6);
   widget7 = new Widget(10, 750, 180, 40, "Back", color(255, 0, 0), stdFont, EVENT_BUTTON7);
   widget8 = new Widget(600, 750, 180, 40, "Next", color(0, 255, 0), stdFont, EVENT_BUTTON8);
   
@@ -94,7 +94,7 @@ void setup()
   screen3.addWidget(widget3);
   screen3.addWidget(widget4);
   screen3.addWidget(widget5);
-  screen3.addWidget(widget6);
+  //screen3.addWidget(widget6);
   screen3.addWidget(widget7);
   
   screen4.addWidget(widget7);
@@ -306,7 +306,7 @@ void draw(){
     screen3.draw();
     textAlign(CENTER);
     textFont(stdFont);
-    text("Select how you wish to visualise your data:", SCREENX/2, WIDGET1Y - 25);
+    text("Select how you wish to visualise your data:", SCREENX/2, 75);
     ArrayList<Flight> newFlights = flights;
     
     if (startDate != "" && endDate != "")
