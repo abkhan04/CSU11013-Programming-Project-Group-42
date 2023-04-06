@@ -29,7 +29,7 @@ ALS, ALW, AMA, APN, ART, ASE, AVL, AVP, AZO, BFF, BFL, BGM, BGR, BIH,
 BJI, BMI, BPT, BQK, BQN, BRD, BRO, BTM, BTR, BTV, CAE, CAK, CDC, CGI,
 CHA, CHO, CIU, CKB, CLL, CMI, CMX, CNY, COD, COS, COU, CPR, CRW, CSG,
 CWA, CYS, DAB, DAY, DBQ, DDC, DEC, DHN, DIK, DLG, DLH, DRO, DRT, DSM,
-DVL, EAR, EAT, EAU, ECP, EGE, EKO, ELM, ERI, ESC, EUC, EVV, EWN, EYW,
+DVL, EAR, EAT, EAU, ECP, EGE, EKO, ELM, ERI, ESC, EVV, EWN, EYW,
 FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
 GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
 HOB, HRL, HSV, HTS, HYS, IAD, IAG, ICT, ILG, ILM, IMT, INL, ISP, ITH,
@@ -139,10 +139,10 @@ void setup()
   printData(flights);
   
   // Airports
-  JFK = new Airport(712, 186, 5, "JFK", "NY"); LAX = new Airport(72, 309, 10, "LAX", "CA");
+  JFK = new Airport(712, 186, 5, "JFK", "NY"); LAX = new Airport(72, 309, 5, "LAX", "CA");
   DCA = new Airport(673, 235, 5, "DCA", "VA"); FLL = new Airport(667, 482, 5, "FLL", "FL");
   SEA = new Airport(86, 47, 5, "SEA", "WA"); HNL = new Airport(261, 466, 5, "HNL", "HI");
-  ORD = new Airport(520, 192, 5, "ORD", "IL"); DAL = new Airport(406, 378, 10, "DAL", "TX");
+  ORD = new Airport(520, 192, 5, "ORD", "IL"); DAL = new Airport(406, 378, 5, "DAL", "TX");
   MCI = new Airport(428, 248, 5, "MCI", "MO"); HOU = new Airport(395, 449, 5, "HOU", "TX");
   
   ABQ = new Airport(251, 312, 5, "ABQ", "NM"); ADQ = new Airport(116, 495, 5, "ADQ", "AK");
@@ -226,10 +226,20 @@ void setup()
   COS = new Airport(286, 261, 5, "COS", "CO"); COU = new Airport(455, 252, 5, "COU", "MO");
   CPR = new Airport(278, 186, 5, "CPR", "WY"); CRW = new Airport(614, 254, 5, "CRW", "WV");
   CSG = new Airport(578, 375, 5, "CSG", "GA"); CWA = new Airport(497, 150, 5, "CWA", "WI");
-  CYS = new Airport(291, 198, 5, "CYS", "WY"); DAB = new Airport(
+  CYS = new Airport(291, 198, 5, "CYS", "WY"); DAB = new Airport(647, 430, 5, "DAB", "FL");
+  DAY = new Airport(574, 231, 5, "DAY", "OH"); DBQ = new Airport(478, 184, 5, "DBQ", "IA");
+  DDC = new Airport(342, 272, 5, "DDC", "KS"); DEC = new Airport(508, 242, 5, "DEC", "IL");
+  DHN = new Airport(571, 391, 5, "DHN", "AL"); DIK = new Airport(326, 101, 5, "DIK", "ND");
+  DLG = new Airport(102, 486, 5, "DLG", "AK"); DLH = new Airport(455, 105, 5, "DLH", "MN");
+  DRO = new Airport(243, 270, 5, "DRO", "CO"); DRT = new Airport(337, 450, 5, "DRT", "TX");
+  DSM = new Airport(441, 207, 5, "DSM", "IA"); DVL = new Airport(377, 83, 5, "DVL", "ND");
+  EAR = new Airport(382, 217, 5, "EAR", "NE"); EAT = new Airport(98, 55, 5, "EAT", "WA");
+  EAU = new Airport(476, 143, 5, "EAU", "WI"); ECP = new Airport(574, 418, 5, "ECP", "FL");
+  EGE = new Airport(255, 231, 5, "EGE", "CO"); EKO = new Airport(146, 188, 5, "EKO", "NV");
+  ELM = new Airport(660, 169, 5, "ELM", "NY"); ERI = new Airport(621, 179, 5, "ERI", "PA");
+  ESC = new Airport(523, 120, 5, "ESC", "MI"); EVV = new Airport(531, 264, 5, "EVV", "IN");
+  EWN = new Airport(688, 299, 5, "EWN", "NC"); EYW = new Airport(651, 505, 5, "EYW", "FL");
   
-//, , DAB, DAY, DBQ, DDC, DEC, DHN, DIK, DLG, DLH, DRO, DRT, DSM,
-//DVL, EAR, EAT, EAU, ECP, EGE, EKO, ELM, ERI, ESC, EUC, EVV, EWN, EYW,
 //FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
 //GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
 //HOB, HRL, HSV, HTS, HYS, IAD, IAG, ICT, ILG, ILM, IMT, INL, ISP, ITH,
@@ -275,8 +285,12 @@ void setup()
   airports.add(CAE); airports.add(CAK); airports.add(CDC); airports.add(CGI); airports.add(CHA); airports.add(CHO);
   airports.add(CKB); airports.add(CLL); airports.add(CMI); airports.add(CMX); airports.add(CNY); airports.add(COD);
   airports.add(COS); airports.add(COU); airports.add(CPR); airports.add(CRW); airports.add(CSG); airports.add(CWA);
-  airports.add(CYS);
-
+  airports.add(CYS); airports.add(DAB); airports.add(DAY); airports.add(DBQ); airports.add(DDC); airports.add(DEC);
+  airports.add(DHN); airports.add(DIK); airports.add(DLG); airports.add(DLH); airports.add(DRO); airports.add(DRT);
+  airports.add(DSM); airports.add(DVL); airports.add(EAR); airports.add(EAT); airports.add(EAU); airports.add(ECP);
+  airports.add(EGE); airports.add(EKO); airports.add(ELM); airports.add(ERI); airports.add(ESC); airports.add(EVV);
+  airports.add(EWN); airports.add(EYW);
+  
   airports.add(YAK);
 
   
@@ -507,7 +521,7 @@ void draw(){
     textFont(stdFont);
    text("Number of flights: " + flightCount, 30, 670);
    if (!stateAbr.equals("")) {
-   text("Number of flights in " + stateAbr + " : " + stateCount, 30, 710);
+   text("Number of flights in " + stateAbr + ": " + stateCount, 30, 710);
    }
  }
   
