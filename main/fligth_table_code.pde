@@ -116,7 +116,7 @@ class FlightTable {
 
     // banners
     for (int i = 0; i < 5; i++) {
-      fill(41, 144, 76);
+      fill(0, 130, 130);
       rect(25, 82 + (i * 102), width - 50, 97, 10);
     }
     for (int i = 0; i < 5; i++) {
@@ -276,7 +276,11 @@ class FlightTable {
             } else {
               data = data.substring(0, 1) + "h" + data.substring(1) + "m";
             }
+            fill(0);
+            stroke(0);
+            strokeWeight(1);
             line(190, y + 49, width - 190, y + 49);
+            strokeWeight(1);
             triangle(width - 190, y + 44, width - 190, y + 54, width - 180, y + 49);
             textAlign(CENTER);
             textSize(14);
