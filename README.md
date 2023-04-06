@@ -24,7 +24,6 @@ Screen 2 - Parameters
 Screen 3 - Graph Select
 Screen 4 - Bar Chart
 Screen 5 - Line Graph
-Screen 6 - Heat Map
+Screen 6 - Airports Map
 Screen 7 - Pie Chart
 Screen 8 - Table
-Screen 9 - TBD
