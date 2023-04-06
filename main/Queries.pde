@@ -1,5 +1,6 @@
 // A.Khan Added Queries 30/03
 // A.Khan Added filterCancelled and filterDiverted 31/03
+// A.Khan Fixed issue with countFlightDates with larger datasets 05/04
 
 import java.util.Date;
 import java.util.Calendar;
@@ -106,7 +107,7 @@ String[] getDates(String startDate, String endDate)
 
 float[] countFlightDates(ArrayList<Flight> flights, String startDate, String endDate)
 {
-  String[] dates = getDates(startDate, endDate);
+  String[] dates = getDates(startDate, endDate); //<>//
   float[] fligthsPerDay = new float[dates.length];
   
   for (int i = 0; i < flights.size(); i++)
@@ -114,7 +115,9 @@ float[] countFlightDates(ArrayList<Flight> flights, String startDate, String end
     for (int j = 0; j < dates.length; j++)
     {
       String date = flights.get(i).flightDate;
-      if (date.equals(dates[j])) 
+      String[] otherDateList = date.split("/");
+      String otherDate = 0 + otherDateList[0] + "/" + 0 + otherDateList[1] + "/" + otherDateList[2];
+      if ((date.equals(dates[j])) || (otherDate.equals(dates[j])))  //<>//
       {
         fligthsPerDay[j]++;
         break;
