@@ -226,7 +226,6 @@ void setup()
   COS = new Airport(286, 261, 5, "COS", "CO"); COU = new Airport(455, 252, 5, "COU", "MO");
   CPR = new Airport(278, 186, 5, "CPR", "WY"); CRW = new Airport(614, 254, 5, "CRW", "WV");
   CSG = new Airport(578, 375, 5, "CSG", "GA"); CWA = new Airport(497, 150, 5, "CWA", "WI");
-<<<<<<< HEAD
   CYS = new Airport(291, 198, 5, "CYS", "WY"); DAB = new Airport(647, 430, 5, "DAB", "FL");
   DAY = new Airport(574, 231, 5, "DAY", "OH"); DBQ = new Airport(478, 184, 5, "DBQ", "IA");
   DDC = new Airport(342, 272, 5, "DDC", "KS"); DEC = new Airport(508, 242, 5, "DEC", "IL");
@@ -240,9 +239,7 @@ void setup()
   ELM = new Airport(660, 169, 5, "ELM", "NY"); ERI = new Airport(621, 179, 5, "ERI", "PA");
   ESC = new Airport(523, 120, 5, "ESC", "MI"); EVV = new Airport(531, 264, 5, "EVV", "IN");
   EWN = new Airport(688, 299, 5, "EWN", "NC"); EYW = new Airport(651, 505, 5, "EYW", "FL");
-=======
-  CYS = new Airport(291, 198, 5, "CYS", "WY");
->>>>>>> 0e8f6571a7d44a6a0656caa4a0ab70f08836fbc4
+
   
 //FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
 //GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
@@ -301,9 +298,9 @@ void setup()
   
   //Pie Chart
   
-   int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
-   pie = new PieChart(300,angles);
-
+   int[] angles = {60, 38, 75, 67 }; //Temp
+   pie = new PieChart(300,angles); //<>//
+/*
   // flight table
   flightTable.visibleRows = 5;
   flightTable.table = table;
@@ -318,7 +315,7 @@ void setup()
   flightTable.table.removeColumn("DEP_TIME");
   flightTable.table.removeColumn("ARR_TIME");
   flightTable.filteredTable = table;
-
+*/
 }
 
 void draw(){
