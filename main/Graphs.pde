@@ -115,11 +115,11 @@ class Barchart
         if (barLabels != null)
         {
           fill(0);
-          if (barLabels[i] != null) text(barLabels[i], xOrigin + (i * barWidth + ((float) barWidth / 2)), yOrigin + 35);
+          if (barLabels[i] != null) text(barLabels[i], xOrigin + (i * barWidth + ((float) barWidth / 2)) + (5 * i), yOrigin + 35);
         }
         
         fill(colours[i]);
-        rect(xOrigin + increment + 5, yOrigin, barWidth, -data);
+        rect(xOrigin + increment, yOrigin, barWidth, -data);
         increment = increment + barWidth + 5;
       }
     }
