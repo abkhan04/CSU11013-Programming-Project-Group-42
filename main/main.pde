@@ -304,6 +304,21 @@ void setup()
    int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
    pie = new PieChart(300,angles);
 
+  // flight table
+  flightTable.visibleRows = 5;
+  flightTable.table = table;
+  flightTable.font = loadFont("Arial-BoldMT-16.vlw");
+  surface.setResizable(true);
+  flightTable.table.removeColumn("MKT_CARRIER");
+  flightTable.table.removeColumn("MKT_CARRIER_FL_NUM");
+  flightTable.table.removeColumn("ORIGIN_STATE_ABR");
+  flightTable.table.removeColumn("ORIGIN_WAC");
+  flightTable.table.removeColumn("DEST_STATE_ABR");
+  flightTable.table.removeColumn("DEST_WAC");
+  flightTable.table.removeColumn("DEP_TIME");
+  flightTable.table.removeColumn("ARR_TIME");
+  flightTable.filteredTable = table;
+
 }
 
 void draw(){
