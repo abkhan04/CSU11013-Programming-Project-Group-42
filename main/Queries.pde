@@ -107,7 +107,7 @@ String[] getDates(String startDate, String endDate)
 
 float[] countFlightDates(ArrayList<Flight> flights, String startDate, String endDate)
 {
-  String[] dates = getDates(startDate, endDate); //<>//
+  String[] dates = getDates(startDate, endDate);
   float[] fligthsPerDay = new float[dates.length];
   
   for (int i = 0; i < flights.size(); i++)
@@ -117,7 +117,7 @@ float[] countFlightDates(ArrayList<Flight> flights, String startDate, String end
       String date = flights.get(i).flightDate;
       String[] otherDateList = date.split("/");
       String otherDate = 0 + otherDateList[0] + "/" + 0 + otherDateList[1] + "/" + otherDateList[2];
-      if ((date.equals(dates[j])) || (otherDate.equals(dates[j])))  //<>//
+      if ((date.equals(dates[j])) || (otherDate.equals(dates[j]))) 
       {
         fligthsPerDay[j]++;
         break;
