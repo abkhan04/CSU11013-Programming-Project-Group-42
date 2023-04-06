@@ -156,6 +156,24 @@ String[] getDates(String startDate, String endDate)
   }
 }
 
+String[] getAirports(ArrayList<Flight> flights)
+{
+  ArrayList<String> airports = new ArrayList<String>();
+  
+  for (Flight f : flights)
+  {
+    if (airports.contains(f.originCityAbr) == false)
+    {
+      airports.add(f.originCityAbr);
+    }
+  }
+  
+  String[] strAirports = new String[airports.size()];
+  strAirports = airports.toArray(strAirports);
+  
+  return strAirports;
+}
+
 float[] countFlightDates(ArrayList<Flight> flights, String startDate, String endDate)
 {
   String[] dates = getDates(startDate, endDate); //<>//
@@ -177,4 +195,9 @@ float[] countFlightDates(ArrayList<Flight> flights, String startDate, String end
   }
   
   return flightsPerDay;
+}
+
+float[] countDepartures(ArrayList<Flight> flights)
+{ 
+  return new float[0];
 }
