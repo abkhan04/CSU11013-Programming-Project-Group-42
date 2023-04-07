@@ -227,10 +227,7 @@ void setup()
   COS = new Airport(286, 261, 5, "COS", "CO"); COU = new Airport(455, 252, 5, "COU", "MO");
   CPR = new Airport(278, 186, 5, "CPR", "WY"); CRW = new Airport(614, 254, 5, "CRW", "WV");
   CSG = new Airport(578, 375, 5, "CSG", "GA"); CWA = new Airport(497, 150, 5, "CWA", "WI");
-<<<<<<< HEAD
 
-=======
->>>>>>> a9af1db6b43a7cc723c89b4b9f303ee53ae96d5b
   CYS = new Airport(291, 198, 5, "CYS", "WY"); DAB = new Airport(647, 430, 5, "DAB", "FL");
   DAY = new Airport(574, 231, 5, "DAY", "OH"); DBQ = new Airport(478, 184, 5, "DBQ", "IA");
   DDC = new Airport(342, 272, 5, "DDC", "KS"); DEC = new Airport(508, 242, 5, "DEC", "IL");
@@ -244,7 +241,7 @@ void setup()
   ELM = new Airport(660, 169, 5, "ELM", "NY"); ERI = new Airport(621, 179, 5, "ERI", "PA");
   ESC = new Airport(523, 120, 5, "ESC", "MI"); EVV = new Airport(531, 264, 5, "EVV", "IN");
   EWN = new Airport(688, 299, 5, "EWN", "NC"); EYW = new Airport(651, 505, 5, "EYW", "FL");
-<<<<<<< HEAD
+
   FAY = new Airport(647, 340, 5, "FAY", "NC"); FCA = new Airport(203, 68, 5, "FCA", "MT");
   FLG = new Airport(175, 309, 5, "FLG", "AZ"); FLO = new Airport(649, 332, 5, "FLO", "SC");
   FNT = new Airport(572, 171, 5, "FNT", "MI"); FOD = new Airport(439, 184, 5, "FOD", "IA");
@@ -266,20 +263,32 @@ void setup()
   ILM = new Airport(677, 321, 5, "ILM", "NC"); IMT = new Airport(514, 118, 5, "IMT", "MI");
   INL = new Airport(444, 71, 5, "INL", "MN"); ISP = new Airport(716, 187, 5, "ISP", "NY");
   ITH = new Airport(673, 163, 5, "ITH", "NY"); JAC = new Airport(217, 157, 5, "JAC", "WY");
-  JLN = new Airport(432, 288, 5, "JLN", "MO");
+  JLN = new Airport(432, 288, 5, "JLN", "MO"); JMS = new Airport(371, 103, 5, "JMS", "ND");
+  JST = new Airport(639, 211, 5, "JST", "PA"); LAN = new Airport(559, 172, 5, "LAN", "MI");
+  LAR = new Airport(283, 194, 5, "LAR", "WY"); LAW = new Airport(379, 335, 5, "LAW", "OK");
+  LBB = new Airport(319, 348, 5, "LBB", "TX"); LBE = new Airport(641, 208, 5, "LBW", "PA");
+  LBF = new Airport(348, 211, 5, "LBF", "NE"); LBL = new Airport(344, 285, 5, "LBL", "KS");
+  LCH = new Airport(453, 423, 5, "LCH", "LA"); LCK = new Airport(587, 235, 5, "LCK", "OH");
+  LEX = new Airport(571, 258, 5, "LEX", "KT"); LFT = new Airport(475, 422, 5, "LFT", "LA");
+  LIT = new Airport(457, 327, 5, "LIT", "AR"); LNK = new Airport(399, 216, 5, "LNK", "NE");
+  LRD = new Airport(342, 462, 5, "LRD", "TX"); LSE = new Airport(473, 159, 5, "LSE", "WI");
+  LWB = new Airport(626, 259, 5, "LWB", "WV"); LWS = new Airport(144, 83, 5, "LWS", "ID");
+  LYH = new Airport(645, 261, 5, "LYH", "VA"); MBS = new Airport(571, 161, 5, "MBS", "MI");
+  MCW = new Airport(458, 175, 5, "MCW", "IA"); MDT = new Airport(668, 210, 5, "MDT", "PA");
+  MEI = new Airport(518, 375, 5, "MEI", "MS"); MGM = new Airport(554, 381, 5, "MGM", "AL");
+  MHK = new Airport(406, 244, 5, "MHK", "KS"); MHT = new Airport(735, 138, 5, "MHT", "NH");
+  MKG = new Airport(541, 172, 5, "MKG", "MI"); MLB = new Airport(645, 453, 5, "MLB", "FL");
+  MLI = new Airport(493, 201, 5, "MLI", "IL"); MLU = new Airport(469, 381, 5, "MLU", "LA");
+  MOB = new Airport(530, 404, 5, "MOB", "AL"); MQT = new Airport(519, 105, 5, "MQT", "MI");
+  MRY = new Airport(36, 250, 5, "MRY", "CA"); MSN = new Airport(499, 174, 5, "MSN", "WI");
+  MTJ = new Airport(237, 254, 5, "MTJ", "CO"); OAJ = new Airport(684, 310, 5, "OAJ", "NC");
+  OGD = new Airport(189, 191, 5, "OGD", "UT"); OGS = new Airport(671, 128, 5, "OGS", "NY");
+  OMA = new Airport(409, 206, 5, "OMA", "NE"); OME = new Airport(88, 447, 5, "OME", "AK");
+  ORF = new Airport(686, 269, 5, "ORF", "VA"); ORH = new Airport(730, 157, 5, "ORH", "MA");
+  OTH = new Airport(89, 117, 5, "OTH", "OR"); OTZ = new Airport(99, 437, 5, "OTZ", "AK");
+  OWB = new Airport(537, 271, 5, "OWB", "KT"); PAE = new Airport(88, 38, 5, "PAE", "WA");
+  PAH = new Airport(518, 285, 5, "PAH", "KT");
  
-//, , JMS, JST, LAN, LAR, LAW, LBB,
-=======
-
-  
-//FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
-//GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
-//HOB, HRL, HSV, HTS, HYS, IAD, IAG, ICT, ILG, ILM, IMT, INL, ISP, ITH,
-//JAC, JLN, JMS, JST, LAN, LAR, LAW, LBB,
->>>>>>> a9af1db6b43a7cc723c89b4b9f303ee53ae96d5b
-//LBE, LBF, LBL, LCH, LCK, LEX, LFT, LIT, LNK, LRD, LSE, LWB, LWS, LYH, MBS, MCW, MDT, MEI,
-//MGM, MHK, MHT, MKG, MLB, MLI, MLU, MOB, MQT, MRY, MSN,
-//MTJ, OAJ, OGD, OGS, OMA, OME, ORF, ORH, OTH, OTZ, OWB, PAE, PAH,
 //PGB, PGD, PGV, PHF, PIB, PIE, PIH, PIR, PLN, PNS, PPG, PQI,
 //PRC, PSC, PSE, PSM, PUB, PUW, PVD, PVU, PWM, RDD, RDM, RHI, RIC,
 //RIW, RKS, ROA, ROC, ROW, RST, SAF, SBA, SBN, SBP, SBY, SCE,
@@ -329,9 +338,20 @@ void setup()
   airports.add(HRL); airports.add(HSV); airports.add(HTS); airports.add(HYS); airports.add(IAD); airports.add(IAG);
   airports.add(ICT); airports.add(ILG); airports.add(ILM); airports.add(IMT); airports.add(INL); airports.add(ISP);
   airports.add(ITH); airports.add(JAC); airports.add(JLN); airports.add(JMS); airports.add(JST); airports.add(LAN);
-  airports.add(LAR); airports.add(LAW); airports.add(LBB);
+  airports.add(LAR); airports.add(LAW); airports.add(LBB); airports.add(LBE); airports.add(LBF); airports.add(LBL);
+  airports.add(LCH); airports.add(LCK); airports.add(LEX); airports.add(LFT); airports.add(LIT); airports.add(LNK);
+  airports.add(LRD); airports.add(LSE); airports.add(LWB); airports.add(LWS); airports.add(LYH); airports.add(MBS);
+  airports.add(MCW); airports.add(MDT); airports.add(MEI); airports.add(MGM); airports.add(MHK); airports.add(MHT);
+  airports.add(MKG); airports.add(MLB); airports.add(MLI); airports.add(MLU); airports.add(MOB); airports.add(MQT);
+  airports.add(MRY); airports.add(MSN); airports.add(MTJ); airports.add(OAJ); airports.add(OGD); airports.add(OGS);
+  airports.add(OMA); airports.add(OME); airports.add(ORF); airports.add(ORH); airports.add(OTH); airports.add(OTZ);
+  airports.add(OWB); airports.add(PAE); airports.add(PAH);
   
- //JAC, JLN, JMS, JST, LAN, LAR, LAW, LBB,
+  //airports.add(PGB); airports.add(PGD); airports.add(PGV); airports.add(PHF); airports.add(PIB); airports.add(PIE);
+  //airports.add(PIH); airports.add(PIR); airports.add(PLN); airports.add(PNS); airports.add(PPG); airports.add(PQI);
+  
+  //PGB, PGD, PGV, PHF, PIB, PIE, PIH, PIR, PLN, PNS, PPG, PQI,
+  
   airports.add(YAK);
 
   
@@ -532,7 +552,7 @@ void draw(){
   }
   else if (currentScreen == 6)
   {
-    screen6.draw();
+     screen6.draw();
     textAlign(CENTER);
     textFont(ttlFont);
     //background(255);
@@ -553,34 +573,35 @@ void draw(){
      for (Airport airport : airports) {
        if (depAP.equals("")){
          text("Flight Information", SCREENX/2, 75);
+         if (airport != null)
          airport.draw();
-         for (Flight flight : newFlights) {
-           flightCount++;
-         }
+         flightCount = flights.size();
        }
        else if (airport.name.equals(depAP)){
          text(depAP+" Flight Information", SCREENX/2, 75);
+         if (airport != null)
          airport.draw();
          for (Flight flight : newFlights) {
          if (flight.origin.equals(depAP)) {
            flightCount++;
          }
-         if (flight.originCityAbr.equals(airport.state))
+         if (flight.originCityAbr.equals(airport.state)) {
            stateAbr = airport.state;
            stateCount++;
+         }
        }
 
      }
 
    }
-
+    
     textAlign(LEFT);
     textFont(stdFont);
    text("Number of flights: " + flightCount, 30, 670);
    if (!stateAbr.equals("")) {
    text("Number of flights in " + stateAbr + ": " + stateCount, 30, 710);
    }
- }
+  }
   
   else if (currentScreen == 7)
   {
