@@ -408,7 +408,7 @@ void setup()
   
   
   //Pie Chart
-   int[] airportCounts = countAirportNames(airports);
+   int[] airportCounts = countAirportNames(flights);
    //int[] angles = {60, 38, 75, 67 }; //Temp
    pie = new PieChart(300,airportCounts); //<>//
 
@@ -847,10 +847,10 @@ void keyPressed() {
 }
 
 
-int[] countAirportNames(ArrayList<Airport> airportList) {
-  //String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "Other"}; //List of airports we're checking for
+int[] countAirportNames(ArrayList<Flight> airportList) {
+  String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "Other"}; //List of airports we're checking for
   //String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "SBA"}; //List of airports we're checking for
-  String[] airportNames = {"SEA","FLL"};
+  //String[] airportNames = {"SEA","FLL"};
   int[] airportCounts = new int[airportNames.length];
   
   for (int i = 0; i < airportList.size(); i++) {
@@ -859,10 +859,9 @@ int[] countAirportNames(ArrayList<Airport> airportList) {
     if (index >= 0) {
       airportCounts[index]++;
     }
-    /*
     else{
       airportCounts[airportNames.length-1]++;
-    }*/
+    }
   }
   
   return airportCounts;

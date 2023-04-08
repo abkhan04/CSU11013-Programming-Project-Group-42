@@ -45,6 +45,9 @@ class Flight
     this.diverted = diverted;
     this.distance = distance;
   }
+  public String getName() {
+    return origin;
+  }
 }
 
 void loadData()

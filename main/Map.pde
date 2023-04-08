@@ -35,10 +35,10 @@ class Airport {
   String selectAirport(String name) {
     return name;
   }
-  
+  /*
   public String getName() {
     return name;
-  }
+  }*/
   
   //void increaseSize (int count) {
   //  if (count >= 50) {
