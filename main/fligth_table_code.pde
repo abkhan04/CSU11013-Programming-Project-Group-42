@@ -110,8 +110,8 @@ class FlightTable {
     textFont(font);
     smooth();
 
-    background(255);
-    surface.setSize(800, 600);
+    //background(255);
+    surface.setSize(800, 800);
     textAlign(LEFT, TOP);
 
     // banners

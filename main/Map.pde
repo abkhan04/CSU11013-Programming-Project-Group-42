@@ -36,6 +36,10 @@ class Airport {
     return name;
   }
   
+  public String getName() {
+    return name;
+  }
+  
   //void increaseSize (int count) {
   //  if (count >= 50) {
   //    radius += 5;
