@@ -408,9 +408,10 @@ void setup()
   
   
   //Pie Chart
-   int[] airportCounts = countAirportNames(flights);
-   //int[] angles = {60, 38, 75, 67 }; //Temp
+   float[] airportCounts = countAirportNames(flights);
    pie = new PieChart(300,airportCounts); //<>//
+   //float[] angles = {60, 38, 75, 67 }; //Temp
+   //pie = new PieChart(300,angles);
 
   // flight table
   flightTable = new FlightTable();
@@ -847,11 +848,11 @@ void keyPressed() {
 }
 
 
-int[] countAirportNames(ArrayList<Flight> airportList) {
+float[] countAirportNames(ArrayList<Flight> airportList) {
   String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "Other"}; //List of airports we're checking for
   //String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "SBA"}; //List of airports we're checking for
   //String[] airportNames = {"SEA","FLL"};
-  int[] airportCounts = new int[airportNames.length];
+  float[] airportCounts = new float[airportNames.length];
   
   for (int i = 0; i < airportList.size(); i++) {
     String airportName = airportList.get(i).getName();
