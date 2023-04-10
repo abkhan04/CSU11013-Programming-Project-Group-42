@@ -34,7 +34,7 @@ class Widget
     fill(widgetColor);
     if (mouseMoved()) stroke(strokeColor);
     else stroke(0);
-    rect(x, y, width, height);
+    rect(x, y, width, height,10);
     fill(labelColor);
     textFont(widgetFont);
     text(label, x + 90, y + height - 10);
