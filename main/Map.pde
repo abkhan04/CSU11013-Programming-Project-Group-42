@@ -1,4 +1,5 @@
 // J.Nash added 28/03
+// CK added getAirportName 08/04
 
 /*
 main {
@@ -35,10 +36,10 @@ class Airport {
   String selectAirport(String name) {
     return name;
   }
-  /*
-  public String getName() {
+
+  public String getAirportName() {
     return name;
-  }*/
+  }
   
   //void increaseSize (int count) {
   //  if (count >= 50) {

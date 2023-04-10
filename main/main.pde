@@ -5,6 +5,8 @@
 // CK improved Framework to planned architecture 22/03
 // J.Nash added Map 30/03
 // A.Khan Linked Queries to the Barchart and moved loadData and printData to Flight class 31/03
+// CK added visualisation box images 05/04
+// CK added piechart + sorted for busiest and quietest airports 10/04
 
 PFont ttlFont;
 PFont stdFont;
@@ -57,6 +59,10 @@ ArrayList<Flight> flights;
 
 
 PieChart pie;
+String busiestAirport = "";
+float busiestAirportNumber;
+String quietestAirport = "";
+float quietestAirportNumber;
 import java.util.*;
 Barchart barChart;
 Linegraph lineGraph;
@@ -408,10 +414,30 @@ void setup()
   
   
   //Pie Chart
-   float[] airportCounts = countAirportNames(flights);
+   String[] airportNamesArray = new String[airports.size()];
+   for (int i = 0; i < airports.size(); i++) {
+    airportNamesArray[i] = airports.get(i).getAirportName();
+   }
+   float[] airportCounts = countAirportNames(flights,airportNamesArray);
    pie = new PieChart(300,airportCounts); //<>//
-   //float[] angles = {60, 38, 75, 67 }; //Temp
-   //pie = new PieChart(300,angles);
+   // Highest and Lowest Traffic Aiports (Empty Airports not included)
+   busiestAirport = airportNamesArray[0];
+   busiestAirportNumber = airportCounts[0];
+   quietestAirport = busiestAirport;
+   quietestAirportNumber = busiestAirportNumber;
+   
+   for (int i = 0; i< airportCounts.length; i++){
+     if(airportCounts[i]>busiestAirportNumber){
+       busiestAirportNumber = airportCounts[i];
+       busiestAirport = airportNamesArray[i];
+     }
+     else if(airportCounts[i]<quietestAirportNumber && airportCounts[i]>0){
+       quietestAirportNumber = airportCounts[i];
+       quietestAirport = airportNamesArray[i];
+     }
+   }
+   //println("Airport:"+busiestAirport+" Amount:"+busiestAirportNumber);
+   //println("Airport:"+quietestAirport+" Amount:"+quietestAirportNumber);
 
   // flight table
   flightTable = new FlightTable();
@@ -442,7 +468,7 @@ void draw(){
     textAlign(CENTER);
     image(logo, 60, 150);
     textFont(stdFont);
-    text("Press Start to continue:", SCREENX/2, WIDGET1Y + 50);
+    text("Press Start to Continue:", SCREENX/2, WIDGET1Y + 50);
   }
   else if (currentScreen == 2)
   {
@@ -459,6 +485,7 @@ void draw(){
     textFont(inpFont);
     text("Start", 300, 200);
     text("End", 300, 250);
+    text("(MM/DD/YYYY)", 650, 225);
     text("Max", 300, 550);
     text("Min", 300, 600);
     text("Cancellations", 250, 700);
@@ -665,6 +692,15 @@ void draw(){
     textFont(ttlFont);
     text("Airport Flight Percentages", SCREENX/2, 100);
     pie.draw();
+    fill(0,255,0);
+    rect(415,205,350,450,20);
+    fill(255);
+    rect(440, 230,300,400,20);
+    fill(0);
+    textFont(stdFont);
+    text("Busiest Airport:\n"+busiestAirport+"\nNumber of flights:\n"+(int)busiestAirportNumber,590, 280);
+    text("Quietest Airport:\n"+quietestAirport+"\nNumber of flights:\n"+(int)quietestAirportNumber,590, 480);
+ 
   }
   else if (currentScreen == 8)
   {
@@ -805,8 +841,11 @@ void keyPressed() {
       }  
   }
   else if(mouseY >= 295 && mouseY <= 295+40){
-      if (key >= 'A' && key <= 'Z') {
-        depAP += key;
+      if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+        if (key >= 'a' && key <= 'z') {
+            key -= 32;
+        }
+          depAP += key;
       }
       else if (keyCode == BACKSPACE) {
           if (depAP.length() > 0) {
@@ -815,8 +854,11 @@ void keyPressed() {
       }  
   }
     else if(mouseY >= 395 && mouseY <= 395+40){
-      if (key >= 'A' && key <= 'Z') {
-        arrAP += key;
+      if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+        if (key >= 'a' && key <= 'z') {
+            key -= 32;
+        }
+          arrAP += key;
       }
       else if (keyCode == BACKSPACE) {
           if (arrAP.length() > 0) {
@@ -847,7 +889,7 @@ void keyPressed() {
 
 }
 
-
+/*
 float[] countAirportNames(ArrayList<Flight> airportList) {
   String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "Other"}; //List of airports we're checking for
   //String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "SBA"}; //List of airports we're checking for
@@ -865,5 +907,24 @@ float[] countAirportNames(ArrayList<Flight> airportList) {
     }
   }
   
+  return airportCounts;
+}*/
+
+float[] countAirportNames(ArrayList<Flight> airportList, String[] airportNamesArray) {
+  airportNamesArray = Arrays.copyOf(airportNamesArray, airportNamesArray.length + 1);
+  airportNamesArray[airportNamesArray.length - 1] = "Other";
+  float[] airportCounts = new float[airportNamesArray.length];
+
+  for (int i = 0; i < airportList.size(); i++) {
+    String airportName = airportList.get(i).getName();
+    int index = Arrays.asList(airportNamesArray).indexOf(airportName);
+    if (index >= 0) {
+      airportCounts[index]++;
+    }
+    else{
+      airportCounts[airportNamesArray.length-1]++;
+    }
+  }
+
   return airportCounts;
 }

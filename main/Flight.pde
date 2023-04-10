@@ -1,4 +1,5 @@
 // A.Khan Added Flight Class 16/03
+// CK added getName 08/04
 
 class Flight
 {
