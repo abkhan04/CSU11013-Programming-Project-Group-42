@@ -150,7 +150,7 @@ void setup()
   currentScreen = 1;
   
   // Load Data from file
-  table = loadTable("flights2k.csv", "header");
+  table = loadTable("flights_full.csv", "header");
   flights = new ArrayList();
   loadData();
   printData(flights);
@@ -425,8 +425,9 @@ void setup()
    for (int i = 0; i < airports.size(); i++) {
     airportNamesArray[i] = airports.get(i).getAirportName();
    }
-   float[] airportCounts = countAirportNames(flights,airportNamesArray);
+  float[] airportCounts = countAirportNames(flights,airportNamesArray);
    pie = new PieChart(300,airportCounts); //<>//
+   /*
    // Highest and Lowest Traffic Aiports (Empty Airports not included)
    busiestAirport = airportNamesArray[0];
    busiestAirportNumber = airportCounts[0];
@@ -443,6 +444,7 @@ void setup()
        quietestAirport = airportNamesArray[i];
      }
    }
+   */
    //println("Airport:"+busiestAirport+" Amount:"+busiestAirportNumber);
    //println("Airport:"+quietestAirport+" Amount:"+quietestAirportNumber);
 
@@ -694,6 +696,27 @@ void draw(){
   
   else if (currentScreen == 7)
   {
+    String[] airportNamesArray = new String[airports.size()];
+    for (int i = 0; i < airports.size(); i++) {
+      airportNamesArray[i] = airports.get(i).getAirportName();
+    }
+    float[] airportCounts = countAirportNames(flights,airportNamesArray);
+    // Highest and Lowest Traffic Aiports (Empty Airports not included)
+    busiestAirport = airportNamesArray[0];
+    busiestAirportNumber = airportCounts[0];
+    quietestAirport = busiestAirport;
+    quietestAirportNumber = busiestAirportNumber;
+   
+    for (int i = 0; i< airportCounts.length; i++){
+      if(airportCounts[i]>busiestAirportNumber){
+        busiestAirportNumber = airportCounts[i];
+        busiestAirport = airportNamesArray[i];
+      }
+      else if(airportCounts[i]<quietestAirportNumber && airportCounts[i]>0){
+        quietestAirportNumber = airportCounts[i];
+        quietestAirport = airportNamesArray[i];
+      }
+    }
     screen7.draw();
     textAlign(CENTER);
     textFont(ttlFont);
@@ -917,7 +940,12 @@ float[] countAirportNames(ArrayList<Flight> airportList) {
   return airportCounts;
 }*/
 
-float[] countAirportNames(ArrayList<Flight> airportList, String[] airportNamesArray) {
+float[] countAirportNames(ArrayList<Flight> flights, String[] airportNamesArray) {
+  ArrayList<Flight> airportList = flights;
+      if (startDate != "" && endDate != "")
+    {
+      airportList = dateRange(airportList, startDate, endDate);
+    }
   airportNamesArray = Arrays.copyOf(airportNamesArray, airportNamesArray.length + 1);
   airportNamesArray[airportNamesArray.length - 1] = "Other";
   float[] airportCounts = new float[airportNamesArray.length];
