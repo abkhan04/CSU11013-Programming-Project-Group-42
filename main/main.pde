@@ -82,8 +82,15 @@ void settings()
 
 void setup()
 {
-  // Load Font
+  //Loading Screen
+  background(screenColour);
   ttlFont = loadFont("MicrosoftYaHeiUI-Bold-48.vlw");
+  fill(0);
+  textAlign(CENTER);
+  textFont(ttlFont);
+  text("Processing Data...", width/2, height/2);
+  
+  // Load Font
   stdFont = loadFont("ComicSansMS-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
   logo = loadImage("BTS.png");
@@ -495,44 +502,44 @@ void draw(){
     
     //Start Date
     fill(boxColour);
-    rect(350, 170, 200, 40,10);
+    rect(350, 170, 200, 40,5);
     fill(0);
     text(startDate, 450, 200);
     
     //End Date
     fill(boxColour);
-    rect(350, 225, 200, 40,10);
+    rect(350, 225, 200, 40,5);
     fill(0);
     text(endDate, 450, 255);
     
     //Departure Airport Code
     fill(boxColour);
-    rect(350, 295, 200, 40,10);
+    rect(350, 295, 200, 40,5);
     fill(0);
     text(depAP, 450, 325);
     
     //Arrival Airport Code
     fill(boxColour);
-    rect(350, 395, 200, 40,10);
+    rect(350, 395, 200, 40,5);
     fill(0);
     text(arrAP, 450, 425);
     
     //Max Distance
     fill(boxColour);
-    rect(350, 520, 200, 40,10);
+    rect(350, 520, 200, 40,5);
     fill(0);
     text(maxDis, 450, 550);
     
     //Min Distance
     fill(boxColour);
-    rect(350, 575, 200, 40,10);
+    rect(350, 575, 200, 40,5);
     fill(0);
     text(minDis, 450, 600);
       
      // Checkbox
      
     fill(boxColour);
-    rect(boxXpos, boxYpos, 50, 50,10);
+    rect(boxXpos, boxYpos, 50, 50,5);
   
     if (cancellations) {
       fill(0);
@@ -542,7 +549,7 @@ void draw(){
     }
     
     fill(boxColour);
-    rect(boxXpos, boxYpos+60, 50, 50,10);
+    rect(boxXpos, boxYpos+60, 50, 50,5);
   
     if (diversions) {
       fill(0);
