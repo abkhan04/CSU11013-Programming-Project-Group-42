@@ -569,6 +569,11 @@ void draw(){
       textSize(40);
       text("X", boxXpos+25, boxYpos+100);
     }
+    flightTable.filteredByDate = false;
+    flightTable.filteredByDepArr = false;
+    flightTable.filteredByDistance = false;
+    flightTable.filteredByCancelled = false;
+    flightTable.filteredByDiverted = false;
     
     calculated = false;
   }
@@ -951,13 +956,19 @@ void draw(){
   }
   else if (currentScreen == 8)
   {
-    flightTable.filterByDate(startDate, endDate);
-    flightTable.filterByDepArr(depAP, arrAP);
-    flightTable.filterByDistance(minDis, maxDis);
-    if (!cancellations){
+    if (!flightTable.filteredByDate){
+      flightTable.filterByDate(startDate, endDate);
+    }
+    if (!flightTable.filteredByDepArr){
+      flightTable.filterByDepArr(depAP, arrAP);
+    }
+    if (!flightTable.filteredByDistance){
+      flightTable.filterByDistance(minDis, maxDis);
+    }
+    if (!cancellations && !flightTable.filteredByCancelled){
       flightTable.filterOutCancelled();
     }
-    if (!diversions){
+    if (!diversions && !flightTable.filteredByDiverted){
       flightTable.filterOutDiverted();
     }
     screen8.draw();

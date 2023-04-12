@@ -9,22 +9,12 @@ class FlightTable {
   int visibleRows;
   int currentPage = 0;
   int totalPages;
-  int sortColumn = -1;
-  boolean sort = false;
-  boolean sorted = false;
-  boolean filter = true;
-  boolean filtered = false;
-  int[] headerWidths = new int[18];
-  int ints = 0;
   PFont font;
-  boolean filterByDate;
-  String startDate;
-  String endDate;
-  boolean filterByAirport;
-  String depAirport;
-  String arrAirport;
-  boolean showCancelled;
-  boolean showDiverted;
+  boolean filteredByDate = false;
+  boolean filteredByDepArr = false;
+  boolean filteredByDistance = false;
+  boolean filteredByCancelled = false;
+  boolean filteredByDiverted = false;
 
   void filterOutDiverted() {
     Table tempTable = table;
@@ -49,28 +39,26 @@ class FlightTable {
     }
     filteredTable = tempTable.copy();
   }
-  
-  void filterByDistance(String minString, String maxString){
-    if (minString == "" && maxString == ""){
+
+  void filterByDistance(String minString, String maxString) {
+    if (minString == "" && maxString == "") {
       return;
-    }
-    else if (minString == "") {
+    } else if (minString == "") {
       minString = "0";
-    }
-    else if (maxString == "") {
+    } else if (maxString == "") {
       maxString = "999999";
     }
     Table tempTable = table;
     int min = Integer.parseInt(minString);
     int max = Integer.parseInt(maxString);
-    label:
-      for (int i = 0; i < tempTable.getRowCount(); i++) {
-        if (tempTable.getInt(i, "DISTANCE") < min || tempTable.getInt(i, "DISTANCE") > max){
-          tempTable.removeRow(i);
-          continue label;
-        }
+  label:
+    for (int i = 0; i < tempTable.getRowCount(); i++) {
+      if (tempTable.getInt(i, "DISTANCE") < min || tempTable.getInt(i, "DISTANCE") > max) {
+        tempTable.removeRow(i);
+        continue label;
       }
-      filteredTable = tempTable.copy();
+    }
+    filteredTable = tempTable.copy();
   }
 
   void filterByDepArr(String dep, String arr) {
@@ -93,13 +81,11 @@ class FlightTable {
   }
 
   void filterByDate(String startDate, String endDate) {
-    if (startDate == "" && endDate == ""){
+    if (startDate == "" && endDate == "") {
       return;
-    }
-    else if (startDate == "") {
+    } else if (startDate == "") {
       startDate = "01/01/2022";
-    }
-    else if (endDate == "") {
+    } else if (endDate == "") {
       endDate = "01/31/2022";
     }
     Table tempTable = table;
@@ -136,7 +122,6 @@ class FlightTable {
       }
 
       filteredTable = tempTable.copy();
-      filtered = true;
     }
   }
 
@@ -287,18 +272,19 @@ class FlightTable {
             text(data, width - x, y + 48);
             break;
           case 7: // cancelled
-            if (showCancelled && data == "1") {
+            if (data == "1"){
               textAlign(CENTER);
               fill(255, 30, 52);
               textSize(20);
-              text("CANCELLED", width / 2, y + 48);
+              text("CANCELLED", width / 2, y + 24);
             }
             break;
           case 8: // diverted
-            if (showDiverted && data == "1") {
+            if (data == "1"){
               textAlign(CENTER);
+              fill(255, 128, 0);
               textSize(20);
-              text("DIVERTED", width / 2, y + 48);
+              text("DIVERTED", width / 2, y + 24);
             }
             break;
           case 9: //distance
@@ -356,98 +342,5 @@ class FlightTable {
     if (mouseX >= width - 60 && mouseX <= width - 10 && mouseY >= 750 && mouseY <= 780) {
       currentPage = min(currentPage + 1, totalPages);
     }
-    /*
-    if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 0) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 0;
-     sort = true;
-     filteredTable.sort(0);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 1) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 1;
-     sort = true;
-     filteredTable.sort(1);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 2) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 2;
-     sort = true;
-     filteredTable.sort(2);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 3) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 3;
-     sort = true;
-     filteredTable.sort(3);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 4) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 4;
-     sort = true;
-     filteredTable.sort(4);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 5) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 5;
-     sort = true;
-     filteredTable.sort(5);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 6) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 6;
-     sort = true;
-     filteredTable.sort(6);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 7) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 7;
-     sort = true;
-     filteredTable.sort(7);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 8) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 8;
-     sort = true;
-     filteredTable.sort(8);
-     }
-     } else if (mouseX >= 10 && mouseX <= sumOfHeaderWidths(headerWidths, 9) + 20 && mouseY >= 50 && mouseY <= 60) {
-     if (sort) {
-     sortColumn = -1;
-     sort = false;
-     } else {
-     sortColumn = 9;
-     sort = true;
-     filteredTable.sort(9);
-     }
-     }
-     */
   }
 }
