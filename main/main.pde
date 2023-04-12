@@ -838,32 +838,31 @@ void draw(){
     calculated = false;
     
     ArrayList<Flight> newFlights = flights;
+    ArrayList<Flight> newFlightsDate = newFlights;
     
-    if ((startDate != "" || endDate != "") && (depAP == "" && arrAP == ""))
+    if ((startDate != "" || endDate != ""))
       {
-        
         if (startDate != "" && endDate != "")
         {
           newFlights = dateRange(newFlights, startDate, endDate);
+       
         }
         
         if (startDate == "")
         {
           startDate = getStartDate(newFlights);
-          newFlights = dateRange(newFlights, startDate, endDate);
+          newFlights= dateRange(newFlights, startDate, endDate);
+      
         }
         
         if (endDate == "")
         {
           endDate = getEndDate(newFlights);
           newFlights = dateRange(newFlights, startDate, endDate);
+          
         }
       }
-      
-    //if (startDate != "" || endDate != "")
-    //{
-    //  newFlights = dateRange(newFlights, startDate, endDate);
-    //}
+    
 
     image(map, 0, 100);
      for (Airport airport : airports) {
@@ -875,7 +874,7 @@ void draw(){
          
          if (startDate != "" || endDate != "") {
            flightCount = newFlights.size();
-           for (Flight flights : newFlights) {
+           for (Flight flights : newFlightsDate) {
              if (airport.name.equals(flights.origin))
              airport.draw();
            }
@@ -886,14 +885,15 @@ void draw(){
          }
        }
        else if (airport.name.equals(depAP)){
-         flightCount = 0;
+          
          text(depAP+" Flight Information", SCREENX/2, 75);
-         if (airport != null)
-         airport.draw();
+         //if (airport != null)
+         //airport.draw();
          
          for (Flight flights : newFlights) {
            if (flights.origin.equals(depAP)) {
-           flightCount++;
+             airport.draw();
+             flightCount++;
          }
          if (flights.originCityAbr.equals(airport.state)) {
            stateAbr = airport.state;
