@@ -380,7 +380,8 @@ void setup()
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
 
-  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
+
+  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT); //<>// //<>//
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
@@ -435,7 +436,7 @@ void setup()
     airportNamesArray[i] = airports.get(i).getAirportName();
    }
   float[] airportCounts = countAirportNames(flights,airportNamesArray);
-   pie = new PieChart(300,airportCounts);
+   pie = new PieChart(300,airportCounts); //<>// //<>//
    /*
    // Highest and Lowest Traffic Aiports (Empty Airports not included)
    busiestAirport = airportNamesArray[0];
@@ -671,7 +672,7 @@ void draw(){
         newFlights = filterDiverted(newFlights);
       }
       
-      if (queryNum == 0)
+      if (queryNum == 0) //<>//
       { //<>// //<>//
         data = countFlightDates(newFlights, startDate, endDate);
         
@@ -914,6 +915,15 @@ void draw(){
   }
   else if (currentScreen == 8)
   {
+    flightTable.filterByDate(startDate, endDate);
+    flightTable.filterByDepArr(depAP, arrAP);
+    flightTable.filterByDistance(minDis, maxDis);
+    if (!cancellations){
+      flightTable.filterOutCancelled();
+    }
+    if (!diversions){
+      flightTable.filterOutDiverted();
+    }
     screen8.draw();
     flightTable.draw();
     calculated = false;
