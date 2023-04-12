@@ -17,7 +17,7 @@ class PieChart {
     
     for (int i = 0; i < data.length; i++) {
       fill(colors[i%10]); // Use a different color for each segment
-      arc(width/3-50, height/2, diameter, diameter, lastAngle, lastAngle + radians((data[i]*360/dataTotal)));
+      arc(width/3-50, height/2+25, diameter, diameter, lastAngle, lastAngle + radians((data[i]*360/dataTotal)));
       lastAngle += radians((data[i]*360/dataTotal));
     }
   }
