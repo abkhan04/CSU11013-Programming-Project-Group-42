@@ -120,6 +120,27 @@ class Barchart
         
         fill(colours[i]);
         rect(xOrigin + increment, yOrigin, barWidth, -data);
+        
+        if ((mouseX > xOrigin + increment) && (mouseX < xOrigin + increment + barWidth) && (mouseY > yOrigin - data) && (mouseY < yOrigin))
+        {
+          rect(mouseX, mouseY, 80, -40);
+        }
+        
+        increment = increment + barWidth + 5;
+      }
+      
+      increment = 0;
+      
+      for (int i = 0; i < dataSet.length; i++)
+      {
+        float data = height * (dataSet[i] / nearestTenth);
+        
+        if ((mouseX > xOrigin + increment) && (mouseX < xOrigin + increment + barWidth) && (mouseY > yOrigin - data) && (mouseY < yOrigin))
+        {
+          fill(0);
+          rect(mouseX, mouseY, 110, -60);
+        }
+        
         increment = increment + barWidth + 5;
       }
     }

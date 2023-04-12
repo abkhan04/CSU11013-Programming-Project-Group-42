@@ -5,6 +5,7 @@
 // CK improved Framework to planned architecture 22/03
 // J.Nash added Map 30/03
 // A.Khan Linked Queries to the Barchart and moved loadData and printData to Flight class 31/03
+// A.Khan Added sort by flight departures 06/04
 
 PFont ttlFont;
 PFont stdFont;
@@ -12,6 +13,7 @@ PFont inpFont;
 PImage logo;
 PImage map;
 PImage lineG, barC, usMap, pieC, tableL;
+FlightTable flightTable;
 
 Airport LAX, JFK, DCA, FLL, SEA, HNL, ORD, DAL, MCI, HOU,
 ABQ, ADQ, ALB, ANC, ATL, ATW, AUS, AZA, BDL, BET, BHM,
@@ -53,7 +55,8 @@ int currentScreen;
 
 Table table;
 ArrayList<Flight> flights;
-
+int queryNum;
+boolean calculated;
 
 PieChart pie;
 Barchart barChart;
@@ -135,9 +138,12 @@ void setup()
   // Load Data from file
   table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
+  queryNum = 0;
+  calculated = false;
   loadData();
-  printData(flights);
+  //printData(flights);
   
+
   // Airports
   JFK = new Airport(712, 186, 5, "JFK", "NY"); LAX = new Airport(72, 309, 5, "LAX", "CA");
   DCA = new Airport(673, 235, 5, "DCA", "VA"); FLL = new Airport(667, 482, 5, "FLL", "FL");
@@ -239,11 +245,30 @@ void setup()
   ELM = new Airport(660, 169, 5, "ELM", "NY"); ERI = new Airport(621, 179, 5, "ERI", "PA");
   ESC = new Airport(523, 120, 5, "ESC", "MI"); EVV = new Airport(531, 264, 5, "EVV", "IN");
   EWN = new Airport(688, 299, 5, "EWN", "NC"); EYW = new Airport(651, 505, 5, "EYW", "FL");
-  
-//FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
-//GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
-//HOB, HRL, HSV, HTS, HYS, IAD, IAG, ICT, ILG, ILM, IMT, INL, ISP, ITH,
-//JAC, JLN, JMS, JST, LAN, LAR, LAW, LBB,
+  FAY = new Airport(647, 340, 5, "FAY", "NC"); FCA = new Airport(203, 68, 5, "FCA", "MT");
+  FLG = new Airport(175, 309, 5, "FLG", "AZ"); FLO = new Airport(649, 332, 5, "FLO", "SC");
+  FNT = new Airport(572, 171, 5, "FNT", "MI"); FOD = new Airport(439, 184, 5, "FOD", "IA");
+  FSD = new Airport(398, 165, 5, "FSD", "SD"); FSM = new Airport(433, 324, 5, "FSM", "AR");
+  FWA = new Airport(554, 206, 5, "FWA", "IN"); GCC = new Airport(289, 145, 5, "GCC", "WY");
+  GCK = new Airport(338, 270, 5, "GCK", "KS"); GFK = new Airport(395, 80, 5, "GFK", "ND");
+  GGG = new Airport(420, 414, 5, "GGG", "TX"); GNV = new Airport(622, 416, 5, "GNV", "FL");
+  GPT = new Airport(514, 411, 5, "GPT", "MS"); GRB = new Airport(510, 140, 5, "GRB", "WI");
+  GRI = new Airport(382, 214, 5, "GRI", "NE"); GRK = new Airport(382, 415, 5, "GRK", "TX");
+  GRR = new Airport(548, 172, 5, "GRR", "MI"); GSO = new Airport(643, 296, 5, "GSO", "NC");
+  GTR = new Airport(520, 359, 5, "GTR", "MS"); GUC = new Airport(241, 261, 5, "GUC", "CO");
+  HDN = new Airport(252, 215, 5, "HDN", "CO"); HGR = new Airport(662, 222, 5, "HGR", "MD");
+  HHH = new Airport(624, 365, 5, "HHH", "SC"); HIB = new Airport(443, 112, 5, "HIB", "MN");
+  HLN = new Airport(195, 108, 5, "HLN", "MT"); HOB = new Airport(293, 370, 5, "HOB", "NM");
+  HRL = new Airport(366, 487, 5, "HRL", "TX"); HSV = new Airport(552, 331, 5, "HSV", "AL");
+  HTS = new Airport(603, 250, 5, "HTS", "WV"); HYS = new Airport(350, 252, 5, "HYS", "KS");
+  IAD = new Airport(681, 225, 5, "IAD", "DC"); IAG = new Airport(636, 153, 5, "IAG", "NY");
+  ICT = new Airport(401, 275, 5, "ICT", "KS"); ILG = new Airport(693, 214, 5, "ILG", "DE");
+  ILM = new Airport(677, 321, 5, "ILM", "NC"); IMT = new Airport(514, 118, 5, "IMT", "MI");
+  INL = new Airport(444, 71, 5, "INL", "MN"); ISP = new Airport(716, 187, 5, "ISP", "NY");
+  ITH = new Airport(673, 163, 5, "ITH", "NY"); JAC = new Airport(217, 157, 5, "JAC", "WY");
+  JLN = new Airport(432, 288, 5, "JLN", "MO");
+ 
+//, , JMS, JST, LAN, LAR, LAW, LBB,
 //LBE, LBF, LBL, LCH, LCK, LEX, LFT, LIT, LNK, LRD, LSE, LWB, LWS, LYH, MBS, MCW, MDT, MEI,
 //MGM, MHK, MHT, MKG, MLB, MLI, MLU, MOB, MQT, MRY, MSN,
 //MTJ, OAJ, OGD, OGS, OMA, OME, ORF, ORH, OTH, OTZ, OWB, PAE, PAH,
@@ -254,7 +279,6 @@ void setup()
 //SPI, SPS, STC, STS, STT, STX, SUN, SUX, SWF, SWO, SYR, TBN, TLH, TOL, TRI, TTN,
 //TUS, TVC, TWF, TXK, TYR, TYS, USA, VCT, VEL, VLD, XWA, YKM, YUM;
 
-  
   airports.add(JFK); airports.add(LAX); airports.add(DCA); airports.add(FLL); airports.add(SEA); airports.add(HNL);
   airports.add(ORD); airports.add(DAL); airports.add(MCI); airports.add(ABQ); airports.add(ADQ); airports.add(ALB);
   airports.add(ANC); airports.add(ATL); airports.add(ATW); airports.add(AUS); airports.add(AZA); airports.add(BDL);
@@ -289,16 +313,42 @@ void setup()
   airports.add(DHN); airports.add(DIK); airports.add(DLG); airports.add(DLH); airports.add(DRO); airports.add(DRT);
   airports.add(DSM); airports.add(DVL); airports.add(EAR); airports.add(EAT); airports.add(EAU); airports.add(ECP);
   airports.add(EGE); airports.add(EKO); airports.add(ELM); airports.add(ERI); airports.add(ESC); airports.add(EVV);
-  airports.add(EWN); airports.add(EYW);
+  airports.add(EWN); airports.add(EYW); airports.add(FAY); airports.add(FCA); airports.add(FLG); airports.add(FLO);
+  airports.add(FNT); airports.add(FOD); airports.add(FSD); airports.add(FSM); airports.add(FWA); airports.add(GCC);
+  airports.add(GCK); airports.add(GFK); airports.add(GGG); airports.add(GNV); airports.add(GPT); airports.add(GRB);
+  airports.add(GRI); airports.add(GRK); airports.add(GRR); airports.add(GSO); airports.add(GTR); airports.add(GUC);
+  airports.add(HDN); airports.add(HGR); airports.add(HHH); airports.add(HIB); airports.add(HLN); airports.add(HOB);
+  airports.add(HRL); airports.add(HSV); airports.add(HTS); airports.add(HYS); airports.add(IAD); airports.add(IAG);
+  airports.add(ICT); airports.add(ILG); airports.add(ILM); airports.add(IMT); airports.add(INL); airports.add(ISP);
+  airports.add(ITH); airports.add(JAC); airports.add(JLN); airports.add(JMS); airports.add(JST); airports.add(LAN);
+  airports.add(LAR); airports.add(LAW); airports.add(LBB);
   
+ //JAC, JLN, JMS, JST, LAN, LAR, LAW, LBB,
   airports.add(YAK);
 
   
   
   //Pie Chart
   
-   int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 }; //Temp
+   int[] angles = {60, 38, 75, 67 }; //Temp
    pie = new PieChart(300,angles);
+
+  // flight table
+  flightTable = new FlightTable();
+  flightTable.visibleRows = 5;
+  flightTable.table = table;
+  flightTable.font = loadFont("Arial-BoldMT-16.vlw");
+  surface.setResizable(true);
+  flightTable.table.removeColumn("MKT_CARRIER");
+  flightTable.table.removeColumn("MKT_CARRIER_FL_NUM");
+  flightTable.table.removeColumn("ORIGIN_STATE_ABR");
+  flightTable.table.removeColumn("ORIGIN_WAC");
+  flightTable.table.removeColumn("DEST_STATE_ABR");
+  flightTable.table.removeColumn("DEST_WAC");
+  flightTable.table.removeColumn("DEP_TIME");
+  flightTable.table.removeColumn("ARR_TIME");
+  flightTable.filteredTable = table;
+
 }
 
 void draw(){
@@ -393,6 +443,8 @@ void draw(){
       textSize(40);
       text("X", boxXpos+25, boxYpos+100);
     }
+    
+    calculated = false;
   }
   else if (currentScreen == 3)
   {
@@ -400,7 +452,7 @@ void draw(){
     textAlign(CENTER);
     textFont(stdFont);
     text("Select how you wish to visualise your data:", SCREENX/2, 75);
-    ArrayList<Flight> newFlights = flights;
+    
     //Button Images
     image(barC, 210, 110, 150, 150);
     image(lineG, 437,110, 150, 150);
@@ -408,96 +460,237 @@ void draw(){
     image(pieC, 443, 337, 140, 140);
     image(tableL, 320, 552, 166, 164);
     
-    int queryNum = 0;
-    
-
-    if (startDate != "" || endDate != "")
+    if (!calculated)
     {
-      if (startDate != "" && endDate != "")
-      {
-        newFlights = dateRange(newFlights, startDate, endDate);
-      }
+      ArrayList<Flight> newFlights = flights;
+      calculated = true;
       
-      if (startDate == "")
+      if ((startDate != "" || endDate != "") && (depAP == "" && arrAP == ""))
       {
+        queryNum = 0;
+        
+        if (startDate != "" && endDate != "")
+        {
+          newFlights = dateRange(newFlights, startDate, endDate);
+        }
+        
+        if (startDate == "")
+        {
+          startDate = getStartDate(newFlights);
+          newFlights = dateRange(newFlights, startDate, endDate);
+        }
+        
+        if (endDate == "")
+        {
+          endDate = getEndDate(newFlights);
+          newFlights = dateRange(newFlights, startDate, endDate);
+        }
+      }
+      else if ((depAP != "" && arrAP == "") && (startDate == "" && endDate == ""))
+      {
+        queryNum = 1;
+        newFlights = departure(newFlights, depAP);
+      }
+      else if ((arrAP != "" && depAP == "") && (startDate == "" && endDate == ""))
+      {
+        queryNum = 2;
+        newFlights = arrival(newFlights, arrAP);
+      }
+      else if (depAP != "" && arrAP != "")
+      {
+        queryNum = 3;
+        
         startDate = getStartDate(newFlights);
+        endDate = getEndDate(newFlights);
         newFlights = dateRange(newFlights, startDate, endDate);
+        
+        newFlights = departure(newFlights, depAP);
+        newFlights = arrival(newFlights, arrAP);
       }
-      
-      if (endDate == "")
+      else if ((depAP != "" && arrAP == "") && (startDate != "" && endDate != ""))
       {
+        queryNum = 4;
+        
+        newFlights = dateRange(newFlights, startDate, endDate);
+        newFlights = departure(newFlights, depAP);
+      }
+      else if ((arrAP != "" && depAP == "") && (startDate != "" && endDate != ""))
+      {
+        queryNum = 5;
+        
+        newFlights = dateRange(newFlights, startDate, endDate);
+        newFlights = arrival(newFlights, arrAP);
+      }
+      else
+      {
+        queryNum = 0;
+        startDate = getStartDate(newFlights);
         endDate = getEndDate(newFlights);
         newFlights = dateRange(newFlights, startDate, endDate);
       }
       
-      if (depAP != "")
+      if (minDis != "" && maxDis != "")
       {
-        newFlights = departure(newFlights, depAP);
+        int min = Integer.parseInt(minDis);
+        int max = Integer.parseInt(maxDis);
+        newFlights = distanceRange(newFlights, min, max);
       }
       
-      if (arrAP != "")
+      if (cancellations)
       {
-        newFlights = arrival(newFlights, arrAP);
+        newFlights = filterCancelled(newFlights);
+      }
+      
+      if (diversions)
+      {
+        newFlights = filterDiverted(newFlights);
+      }
+      
+      if (queryNum == 0)
+      {
+        data = countFlightDates(newFlights, startDate, endDate);
+        
+        String[] dateList = getDates(startDate, endDate);
+        
+        for (int i = 0; i < dateList.length; i++)
+        {
+          if (dateList[i] != null)
+          {
+            String[] date = dateList[i].split("/");
+            dateList[i] = date[0] + "/" + date[1];
+          }
+        }
+        
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights in a day");
+        barChart.barLabels(dateList);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights in a day");
+        lineGraph.lineLabels(dateList);
+        lineGraph.setXAxisLabel("Dates");
+        lineGraph.setYAxisLabel("Flights");
+      }
+      else if (queryNum == 1) 
+      {
+        data = countDepArr(newFlights);
+        
+        String[] arrAirports = getArrAirports(newFlights);
+  
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights from " + depAP);
+        barChart.barLabels(arrAirports);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights from " + depAP);
+        lineGraph.lineLabels(arrAirports);
+        lineGraph.setXAxisLabel("Airport");
+        lineGraph.setYAxisLabel("Flights");
+      }
+      else if (queryNum == 2) 
+      {
+        data = countArrDep(newFlights);
+        
+        String[] depAirports = getDepAirports(newFlights);
+  
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights to " + arrAP);
+        barChart.barLabels(depAirports);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights to " + arrAP);
+        lineGraph.lineLabels(depAirports);
+        lineGraph.setXAxisLabel("Airports");
+        lineGraph.setYAxisLabel("Flights");
+      }
+      else if (queryNum == 3)
+      {
+        data = countFlightDates(newFlights, startDate, endDate);
+        
+        String[] dateList = getDates(startDate, endDate);
+        
+        for (int i = 0; i < dateList.length; i++)
+        {
+          if (dateList[i] != null)
+          {
+            String[] date = dateList[i].split("/");
+            dateList[i] = date[0] + "/" + date[1];
+          }
+        }
+        
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights from " + depAP + " to " + arrAP);
+        barChart.barLabels(dateList);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights from " + depAP + " to " + arrAP);
+        lineGraph.lineLabels(dateList);
+        lineGraph.setXAxisLabel("Dates");
+        lineGraph.setYAxisLabel("Flights");
+      }
+      else if (queryNum == 4)
+      {
+        data = countFlightDates(newFlights, startDate, endDate);
+        
+        String[] dateList = getDates(startDate, endDate);
+        
+        for (int i = 0; i < dateList.length; i++)
+        {
+          if (dateList[i] != null)
+          {
+            String[] date = dateList[i].split("/");
+            dateList[i] = date[0] + "/" + date[1];
+          }
+        }
+        
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights from " + depAP);
+        barChart.barLabels(dateList);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights from " + depAP);
+        lineGraph.lineLabels(dateList);
+        lineGraph.setXAxisLabel("Dates");
+        lineGraph.setYAxisLabel("Flights");
+      }
+      else if (queryNum == 5)
+      {
+        data = countFlightDates(newFlights, startDate, endDate);
+        
+        String[] dateList = getDates(startDate, endDate);
+        
+        for (int i = 0; i < dateList.length; i++)
+        {
+          if (dateList[i] != null)
+          {
+            String[] date = dateList[i].split("/");
+            dateList[i] = date[0] + "/" + date[1];
+          }
+        }
+        
+        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart.setTitle("Number of Flights to " + arrAP);
+        barChart.barLabels(dateList);
+        
+        lineGraph = new Linegraph(data, 100, 675, 600, 600);
+        lineGraph.setTitle("Number of Flights to " + arrAP);
+        lineGraph.lineLabels(dateList);
+        lineGraph.setXAxisLabel("Dates");
+        lineGraph.setYAxisLabel("Flights");
       }
     }
-    else if (depAP != "")
-    {
-      queryNum = 1;
-      newFlights = departure(newFlights, depAP);
-    }
-    
-    if (minDis != "" && maxDis != "")
-    {
-      int min = Integer.parseInt(minDis);
-      int max = Integer.parseInt(maxDis);
-      newFlights = distanceRange(newFlights, min, max);
-    }
-    
-    if (cancellations)
-    {
-      newFlights = filterCancelled(newFlights);
-    }
-    
-    if (diversions)
-    {
-      newFlights = filterDiverted(newFlights);
-    }
-    
-    String[] d = getAirports(newFlights);
-    
-    data = countFlightDates(newFlights, startDate, endDate); //<>//
-    String[] dateList = getDates(startDate, endDate);
-    
-    println(d[0]);
-    
-    for (int i = 0; i < dateList.length; i++)
-    {
-      if (dateList[i] != null)
-      {
-        String[] date = dateList[i].split("/");
-        dateList[i] = date[0] + "/" + date[1];
-      }
-    }
-    
-    barChart = new Barchart(data, 100, 675, 600, 600);
-    barChart.setTitle("Number of Flights in a day");
-    barChart.barLabels(dateList);
-    
-    lineGraph = new Linegraph(data, 100, 675, 600, 600);
-    lineGraph.setTitle("Number of Flights in a day");
-    lineGraph.lineLabels(dateList);
-    lineGraph.setXAxisLabel("Dates");
-    lineGraph.setYAxisLabel("Flights");
   }
   else if (currentScreen == 4)
   {
     screen4.draw();
     barChart.draw();
+    calculated = false;
   }
   else if (currentScreen == 5)
   {
     screen5.draw();
     lineGraph.draw();
+    calculated = false;
   }
   else if (currentScreen == 6)
   {
@@ -511,6 +704,7 @@ void draw(){
     int flightCount = 0;
     int stateCount = 0;
     String stateAbr = "";
+    calculated = false;
     
     ArrayList<Flight> newFlights = flights;
     if (startDate != "" && endDate != "")
@@ -542,17 +736,6 @@ void draw(){
      }
 
    }
-    image(map, 0, 100);
-     for (Airport airport : airports) {
-       if (depAP.equals("")){
-         text("Flight Information", SCREENX/2, 75);
-         airport.draw();
-       }
-       else if (airport.name.equals(depAP)){
-         text(depAP+" Flight Information", SCREENX/2, 75);
-         airport.draw();
-       }
-     }
 
     textAlign(LEFT);
     textFont(stdFont);
@@ -569,14 +752,17 @@ void draw(){
     textFont(ttlFont);
     text("Airport Flight Percentages", SCREENX/2, 100);
     pie.draw();
+    calculated = false;
   }
   else if (currentScreen == 8)
   {
-    screen8.draw(); 
+    flightTable.draw();
+    calculated = false;
   }
   else if (currentScreen == 9)
   {
-    screen9.draw(); 
+    screen9.draw();
+    calculated = false;
   }
 }
 
@@ -679,6 +865,9 @@ void mousePressed()
         println("Backward was pressed");
         break;
     }
+  }
+  if (currentScreen == 8) {
+    flightTable.mousePressed();
   }
 }
 

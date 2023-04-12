@@ -156,15 +156,15 @@ String[] getDates(String startDate, String endDate)
   }
 }
 
-String[] getAirports(ArrayList<Flight> flights)
+String[] getDepAirports(ArrayList<Flight> flights)
 {
   ArrayList<String> airports = new ArrayList<String>();
   
   for (Flight f : flights)
   {
-    if (airports.contains(f.originCityAbr) == false)
+    if (airports.contains(f.origin) == false)
     {
-      airports.add(f.originCityAbr);
+      airports.add(f.origin);
     }
   }
   
@@ -174,9 +174,27 @@ String[] getAirports(ArrayList<Flight> flights)
   return strAirports;
 }
 
+String[] getArrAirports(ArrayList<Flight> flights)
+{
+  ArrayList<String> airports = new ArrayList<String>(); //<>// //<>// //<>//
+  
+  for (Flight f : flights)
+  {
+    if (airports.contains(f.dest) == false)
+    {
+      airports.add(f.dest);
+    }
+  }
+  
+  String[] strAirports = new String[airports.size()]; //<>// //<>// //<>//
+  strAirports = airports.toArray(strAirports);
+  
+  return strAirports;
+}
+
 float[] countFlightDates(ArrayList<Flight> flights, String startDate, String endDate)
 {
-  String[] dates = getDates(startDate, endDate); //<>//
+  String[] dates = getDates(startDate, endDate);
   float[] flightsPerDay = new float[dates.length];
   
   for (int i = 0; i < flights.size(); i++)
@@ -186,7 +204,7 @@ float[] countFlightDates(ArrayList<Flight> flights, String startDate, String end
       String date = flights.get(i).flightDate;
       String[] otherDateList = date.split("/");
       String otherDate = 0 + otherDateList[0] + "/" + 0 + otherDateList[1] + "/" + otherDateList[2];
-      if ((date.equals(dates[j])) || (otherDate.equals(dates[j])))  //<>//
+      if ((date.equals(dates[j])) || (otherDate.equals(dates[j]))) 
       {
         flightsPerDay[j]++;
         break;
@@ -197,7 +215,40 @@ float[] countFlightDates(ArrayList<Flight> flights, String startDate, String end
   return flightsPerDay;
 }
 
-float[] countDepartures(ArrayList<Flight> flights)
-{ 
-  return new float[0];
+float[] countDepArr(ArrayList<Flight> flights)
+{
+  String[] airports = getArrAirports(flights);
+  float[] flightsPerAirport = new float[airports.length];
+  
+  for (Flight f : flights)
+  {
+    for (int j = 0; j < airports.length; j++)
+    {
+      if (f.dest.equals(airports[j]))
+      {
+        flightsPerAirport[j]++;
+      }
+    }
+  }
+  
+  return flightsPerAirport;
+}
+
+float[] countArrDep(ArrayList<Flight> flights)
+{
+  String[] airports = getDepAirports(flights);
+  float[] flightsPerAirport = new float[airports.length];
+  
+  for (Flight f : flights)
+  {
+    for (int j = 0; j < airports.length; j++)
+    {
+      if (f.origin.equals(airports[j]))
+      {
+        flightsPerAirport[j]++;
+      }
+    }
+  }
+  
+  return flightsPerAirport;
 }
