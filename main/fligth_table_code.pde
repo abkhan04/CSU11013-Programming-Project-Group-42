@@ -109,7 +109,7 @@ class FlightTable {
     textFont(font);
     smooth();
 
-    background(255);
+    //background(255);
     textAlign(LEFT, TOP);
 
     // banners
@@ -310,6 +310,7 @@ class FlightTable {
     totalPages = ceil(filteredTable.getRowCount() / (float) visibleRows);
     textSize(12);
     text((currentPage + 1) + " of " + totalPages, width - 80, height - 15);
+    textAlign(CENTER);
   }
 
   void mousePressed() {
