@@ -148,9 +148,9 @@ void setup()
   
   // Current Screen
   currentScreen = 1;
-
+  
   // Load Data from file
-  table = loadTable("flights2k.csv", "header");
+  table = loadTable("flights_full.csv", "header");
   flights = new ArrayList();
   loadData();
   printData(flights);
@@ -450,7 +450,7 @@ void setup()
 
   // flight table
   flightTable = new FlightTable();
-  flightTable.visibleRows = 7;
+  flightTable.visibleRows = 5;
   flightTable.table = table;
   flightTable.font = loadFont("Arial-BoldMT-16.vlw");
   surface.setResizable(true);
@@ -652,7 +652,7 @@ void draw(){
     String stateAbr = "";
     
     ArrayList<Flight> newFlights = flights;
-    if (startDate != "" || endDate != "")
+    if (startDate != "" && endDate != "")
     {
       newFlights = dateRange(newFlights, startDate, endDate);
     }
@@ -661,29 +661,16 @@ void draw(){
      for (Airport airport : airports) {
        if (depAP.equals("")){
          text("Flight Information", SCREENX/2, 75);
-         
-         //if (airport != null)
-         //airport.draw();
-         
-         if (startDate != "" || endDate != "") {
-           flightCount = newFlights.size();
-           for (Flight flights : newFlights) {
-             if (airport.name.equals(flights.origin))
-             airport.draw();
-           }
-         }
-         else {
-         flightCount = flights.size();
+         if (airport != null)
          airport.draw();
-         }
+         flightCount = flights.size();
        }
        else if (airport.name.equals(depAP)){
          text(depAP+" Flight Information", SCREENX/2, 75);
          if (airport != null)
          airport.draw();
-         
          for (Flight flight : newFlights) {
-           if (flight.origin.equals(depAP)) {
+         if (flight.origin.equals(depAP)) {
            flightCount++;
          }
          if (flight.originCityAbr.equals(airport.state)) {
@@ -747,7 +734,7 @@ void draw(){
   }
   else if (currentScreen == 8)
   {
-    screen8.draw();
+    screen8.draw(); 
     flightTable.draw(); 
   }
   else if (currentScreen == 9)
