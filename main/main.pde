@@ -450,7 +450,7 @@ void setup()
 
   // flight table
   flightTable = new FlightTable();
-  flightTable.visibleRows = 5;
+  flightTable.visibleRows = 7;
   flightTable.table = table;
   flightTable.font = loadFont("Arial-BoldMT-16.vlw");
   surface.setResizable(true);
@@ -734,7 +734,7 @@ void draw(){
   }
   else if (currentScreen == 8)
   {
-    screen8.draw(); 
+    screen8.draw();
     flightTable.draw(); 
   }
   else if (currentScreen == 9)
