@@ -1,5 +1,3 @@
-
-
 // KW created flightTable class 23/03
 
 class FlightTable {
@@ -8,7 +6,6 @@ class FlightTable {
   Table filteredTable;
   int x;
   int y;
-  int rowHeight = 30;
   int visibleRows;
   int currentPage = 0;
   int totalPages;
@@ -116,17 +113,19 @@ class FlightTable {
     textAlign(LEFT, TOP);
 
     // banners
+    y = 22;
     for (int i = 0; i < 7; i++) {
       fill(0, 130, 130);
-      rect(25, 22 + (i * 102), width - 50, 97, 10);
+      rect(25, y + (i * 102), width - 50, 97, 10);
     }
+    y += 25;
     for (int i = 0; i < 7; i++) {
       fill(255);
-      rect(27, 47 + (i * 102), width - 54, 70, 10);
+      rect(27, y + (i * 102), width - 54, 70, 10);
     }
 
     // rows
-    y = -60;
+    y += -107;
     int startRow = currentPage * visibleRows;
     int endRow = min(startRow + visibleRows, filteredTable.getRowCount());
     for (int i = startRow; i < endRow; i++) {
@@ -316,10 +315,10 @@ class FlightTable {
 
   void mousePressed() {
     // next or previous page
-    if (mouseX >= width - 120 && mouseX <= width - 50 && mouseY >= 780 && mouseY <= 750) {
+    if (mouseX >= width - 120 && mouseX <= width - 50 && mouseY >= 750 && mouseY <= 780) {
       currentPage = max(currentPage - 1, 0);
     }
-    if (mouseX >= width - 60 && mouseX <= width - 10 && mouseY >= 780 && mouseY <= 750) {
+    if (mouseX >= width - 60 && mouseX <= width - 10 && mouseY >= 750 && mouseY <= 780) {
       currentPage = min(currentPage + 1, totalPages);
     }
     /*
