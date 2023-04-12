@@ -148,7 +148,7 @@ void setup()
   
   // Current Screen
   currentScreen = 1;
-  
+
   // Load Data from file
   table = loadTable("flights_full.csv", "header");
   flights = new ArrayList();
