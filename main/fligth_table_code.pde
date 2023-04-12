@@ -35,6 +35,7 @@ class FlightTable {
         continue label;
       }
     }
+    filteredTable = tempTable.copy();
   }
 
   void filterOutCancelled() {
@@ -46,10 +47,36 @@ class FlightTable {
         continue label;
       }
     }
-    filteredTable = tempTable;
+    filteredTable = tempTable.copy();
+  }
+  
+  void filterByDistance(String minString, String maxString){
+    if (minString == "" && maxString == ""){
+      return;
+    }
+    else if (minString == "") {
+      minString = "0";
+    }
+    else if (maxString == "") {
+      maxString = "999999";
+    }
+    Table tempTable = table;
+    int min = Integer.parseInt(minString);
+    int max = Integer.parseInt(maxString);
+    label:
+      for (int i = 0; i < tempTable.getRowCount(); i++) {
+        if (tempTable.getInt(i, "DISTANCE") < min || tempTable.getInt(i, "DISTANCE") > max){
+          tempTable.removeRow(i);
+          continue label;
+        }
+      }
+      filteredTable = tempTable.copy();
   }
 
   void filterByDepArr(String dep, String arr) {
+    if (dep == "" && arr == "") {
+      return;
+    }
     Table tempTable = table;
   label:
     for (int i = 0; i < tempTable.getRowCount(); i++) {
@@ -62,14 +89,22 @@ class FlightTable {
         continue label;
       }
     }
-    filteredTable = tempTable;
+    filteredTable = tempTable.copy();
   }
 
   void filterByDate(String startDate, String endDate) {
+    if (startDate == "" && endDate == ""){
+      return;
+    }
+    else if (startDate == "") {
+      startDate = "01/01/2022";
+    }
+    else if (endDate == "") {
+      endDate = "01/31/2022";
+    }
     Table tempTable = table;
     int start = ((startDate.substring(2, 6).charAt(1) - '0') * 10) + (startDate.substring(2, 6).charAt(2) - '0');
     int end = ((endDate.substring(2, 6).charAt(1) - '0') * 10) + (endDate.substring(2, 6).charAt(2) - '0');
-    println(start + "   " + end);
   label:
     for (int i = 0; i < tempTable.getRowCount(); i++) {
       TableRow row = tempTable.getRow(i);
@@ -100,7 +135,7 @@ class FlightTable {
         }
       }
 
-      filteredTable = tempTable;
+      filteredTable = tempTable.copy();
       filtered = true;
     }
   }
