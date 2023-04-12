@@ -1,4 +1,5 @@
 // A.Khan Added Flight Class 16/03
+// CK added getName 08/04
 
 class Flight
 {
@@ -44,6 +45,9 @@ class Flight
     this.cancelled = cancelled;
     this.diverted = diverted;
     this.distance = distance;
+  }
+  public String getName() {
+    return origin;
   }
 }
 

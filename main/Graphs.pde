@@ -126,7 +126,7 @@ class Barchart
           rect(mouseX, mouseY, 80, -40);
         }
         
-        increment = increment + barWidth + 5;
+        increment = increment + barWidth;
       }
       
       increment = 0;
@@ -141,7 +141,7 @@ class Barchart
           rect(mouseX, mouseY, 110, -60);
         }
         
-        increment = increment + barWidth + 5;
+        increment = increment + barWidth;
       }
     }
   }

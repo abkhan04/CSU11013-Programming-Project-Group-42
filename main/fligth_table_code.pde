@@ -1,3 +1,5 @@
+
+
 // KW created flightTable class 23/03
 
 class FlightTable {
@@ -111,21 +113,20 @@ class FlightTable {
     smooth();
 
     background(255);
-    surface.setSize(800, 600);
     textAlign(LEFT, TOP);
 
     // banners
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
       fill(0, 130, 130);
-      rect(25, 82 + (i * 102), width - 50, 97, 10);
+      rect(25, 22 + (i * 102), width - 50, 97, 10);
     }
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
       fill(255);
-      rect(27, 107 + (i * 102), width - 54, 70, 10);
+      rect(27, 47 + (i * 102), width - 54, 70, 10);
     }
 
     // rows
-    y = 0;
+    y = -60;
     int startRow = currentPage * visibleRows;
     int endRow = min(startRow + visibleRows, filteredTable.getRowCount());
     for (int i = startRow; i < endRow; i++) {
@@ -296,30 +297,28 @@ class FlightTable {
     // page buttons
     fill(255);
     shapeMode(CENTER);
-    rect(width - 60, 20, 50, 30);
-    rect(width - 120, 20, 50, 30);
+    rect(width - 60, height - 50, 50, 30);
+    rect(width - 120, height - 50, 50, 30);
     fill(0);
     textAlign(CENTER, CENTER);
     textSize(16);
     textAlign(CENTER);
-    text("<", width - 95, 40);
+    text("<", width - 95, height - 30);
     textSize(16);
     textAlign(CENTER);
-    text(">", width - 35, 40);
+    text(">", width - 35, height - 30);
     textAlign(LEFT, TOP);
     totalPages = ceil(filteredTable.getRowCount() / (float) visibleRows);
     textSize(12);
-    text((currentPage + 1) + " of " + totalPages, width - 80, 58);
-    textSize(12);
-    text(filteredTable.getRowCount() + " flights", 40, 58);
+    text((currentPage + 1) + " of " + totalPages, width - 80, height - 15);
   }
 
   void mousePressed() {
     // next or previous page
-    if (mouseX >= width - 120 && mouseX <= width - 50 && mouseY >= 20 && mouseY <= 50) {
+    if (mouseX >= width - 120 && mouseX <= width - 50 && mouseY >= 780 && mouseY <= 750) {
       currentPage = max(currentPage - 1, 0);
     }
-    if (mouseX >= width - 60 && mouseX <= width - 10 && mouseY >= 20 && mouseY <= 50) {
+    if (mouseX >= width - 60 && mouseX <= width - 10 && mouseY >= 780 && mouseY <= 750) {
       currentPage = min(currentPage + 1, totalPages);
     }
     /*
