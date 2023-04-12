@@ -122,7 +122,6 @@ class FlightTable {
       }
 
       filteredTable = tempTable.copy();
-      filtered = true;
     }
   }
 
@@ -273,18 +272,19 @@ class FlightTable {
             text(data, width - x, y + 48);
             break;
           case 7: // cancelled
-            if (showCancelled && data == "1") {
+            if (data == "1"){
               textAlign(CENTER);
               fill(255, 30, 52);
               textSize(20);
-              text("CANCELLED", width / 2, y + 48);
+              text("CANCELLED", width / 2, y + 24);
             }
             break;
           case 8: // diverted
-            if (showDiverted && data == "1") {
+            if (data == "1"){
               textAlign(CENTER);
+              fill(255, 128, 0);
               textSize(20);
-              text("DIVERTED", width / 2, y + 48);
+              text("DIVERTED", width / 2, y + 24);
             }
             break;
           case 9: //distance
