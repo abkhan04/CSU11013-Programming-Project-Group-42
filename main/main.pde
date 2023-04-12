@@ -672,7 +672,7 @@ void draw(){
       }
       
       if (queryNum == 0)
-      { //<>//
+      { //<>// //<>//
         data = countFlightDates(newFlights, startDate, endDate);
         
         String[] dateList = getDates(startDate, endDate); //<>//

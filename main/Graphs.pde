@@ -5,7 +5,7 @@
 // A.Khan Added Labels to Line Graph 05/04
 // A.Khan Fixed bug where the bar would go off the screen 12/04
 // A.Khan Added mouseover for graphs 12/04;
-// A.Khan Adjuted bar labels 12/04;
+// A.Khan Adjusted labels 12/04;
 
 class Barchart
 {
@@ -237,10 +237,10 @@ class Linegraph
       circle(xOrigin, yOrigin, 10);
       
       // Y Axis Value Text
-      text(nearestTenth, xOrigin - 30, yOrigin - height + 15);
-      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 30, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
-      text(nearestTenth / 2, xOrigin - 30, yOrigin - ((float) height / 2) + 15);
-      text(nearestTenth / 4, xOrigin - 30, yOrigin - ((float) height / 4) + 15);
+      text(nearestTenth, xOrigin - 45, yOrigin - height + 15);
+      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
+      text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
+      text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
       text(0, xOrigin - 25, yOrigin + 10);
       
       float lineX = xOrigin;
@@ -261,6 +261,32 @@ class Linegraph
           if (lineLabels[i] != null) text(lineLabels[i], lineX, yOrigin + 35);
         }
       }
+      
+      textAlign(LEFT);
+      
+      lineX = xOrigin;
+      lineY = yOrigin;
+      
+      for (int i = 0; i < dataSet.length; i++)
+      {
+        float data = height * (dataSet[i] / nearestTenth);
+        data = yOrigin - data;
+        lineX = lineX + segmentWidth;
+        lineY = data;
+        
+        if ((mouseX > lineX - 10) && (mouseX < lineX + 10) && (mouseY > lineY - 10) && (mouseY < lineY + 10))
+        {
+          fill(0);
+          noStroke();
+          rect(mouseX, mouseY, 110, -43);
+          fill(255);
+          textFont(msoFont);
+          text("Value:    " + dataSet[i], mouseX + 10, mouseY - 25);
+          text("Label:    " + lineLabels[i], mouseX + 10, mouseY - 10);
+        }
+      }
+      
+      textAlign(CENTER);
     }
   }
 }
