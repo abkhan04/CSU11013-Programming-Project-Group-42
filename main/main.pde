@@ -9,9 +9,12 @@
 // A.Khan Added sort by flight departures 06/04
 // CK added piechart + sorted for busiest and quietest airports 10/04
 
+import java.util.*;
+
 PFont ttlFont;
 PFont stdFont;
 PFont inpFont;
+PFont msoFont;
 PImage logo;
 PImage map;
 PImage lineG, barC, usMap, pieC, tableL;
@@ -65,7 +68,6 @@ String busiestAirport = "";
 float busiestAirportNumber;
 String quietestAirport = "";
 float quietestAirportNumber;
-import java.util.*;
 Barchart barChart;
 Linegraph lineGraph;
 float[] data;
@@ -95,6 +97,7 @@ void setup()
   // Load Font
   stdFont = loadFont("ComicSansMS-30.vlw");
   inpFont = loadFont("Arial-BoldMT-24.vlw");
+  msoFont = loadFont("ArialMT-12.vlw");
   logo = loadImage("BTS.png");
   lineG = loadImage("lineGraph.png");
   barC = loadImage("barChart.png");
@@ -152,7 +155,7 @@ void setup()
   currentScreen = 1;
   
   // Load Data from file
-  table = loadTable("flights2k.csv", "header");
+  table = loadTable("flights_full.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
@@ -669,7 +672,7 @@ void draw(){
       }
       
       if (queryNum == 0)
-      {
+      { //<>//
         data = countFlightDates(newFlights, startDate, endDate);
         
         String[] dateList = getDates(startDate, endDate); //<>//

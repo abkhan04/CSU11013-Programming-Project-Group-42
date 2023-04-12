@@ -177,7 +177,7 @@ String[] getDepAirports(ArrayList<Flight> flights)
 
 String[] getArrAirports(ArrayList<Flight> flights)
 {
-  ArrayList<String> airports = new ArrayList<String>(); //<>// //<>// //<>//
+  ArrayList<String> airports = new ArrayList<String>(); //<>//
   
   for (Flight f : flights)
   {
@@ -187,7 +187,7 @@ String[] getArrAirports(ArrayList<Flight> flights)
     }
   }
   
-  String[] strAirports = new String[airports.size()]; //<>// //<>// //<>//
+  String[] strAirports = new String[airports.size()]; //<>//
   strAirports = airports.toArray(strAirports);
   
   return strAirports;

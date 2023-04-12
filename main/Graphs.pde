@@ -3,6 +3,9 @@
 // A.Khan Bug Fixes 31/03
 // A.Khan Added Line Graph 01/04
 // A.Khan Added Labels to Line Graph 05/04
+// A.Khan Fixed bug where the bar would go off the screen 12/04
+// A.Khan Added mouseover for graphs 12/04;
+// A.Khan Adjuted bar labels 12/04;
 
 class Barchart
 {
@@ -102,10 +105,10 @@ class Barchart
       line(xOrigin, yOrigin, xOrigin + width, yOrigin);
       
       // Y Axis Value Text
-      text(nearestTenth, xOrigin - 30, yOrigin - height + 15);
-      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 30, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
-      text(nearestTenth / 2, xOrigin - 30, yOrigin - ((float) height / 2) + 15);
-      text(nearestTenth / 4, xOrigin - 30, yOrigin - ((float) height / 4) + 15);
+      text(nearestTenth, xOrigin - 45, yOrigin - height + 15);
+      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
+      text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
+      text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
       text(0, xOrigin - 25, yOrigin + 10);
       
       for (int i = 0; i < dataSet.length; i++)
@@ -115,21 +118,17 @@ class Barchart
         if (barLabels != null)
         {
           fill(0);
-          if (barLabels[i] != null) text(barLabels[i], xOrigin + (i * barWidth + ((float) barWidth / 2)) + (5 * i), yOrigin + 35);
+          if (barLabels[i] != null) text(barLabels[i], xOrigin + (i * barWidth + ((float) barWidth / 2)), yOrigin + 35);
         }
         
         fill(colours[i]);
         rect(xOrigin + increment, yOrigin, barWidth, -data);
-        
-        if ((mouseX > xOrigin + increment) && (mouseX < xOrigin + increment + barWidth) && (mouseY > yOrigin - data) && (mouseY < yOrigin))
-        {
-          rect(mouseX, mouseY, 80, -40);
-        }
-        
         increment = increment + barWidth;
       }
       
       increment = 0;
+      
+      textAlign(LEFT);
       
       for (int i = 0; i < dataSet.length; i++)
       {
@@ -138,11 +137,18 @@ class Barchart
         if ((mouseX > xOrigin + increment) && (mouseX < xOrigin + increment + barWidth) && (mouseY > yOrigin - data) && (mouseY < yOrigin))
         {
           fill(0);
-          rect(mouseX, mouseY, 110, -60);
+          noStroke();
+          rect(mouseX, mouseY, 110, -43);
+          fill(255);
+          textFont(msoFont);
+          text("Value:    " + dataSet[i], mouseX + 10, mouseY - 25);
+          text("Label:    " + barLabels[i], mouseX + 10, mouseY - 10);
         }
         
         increment = increment + barWidth;
       }
+      
+      textAlign(CENTER);
     }
   }
 }
