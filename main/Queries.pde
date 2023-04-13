@@ -4,6 +4,7 @@
 // A.Khan Added getStartDate and getEndDate queries 06/04
 // A.Khan Fixed dates bug in countFlightDates 12/04
 // A.Khan Added countLateness 13/04
+// A.Khan Fixed countLateness 13/04
 
 import java.util.Date;
 import java.util.Calendar;

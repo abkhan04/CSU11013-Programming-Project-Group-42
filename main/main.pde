@@ -156,7 +156,7 @@ void setup()
   currentScreen = 1;
 
   // Load Data from file
-  table = loadTable("flights2k.csv", "header");
+  table = loadTable("flights100k.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
@@ -382,7 +382,7 @@ void setup()
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
 
 
-  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT); //<>//
+  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
@@ -437,7 +437,7 @@ void setup()
     airportNamesArray[i] = airports.get(i).getAirportName();
    }
   float[] airportCounts = countAirportNames(flights,airportNamesArray);
-   pie = new PieChart(300,airportCounts); //<>//
+   pie = new PieChart(300,airportCounts);
    /*
    // Highest and Lowest Traffic Aiports (Empty Airports not included)
    busiestAirport = airportNamesArray[0];
@@ -680,7 +680,7 @@ void draw(){
       }
       
       if (queryNum == 0)
-      { //<>//
+      {
         data = countFlightDates(newFlights, startDate, endDate);
         
         String[] dateList = getDates(startDate, endDate);
@@ -696,7 +696,7 @@ void draw(){
         
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights in a day");
-        barChart.barLabels(dateList); //<>// //<>//
+        barChart.barLabels(dateList); //<>//
       }
       else if (queryNum == 1) 
       {
