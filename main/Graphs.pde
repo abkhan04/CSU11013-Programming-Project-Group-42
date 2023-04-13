@@ -7,6 +7,7 @@
 // A.Khan Added mouseover for graphs 12/04;
 // A.Khan Adjusted labels 13/04;
 // A.Khan Fixed graphs not displaying for low values 13/04
+// A.Khan Customised mouseover X label 13/04
 
 class Barchart
 {
@@ -19,6 +20,7 @@ class Barchart
   int width;
   int height;
   float maxValue;
+  String xValue = "Date:       ";
   
   Barchart(float[] dataSet, color[] colours, int xOrigin, int yOrigin, int width, int height)
   {
@@ -146,7 +148,7 @@ class Barchart
           fill(255);
           textFont(msoFont);
           text("Flights:    " + (int)dataSet[i], mouseX + 10, mouseY - 25);
-          text("Date:    " + barLabels[i], mouseX + 10, mouseY - 10);
+          text(xValue + barLabels[i], mouseX + 10, mouseY - 10);
         }
         
         increment = increment + barWidth;
@@ -283,10 +285,10 @@ class Linegraph
         {
           fill(0);
           noStroke();
-          rect(mouseX, mouseY, 115, -43);
+          rect(mouseX, mouseY, 130, -43);
           fill(255);
           textFont(msoFont);
-          text("Flights:    " + (int)dataSet[i], mouseX + 10, mouseY - 25);
+          text("Flights:   " + (int) dataSet[i], mouseX + 10, mouseY - 25);
           text("Status:    " + lineLabels[i], mouseX + 10, mouseY - 10);
         }
       }

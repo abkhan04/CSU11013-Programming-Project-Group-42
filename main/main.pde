@@ -156,7 +156,8 @@ void setup()
   currentScreen = 1;
 
   // Load Data from file
-  table = loadTable("flights_full.csv", "header");
+
+  table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
@@ -709,6 +710,7 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights from " + depAP);
         barChart.barLabels(arrAirports);
+        barChart.xValue = "Airport:    ";
       }
       else if (queryNum == 2) 
       {
@@ -719,6 +721,7 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights to " + arrAP);
         barChart.barLabels(depAirports);
+        barChart.xValue = "Airport:    ";
       }
       else if (queryNum == 3)
       {
@@ -819,24 +822,20 @@ void draw(){
         if (startDate != "" && endDate != "")
         {
           newFlights = dateRange(newFlights, startDate, endDate);
-       
         }
         
         if (startDate == "")
         {
           startDate = getStartDate(newFlights);
           newFlights= dateRange(newFlights, startDate, endDate);
-      
         }
         
         if (endDate == "")
         {
           endDate = getEndDate(newFlights);
           newFlights = dateRange(newFlights, startDate, endDate);
-          
         }
       }
-    
 
     image(map, 0, 100);
      for (Airport airport : airports) {
