@@ -283,11 +283,11 @@ class Linegraph
         {
           fill(0);
           noStroke();
-          rect(mouseX, mouseY, 115, -43);
+          rect(mouseX, mouseY, 130, -43);
           fill(255);
           textFont(msoFont);
-          text("Value:    " + dataSet[i], mouseX + 10, mouseY - 25);
-          text("Label:    " + lineLabels[i], mouseX + 10, mouseY - 10);
+          text("Flights: " + dataSet[i], mouseX + 10, mouseY - 25);
+          text("Lateness: " + lineLabels[i], mouseX + 10, mouseY - 10);
         }
       }
       

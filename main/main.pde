@@ -156,7 +156,7 @@ void setup()
   currentScreen = 1;
 
   // Load Data from file
-  table = loadTable("flights100k.csv", "header");
+  table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
