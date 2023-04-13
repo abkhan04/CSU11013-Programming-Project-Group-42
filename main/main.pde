@@ -382,7 +382,7 @@ void setup()
   airports.add(MIA); airports.add(MKE); airports.add(MSO); airports.add(MSP); airports.add(MSY); airports.add(MYR);
   airports.add(OAK); airports.add(OGG); airports.add(ONT); airports.add(PBI); airports.add(PDX); airports.add(PHL);
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
-
+ //<>//
 
   airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT);
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
@@ -437,7 +437,7 @@ void setup()
    String[] airportNamesArray = new String[airports.size()];
    for (int i = 0; i < airports.size(); i++) {
     airportNamesArray[i] = airports.get(i).getAirportName();
-   }
+   } //<>//
   float[] airportCounts = countAirportNames(flights,airportNamesArray);
    pie = new PieChart(300,airportCounts);
    /*
@@ -680,7 +680,7 @@ void draw(){
       {
         newFlights = filterDiverted(newFlights);
       }
-      
+       //<>//
       if (queryNum == 0)
       {
         data = countFlightDates(newFlights, startDate, endDate);
@@ -696,7 +696,7 @@ void draw(){
           }
         }
         
-        barChart = new Barchart(data, 100, 675, 600, 600);
+        barChart = new Barchart(data, 100, 675, 600, 600); //<>//
         barChart.setTitle("Number of Flights in a day");
         barChart.barLabels(dateList); //<>//
       }
