@@ -1,5 +1,7 @@
 // A.Khan Added Flight Class 16/03
 // CK added getName 08/04
+// A.Khan Converted arrival time to an easier format 13/04
+// A.Khan Fixed schArrTime and arrTime 13/04
 
 class Flight
 {
@@ -40,15 +42,37 @@ class Flight
     this.destWAC = destWAC;
     this.schDepTime = schDepTime;
     this.depTime = depTime;
-    this.schArrTime = schArrTime;
-    this.arrTime = arrTime;
+    if (schArrTime.length() > 1)
+    {
+      if (arrTime.length() == 2) this.schArrTime =  "00:" + schArrTime;
+      else if (schArrTime.length() == 3) this.schArrTime =  "0" + addChar(schArrTime, ':', 1);
+      else if (schArrTime.length() == 4) this.schArrTime = addChar(schArrTime, ':', 2);
+    }
+    if (arrTime.length() > 1)
+    {
+      if (arrTime.length() == 2) this.arrTime = "00:" + arrTime;
+      else if (arrTime.length() == 3) this.arrTime = "0" + addChar(arrTime, ':', 1);
+      else if (arrTime.length() == 4) this.arrTime = addChar(arrTime, ':', 2);
+    }
     this.cancelled = cancelled;
     this.diverted = diverted;
     this.distance = distance;
   }
-  public String getName() {
+  
+  public String getName()
+  {
     return origin;
   }
+}
+
+String addChar(String str, char ch, int position)
+{
+    int len = str.length();
+    char[] updatedArr = new char[len + 1];
+    str.getChars(0, position, updatedArr, 0);
+    updatedArr[position] = ch;
+    str.getChars(position, len, updatedArr, position + 1);
+    return new String(updatedArr);
 }
 
 void loadData()

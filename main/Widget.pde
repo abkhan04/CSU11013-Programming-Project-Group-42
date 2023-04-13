@@ -38,6 +38,7 @@ class Widget
     fill(labelColor);
     textFont(widgetFont);
     text(label, x + 90, y + height - 10);
+    stroke(0);
   }
   
   boolean mouseMoved()
