@@ -6,6 +6,7 @@
 // A.Khan Fixed bug where the bar would go off the screen 12/04
 // A.Khan Added mouseover for graphs 12/04;
 // A.Khan Adjusted labels 13/04;
+// A.Khan Fixed graphs not displaying for low values 13/04
 
 class Barchart
 {
@@ -84,6 +85,7 @@ class Barchart
     if (dataSet != null)
     {
       int nearestTenth = ((int) (maxValue / 10.0)) * 10;
+      if (maxValue == 1) nearestTenth = 1;
       
       for (int i = 0; i < maxValue; i++)
       {
@@ -106,9 +108,9 @@ class Barchart
       
       // Y Axis Value Text
       text(nearestTenth, xOrigin - 45, yOrigin - height + 15);
-      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
-      text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
-      text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
+      if ((nearestTenth / 2) + (nearestTenth / 4) != 0) text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
+      if (nearestTenth / 2 != 0) text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
+      if (nearestTenth / 4 != 0) text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
       text(0, xOrigin - 25, yOrigin + 10);
       
       for (int i = 0; i < dataSet.length; i++)
@@ -216,6 +218,7 @@ class Linegraph
     if (dataSet != null)
     {
       int nearestTenth = ((int) (maxValue / 10.0)) * 10;
+      if (maxValue == 1) nearestTenth = 1;
       
       for (int i = 0; i < maxValue; i++)
       {
@@ -240,9 +243,9 @@ class Linegraph
       
       // Y Axis Value Text
       text(nearestTenth, xOrigin - 45, yOrigin - height + 15);
-      text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
-      text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
-      text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
+      if ((nearestTenth / 2) + (nearestTenth / 4) != 0) text((nearestTenth / 2) + (nearestTenth / 4), xOrigin - 45, yOrigin - ((float) height / 2) - ((float) height / 4) + 15);
+      if (nearestTenth / 2 != 0) text(nearestTenth / 2, xOrigin - 45, yOrigin - ((float) height / 2) + 15);
+      if (nearestTenth / 4 != 0) text(nearestTenth / 4, xOrigin - 45, yOrigin - ((float) height / 4) + 15);
       text(0, xOrigin - 25, yOrigin + 10);
       
       float lineX = xOrigin;
