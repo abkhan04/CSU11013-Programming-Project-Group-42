@@ -8,6 +8,7 @@
 // CK added visualisation box images 05/04
 // A.Khan Added sort by flight departures 06/04
 // CK added piechart + sorted for busiest and quietest airports 10/04
+// A.Khan Sorted by lateness for Line graph 13/04
 
 import java.util.*;
 
@@ -155,7 +156,7 @@ void setup()
   currentScreen = 1;
 
   // Load Data from file
-  table = loadTable("flights_full.csv", "header");
+  table = loadTable("flights100k.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
@@ -381,7 +382,7 @@ void setup()
   airports.add(PHX); airports.add(PIA); airports.add(PIT); airports.add(PSG); airports.add(PSP); airports.add(RAP);
 
 
-  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT); //<>// //<>//
+  airports.add(RDU); airports.add(RFD); airports.add(RNO); airports.add(RSW); airports.add(SAN); airports.add(SAT); //<>//
   airports.add(SAV); airports.add(SCC); airports.add(SCK); airports.add(SDF); airports.add(SFO); airports.add(SIT);
   airports.add(SJC); airports.add(SLC); airports.add(SMF); airports.add(SMX); airports.add(SNA); airports.add(SRQ);
   airports.add(STL); airports.add(TPA); airports.add(TUL); airports.add(VPS); airports.add(WRG); airports.add(XNA);
@@ -436,7 +437,7 @@ void setup()
     airportNamesArray[i] = airports.get(i).getAirportName();
    }
   float[] airportCounts = countAirportNames(flights,airportNamesArray);
-   pie = new PieChart(300,airportCounts); //<>// //<>//
+   pie = new PieChart(300,airportCounts); //<>//
    /*
    // Highest and Lowest Traffic Aiports (Empty Airports not included)
    busiestAirport = airportNamesArray[0];
@@ -593,6 +594,7 @@ void draw(){
     
     if (!calculated)
     {
+      println("processing...");
       ArrayList<Flight> newFlights = flights;
       calculated = true;
       
@@ -677,11 +679,11 @@ void draw(){
         newFlights = filterDiverted(newFlights);
       }
       
-      if (queryNum == 0) //<>//
-      { //<>// //<>//
+      if (queryNum == 0)
+      { //<>//
         data = countFlightDates(newFlights, startDate, endDate);
         
-        String[] dateList = getDates(startDate, endDate); //<>//
+        String[] dateList = getDates(startDate, endDate);
         
         for (int i = 0; i < dateList.length; i++)
         {
@@ -694,29 +696,17 @@ void draw(){
         
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights in a day");
-        barChart.barLabels(dateList);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights in a day");
-        lineGraph.lineLabels(dateList);
-        lineGraph.setXAxisLabel("Dates");
-        lineGraph.setYAxisLabel("Flights");
+        barChart.barLabels(dateList); //<>//
       }
       else if (queryNum == 1) 
       {
         data = countDepArr(newFlights);
         
         String[] arrAirports = getArrAirports(newFlights);
-  
+        
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights from " + depAP);
         barChart.barLabels(arrAirports);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights from " + depAP);
-        lineGraph.lineLabels(arrAirports);
-        lineGraph.setXAxisLabel("Airport");
-        lineGraph.setYAxisLabel("Flights");
       }
       else if (queryNum == 2) 
       {
@@ -727,12 +717,6 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights to " + arrAP);
         barChart.barLabels(depAirports);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights to " + arrAP);
-        lineGraph.lineLabels(depAirports);
-        lineGraph.setXAxisLabel("Airports");
-        lineGraph.setYAxisLabel("Flights");
       }
       else if (queryNum == 3)
       {
@@ -752,12 +736,6 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights from " + depAP + " to " + arrAP);
         barChart.barLabels(dateList);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights from " + depAP + " to " + arrAP);
-        lineGraph.lineLabels(dateList);
-        lineGraph.setXAxisLabel("Dates");
-        lineGraph.setYAxisLabel("Flights");
       }
       else if (queryNum == 4)
       {
@@ -777,12 +755,6 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights from " + depAP);
         barChart.barLabels(dateList);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights from " + depAP);
-        lineGraph.lineLabels(dateList);
-        lineGraph.setXAxisLabel("Dates");
-        lineGraph.setYAxisLabel("Flights");
       }
       else if (queryNum == 5)
       {
@@ -802,30 +774,31 @@ void draw(){
         barChart = new Barchart(data, 100, 675, 600, 600);
         barChart.setTitle("Number of Flights to " + arrAP);
         barChart.barLabels(dateList);
-        
-        lineGraph = new Linegraph(data, 100, 675, 600, 600);
-        lineGraph.setTitle("Number of Flights to " + arrAP);
-        lineGraph.lineLabels(dateList);
-        lineGraph.setXAxisLabel("Dates");
-        lineGraph.setYAxisLabel("Flights");
       }
+      
+      float[] lateData = countLateness(newFlights);
+      String[] lateLabels = {"Early", "On Time", "< 30 mins", " > 30 mins"};
+      
+      lineGraph = new Linegraph(lateData, 100, 675, 600, 600);
+      lineGraph.setTitle("Flight Delays");
+      lineGraph.lineLabels(lateLabels);
+      lineGraph.setXAxisLabel("Delay");
+      lineGraph.setYAxisLabel("Flights");
     }
   }
   else if (currentScreen == 4)
   {
     screen4.draw();
     barChart.draw();
-    calculated = false;
   }
   else if (currentScreen == 5)
   {
     screen5.draw();
     lineGraph.draw();
-    calculated = false;
   }
   else if (currentScreen == 6)
   {
-     screen6.draw();
+    screen6.draw();
     textAlign(CENTER);
     textFont(ttlFont);
     //background(255);
@@ -835,7 +808,6 @@ void draw(){
     int flightCount = 0;
     int stateCount = 0;
     String stateAbr = "";
-    calculated = false;
     
     ArrayList<Flight> newFlights = flights;
     if (startDate != "" && endDate != "")
@@ -908,7 +880,6 @@ void draw(){
     textFont(ttlFont);
     text("Airport Flight Percentages", SCREENX/2, 100);
     pie.draw();
-    calculated = false;
     fill(0,255,0);
     rect(415,205,350,450,20);
     fill(255);
@@ -937,12 +908,10 @@ void draw(){
     }
     screen8.draw();
     flightTable.draw();
-    calculated = false;
   }
   else if (currentScreen == 9)
   {
     screen9.draw();
-    calculated = false;
   }
 }
 

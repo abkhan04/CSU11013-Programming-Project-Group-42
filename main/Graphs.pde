@@ -5,7 +5,7 @@
 // A.Khan Added Labels to Line Graph 05/04
 // A.Khan Fixed bug where the bar would go off the screen 12/04
 // A.Khan Added mouseover for graphs 12/04;
-// A.Khan Adjusted labels 12/04;
+// A.Khan Adjusted labels 13/04;
 
 class Barchart
 {
@@ -124,6 +124,8 @@ class Barchart
         fill(colours[i]);
         rect(xOrigin + increment, yOrigin, barWidth, -data);
         increment = increment + barWidth;
+        
+
       }
       
       increment = 0;
@@ -138,7 +140,7 @@ class Barchart
         {
           fill(0);
           noStroke();
-          rect(mouseX, mouseY, 110, -43);
+          rect(mouseX, mouseY, 115, -43);
           fill(255);
           textFont(msoFont);
           text("Value:    " + dataSet[i], mouseX + 10, mouseY - 25);
@@ -278,7 +280,7 @@ class Linegraph
         {
           fill(0);
           noStroke();
-          rect(mouseX, mouseY, 110, -43);
+          rect(mouseX, mouseY, 115, -43);
           fill(255);
           textFont(msoFont);
           text("Value:    " + dataSet[i], mouseX + 10, mouseY - 25);

@@ -3,6 +3,7 @@
 // A.Khan Fixed issue with countFlightDates with larger datasets 05/04
 // A.Khan Added getStartDate and getEndDate queries 06/04
 // A.Khan Fixed dates bug in countFlightDates 12/04
+// A.Khan Added countLateness 13/04
 
 import java.util.Date;
 import java.util.Calendar;
@@ -267,4 +268,49 @@ float[] countArrDep(ArrayList<Flight> flights)
   }
   
   return flightsPerAirport;
+}
+
+float[] countLateness(ArrayList<Flight> flights)
+{
+  try
+  {
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+    Calendar cal = Calendar.getInstance();
+    float[] lateFlights = new float[4];
+    
+    for (Flight f : flights)
+    {
+      if (f.schArrTime != null && f.arrTime != null)
+      {
+        Date schFTime = sdf.parse(f.schArrTime);
+        Date fTime = sdf.parse(f.arrTime);
+        cal.setTime(schFTime);
+        cal.add(Calendar.MINUTE, 30);
+        Date halfHour = cal.getTime();
+        
+        if (fTime.compareTo(schFTime) == -1)
+        {
+          lateFlights[0]++;
+        }
+        else if (fTime.compareTo(schFTime) == 0)
+        {
+          lateFlights[1]++;
+        }
+        else if (fTime.compareTo(halfHour) == -1)
+        {
+          lateFlights[2]++;
+        }
+        else
+        {
+          lateFlights[3]++;
+        }
+      }
+    }
+    
+    return lateFlights;
+  }
+  catch (Exception e)
+  {
+    return new float[4];
+  }
 }
