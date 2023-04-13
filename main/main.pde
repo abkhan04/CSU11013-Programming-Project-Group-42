@@ -161,6 +161,8 @@ void setup()
   queryNum = 0;
   calculated = false;
   loadData();
+  startDate = getStartDate(flights);
+  endDate = getEndDate(flights);
   //printData(flights);
   
 
