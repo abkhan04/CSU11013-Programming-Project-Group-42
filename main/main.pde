@@ -845,24 +845,20 @@ void draw(){
         if (startDate != "" && endDate != "")
         {
           newFlights = dateRange(newFlights, startDate, endDate);
-       
         }
         
         if (startDate == "")
         {
           startDate = getStartDate(newFlights);
           newFlights= dateRange(newFlights, startDate, endDate);
-      
         }
         
         if (endDate == "")
         {
           endDate = getEndDate(newFlights);
           newFlights = dateRange(newFlights, startDate, endDate);
-          
         }
-      }
-    
+      }git
 
     image(map, 0, 100);
      for (Airport airport : airports) {
