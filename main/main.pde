@@ -56,7 +56,7 @@ TUS, TVC, TWF, TXK, TYR, TYS, USA, VCT, VEL, VLD, XWA, YKM, YUM;
 ArrayList<Airport> airports;
 
 Widget widget0, widget1, widget2, widget3, widget4, widget5, widget6, widget7, widget8;
-Screen screen1, screen2, screen3, screen4, screen5, screen6, screen7, screen8, screen9;
+Screen screen1, screen2, screen3, screen4, screen5, screen6, screen7, screen8;
 int currentScreen;
 
 Table table;
@@ -128,11 +128,8 @@ void setup()
   screen4 = new Screen(color(242, 17, 17));
   screen5 = new Screen(color(240, 155, 19));
   screen6 = new Screen(altColour);
-  //screen6 = new Screen(color(235, 219, 5));
   screen7 = new Screen(color(0, 153, 0));
-  //screen8 = new Screen(color(19, 63, 240));
   screen8 = new Screen(altColour);
-  screen9 = new Screen(color(174, 33, 209));
   
   // Add Widgets
   screen1.addWidget(widget0);
@@ -142,7 +139,6 @@ void setup()
   screen3.addWidget(widget3);
   screen3.addWidget(widget4);
   screen3.addWidget(widget5);
-  //screen3.addWidget(widget6);
   screen3.addWidget(widget7);
   
   screen4.addWidget(widget7);
@@ -150,20 +146,18 @@ void setup()
   screen6.addWidget(widget7);
   screen7.addWidget(widget7);
   screen8.addWidget(widget7);
-  screen9.addWidget(widget7);
   
   // Current Screen
   currentScreen = 1;
 
   // Load Data from file
-  table = loadTable("flights10k.csv", "header");
+  table = loadTable("flights2k.csv", "header");
   flights = new ArrayList();
   queryNum = 0;
   calculated = false;
   loadData();
   startDate = getStartDate(flights);
   endDate = getEndDate(flights);
-  //printData(flights);
   
 
   // Airports
@@ -288,25 +282,6 @@ void setup()
   ILM = new Airport(677, 321, 5, "ILM", "NC"); IMT = new Airport(514, 118, 5, "IMT", "MI");
   INL = new Airport(444, 71, 5, "INL", "MN"); ISP = new Airport(716, 187, 5, "ISP", "NY");
   ITH = new Airport(673, 163, 5, "ITH", "NY"); JAC = new Airport(217, 157, 5, "JAC", "WY");
- 
-//, , JMS, JST, LAN, LAR, LAW, LBB,
-
-
-
-  
-//FAY, FCA, FLG, FLO, FNT, FOD, FSD, FSM, FWA, GCC, GCK, GFK, GGG, GNV,
-//GPT, GRB, GRI, GRK, GRR, GSO, GTR, GUC, GUM, HDN, HGR, HHH, HIB, HLN,
-//HOB, HRL, HSV, HTS, HYS, IAD, IAG, ICT, ILG, ILM, IMT, INL, ISP, ITH,
-//JAC, JLN, JMS, JST, LAN, LAR, LAW, LBB,
-//LBE, LBF, LBL, LCH, LCK, LEX, LFT, LIT, LNK, LRD, LSE, LWB, LWS, LYH, MBS, MCW, MDT, MEI,
-//MGM, MHK, MHT, MKG, MLB, MLI, MLU, MOB, MQT, MRY, MSN,
-//MTJ, OAJ, OGD, OGS, OMA, OME, ORF, ORH, OTH, OTZ, OWB, PAE, PAH,
-//PGB, PGD, PGV, PHF, PIB, PIE, PIH, PIR, PLN, PNS, PPG, PQI,
-//PRC, PSC, PSE, PSM, PUB, PUW, PVD, PVU, PWM, RDD, RDM, RHI, RIC,
-//RIW, RKS, ROA, ROC, ROW, RST, SAF, SBA, SBN, SBP, SBY, SCE,
-//SFB, SGU, SHD, SHR, SHV, SJT, SLN,
-//SPI, SPS, STC, STS, STT, STX, SUN, SUX, SWF, SWO, SYR, TBN, TLH, TOL, TRI, TTN,
-//TUS, TVC, TWF, TXK, TYR, TYS, USA, VCT, VEL, VLD, XWA, YKM, YUM;
   JLN = new Airport(432, 288, 5, "JLN", "MO"); JMS = new Airport(371, 103, 5, "JMS", "ND");
   JST = new Airport(639, 211, 5, "JST", "PA"); LAN = new Airport(559, 172, 5, "LAN", "MI");
   LAR = new Airport(283, 194, 5, "LAR", "WY"); LAW = new Airport(379, 335, 5, "LAW", "OK");
@@ -440,26 +415,6 @@ void setup()
    } //<>//
   float[] airportCounts = countAirportNames(flights,airportNamesArray);
    pie = new PieChart(300,airportCounts);
-   /*
-   // Highest and Lowest Traffic Aiports (Empty Airports not included)
-   busiestAirport = airportNamesArray[0];
-   busiestAirportNumber = airportCounts[0];
-   quietestAirport = busiestAirport;
-   quietestAirportNumber = busiestAirportNumber;
-   
-   for (int i = 0; i< airportCounts.length; i++){
-     if(airportCounts[i]>busiestAirportNumber){
-       busiestAirportNumber = airportCounts[i];
-       busiestAirport = airportNamesArray[i];
-     }
-     else if(airportCounts[i]<quietestAirportNumber && airportCounts[i]>0){
-       quietestAirportNumber = airportCounts[i];
-       quietestAirport = airportNamesArray[i];
-     }
-   }
-   */
-   //println("Airport:"+busiestAirport+" Amount:"+busiestAirportNumber);
-   //println("Airport:"+quietestAirport+" Amount:"+quietestAirportNumber);
 
   // flight table
   flightTable = new FlightTable();
@@ -480,7 +435,6 @@ void setup()
 }
 
 void draw(){
-  //background(100, 100, 100);
   
   if (currentScreen == 1)
   {
@@ -558,7 +512,6 @@ void draw(){
   
     if (cancellations) {
       fill(0);
-      //textFont(inpFont);
       textSize(40);
       text("X", boxXpos+25, boxYpos+40);
     }
@@ -568,7 +521,6 @@ void draw(){
   
     if (diversions) {
       fill(0);
-      //textFont(inpFont);
       textSize(40);
       text("X", boxXpos+25, boxYpos+100);
     }
@@ -805,9 +757,6 @@ void draw(){
     screen6.draw();
     textAlign(CENTER);
     textFont(ttlFont);
-    //background(255);
-
-    //image(map, 0, 0);
 
     int flightCount = 0;
     int stateCount = 0;
@@ -841,9 +790,6 @@ void draw(){
        if (depAP.equals("")){
          text("Flight Information", SCREENX/2, 75);
          
-         //if (airport != null)
-         //airport.draw();
-         
          if (startDate != "" || endDate != "") {
            flightCount = newFlights.size();
            for (Flight flights : newFlightsDate) {
@@ -859,8 +805,6 @@ void draw(){
        else if (airport.name.equals(depAP)){
           
          text(depAP+" Flight Information", SCREENX/2, 75);
-         //if (airport != null)
-         //airport.draw();
          
          for (Flight flights : newFlights) {
            if (flights.origin.equals(depAP)) {
@@ -944,10 +888,6 @@ void draw(){
     }
     screen8.draw();
     flightTable.draw();
-  }
-  else if (currentScreen == 9)
-  {
-    screen9.draw();
   }
 }
 
@@ -1126,27 +1066,6 @@ void keyPressed() {
   }
 
 }
-
-/*
-float[] countAirportNames(ArrayList<Flight> airportList) {
-  String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "Other"}; //List of airports we're checking for
-  //String[] airportNames = {"ATL", "ORD", "DFW", "DEN", "CLT", "LAX", "LGA", "PHX", "SEA", "LAS", "DCA", "IAH", "EWR", "MCO", "JFK", "DTW", "MIA", "BOS", "SFO", "SBA"}; //List of airports we're checking for
-  //String[] airportNames = {"SEA","FLL"};
-  float[] airportCounts = new float[airportNames.length];
-  
-  for (int i = 0; i < airportList.size(); i++) {
-    String airportName = airportList.get(i).getName();
-    int index = Arrays.asList(airportNames).indexOf(airportName);
-    if (index >= 0) {
-      airportCounts[index]++;
-    }
-    else{
-      airportCounts[airportNames.length-1]++;
-    }
-  }
-  
-  return airportCounts;
-}*/
 
 float[] countAirportNames(ArrayList<Flight> flights, String[] airportNamesArray) {
   ArrayList<Flight> airportList = flights;

@@ -13,7 +13,8 @@ class PieChart {
   void pieChart(float diameter, float[] data) {
     float lastAngle = 0;
     
-    color[] colors = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(0, 255, 255), color(255, 0, 255), color(128, 0, 0), color(0, 128, 0), color(0, 0, 128), color(128, 128, 0)}; // Define an array of colors
+    color[] colors = {color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(255, 255, 0), color(0, 255, 255), color(255, 0, 255), 
+          color(128, 0, 0), color(0, 128, 0), color(0, 0, 128), color(128, 128, 0)}; // Define an array of colors
     
     for (int i = 0; i < data.length; i++) {
       fill(colors[i%10]); // Use a different color for each segment
