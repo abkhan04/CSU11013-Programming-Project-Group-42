@@ -44,29 +44,34 @@ airport, max and minimum distances and the option to include cancelled or divert
 flights.
 We decided on 5 important graphical outputs that would each serve a different
 purpose:
+
 ● Our Bar Chart showed the total amount of flights in a given day. This total
 could be influenced by the date range, show all flights departing from a
 specific airport, all flights arriving to a specific airport, all flights that flew
 between two specific airports, or all flights in general that occurred over that
 day. Diverted and Cancelled flights could be included or excluded, and a
 distance max/min could be set.
+
 ● Our Line Graph was implemented to show a trend of flight lateness. Over the
 selected time period, all flights (or to/from selected airports) that were early,
 on-time, under 30 minutes late, or over 30 minutes late would be represented,
 with the same parameters as our bar chart.
 ● Our Map was implemented to show a trend of flights that depart from airports
 all across the United States. It had two options:
-○ If no departure airport was selected, every single airport across the US
+  ○ If no departure airport was selected, every single airport across the US
 would be represented by a red circle. The total number of flights in the
 given range would be shown.
-○ If a certain airport was inputted, then only this airport would be
+
+  ○ If a certain airport was inputted, then only this airport would be
 highlighted on the map, and the total number of flights from that airport
 in the given range would be shown, as well as the total number of
 flights from that airport’s state for comparison.
+
 ● Our Pie Chart represented the proportion of flights that took off from each
 airport in comparison to every other airport. Alongside this, the user was also
 informed about what airport was the busiest, with how many flights took off,
 and what airport was the quietest (Airports with no flights were not counted).
+
 ● Our Table provided the user with a much more friendly and easy to read
 version of the previously provided CSV file. It was laid out in a page format
 with 7 flights provided on each page. The day and date were clearly visible as
