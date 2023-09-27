@@ -93,3 +93,33 @@ As a team, we also had to find solutions to optimise our program since our progr
 would take way too long to load data from the larger files. We achieved this by taking
 out blocks of code and combing through to find any duplication and instructions that
 could be optimised or simply removed.
+
+## Project Screenshots
+
+### Main Menu
+![Main Menu](/images/main.png)
+
+### Chart Select
+
+![Chart Select](/images/chart-select.png)
+
+### Bar Graph
+
+![Bar Graph](/images/bargraph.png)
+
+### Line Graph
+
+![Line Graph](/images/linegraph.png)
+
+### Map
+
+![Map](/images/map.png)
+
+### Pie Chart
+
+![Pie Chart](/images/piechart.png)
+
+### Table
+
+![Table](/images/table.png)
+
