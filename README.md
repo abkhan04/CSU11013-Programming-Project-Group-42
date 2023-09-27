@@ -58,6 +58,7 @@ on-time, under 30 minutes late, or over 30 minutes late would be represented,
 with the same parameters as our bar chart.
 ● Our Map was implemented to show a trend of flights that depart from airports
 all across the United States. It had two options:
+
   ○ If no departure airport was selected, every single airport across the US
 would be represented by a red circle. The total number of flights in the
 given range would be shown.
